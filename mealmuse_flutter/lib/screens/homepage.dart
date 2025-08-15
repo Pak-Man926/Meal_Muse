@@ -5,4 +5,6 @@ class Homepage extends StatelessWidget
 {
   const Homepage({super.key});
 
+  return Scaffold();
+
 }

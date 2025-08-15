@@ -1,6 +1,7 @@
 import 'package:mealmuse_client/mealmuse_client.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+import "package:google_fonts/google_fonts.dart";
 
 /// Sets up a global client object that can be used to talk to the server from
 /// anywhere in our app. The client is generated from your server code
