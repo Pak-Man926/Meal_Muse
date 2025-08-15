@@ -2,6 +2,7 @@ import 'package:mealmuse_client/mealmuse_client.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
+import "package:get/get.dart";
 
 /// Sets up a global client object that can be used to talk to the server from
 /// anywhere in our app. The client is generated from your server code
@@ -35,9 +36,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Homepage(),
+      home: const GetPage(
+        name: name, page: page),
     );
   }
 }
