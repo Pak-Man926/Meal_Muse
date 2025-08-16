@@ -28,7 +28,7 @@ void main() {
   client = Client(serverUrl)
     ..connectivityMonitor = FlutterConnectivityMonitor();
 
-  runApp(const MyApp());
+  runApp(GetMaterialApp(home: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,11 +36,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const GetPage(
-        name: name, page: page),
-    );
+    return Scaffold(
+      body: Center(
+        
+      ),
+    )
   }
 }
 
