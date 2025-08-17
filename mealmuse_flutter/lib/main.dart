@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
+      initialRoute: "/homepage",
       getPages: [
         GetPage(name:"/homepage", page: () => Homepage()), //Initial Screen
       ],
