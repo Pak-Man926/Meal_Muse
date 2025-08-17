@@ -39,8 +39,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
       getPages: [
-        GetPage(name:"/homepage", page: () => const Homepage()),
+        GetPage(name:"/homepage", page: () => Homepage()), //Initial Screen
       ],
     );
   }
