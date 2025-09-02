@@ -19,3 +19,19 @@ final ThemeData lightTheme = ThemeData(
   ),
 );
 
+final ThemeData darkTheme = ThemeData(
+  primaryColor: AppColors.primary,
+  colorScheme:const ColorScheme.dark(
+    primary: AppColors.primary,
+    secondary: AppColors.secondary,
+    surface: AppColors.backgroundDark,
+    onSurface: AppColors.textSecondary,
+  ),
+
+  textTheme: TextTheme(
+    displayLarge: AppTextStyles.headingsText,
+    displayMedium: AppTextStyles.subHeadingsText,
+    displaySmall: AppTextStyles.bodyText,
+  ),
+);
+

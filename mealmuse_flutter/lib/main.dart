@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
-      //darkTheme: darkTheme,
+      darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       initialRoute: "/homepage",
       getPages: AppPages.routes,
