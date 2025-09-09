@@ -1,5 +1,5 @@
 import "package:get/get.dart";
-import "package:mealmuse_flutter/views/homepage.dart";
+import "package:mealmuse_flutter/views/homepage/homepage.dart";
 
 class AppPages
 {
