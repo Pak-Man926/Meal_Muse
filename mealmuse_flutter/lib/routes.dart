@@ -1,12 +1,13 @@
 import "package:get/get.dart";
-import "package:mealmuse_flutter/views/homepage/homepage.dart";
+//import "package:mealmuse_flutter/views/homepage/homepage.dart";
+import "package:mealmuse_flutter/app.dart";
 
 class AppPages
 {
   static final routes = [
     GetPage(
-      name: "/homepage",
-      page: () => const Homepage(),
+      name: "/apppage",
+      page: () => AppPage(),
     )
   ];
 }
