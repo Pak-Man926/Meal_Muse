@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-class BottomNavigationBar extends StatelessWidget
+class AppBottomNavigationBar extends StatelessWidget
 {
   final int currentIndex;
   final Function(int) onTap;
@@ -8,7 +8,7 @@ class BottomNavigationBar extends StatelessWidget
   final Color? unselectedItemColor;
   final List<BottomNavigationBarItem>? items;
 
-  const BottomNavigationBar({
+  const AppBottomNavigationBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
