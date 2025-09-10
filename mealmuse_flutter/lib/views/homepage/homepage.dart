@@ -2,27 +2,24 @@ import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 
 
-class Homepage extends StatelessWidget
+class HomeScreen extends StatelessWidget
 {
-  const Homepage({super.key});
+  const HomeScreen({super.key});
   
   @override
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Meal Muse",
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-          )),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.tune, size: 15),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget> [
+            Text("Trending Recipes",
+              style: Theme.of(context).textTheme.displayMedium)
+          ]
+        ),
       ),
     );
   }
