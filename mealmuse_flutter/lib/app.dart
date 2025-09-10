@@ -4,6 +4,7 @@ import "package:get/get.dart";
 import "controllers/theme_controller.dart";
 import "routes.dart";
 import "themes/theme.dart";
+import "widgets/tune_icon_button_widget.dart";
 
 class AppPage extends StatelessWidget
 {
@@ -18,12 +19,16 @@ class AppPage extends StatelessWidget
       appBar: AppBar(
         centerTitle: true,
         title: Text ("Recipe Generator",
-          style: Theme.of(context).textTheme.titleLarge),
+          style: Theme.of(context).textTheme.displayLarge),
         actions: [
-          IconButton(
-            icon: Icon(Icons.tune_rounded),
-            onPressed: null,
-            )
+         TuneIconButtonWidget(
+          onPressed: ()
+          {
+            
+          },
+          iconSize: 30,
+          color: Colors.black,
+         ), 
         ],
       ),
     );

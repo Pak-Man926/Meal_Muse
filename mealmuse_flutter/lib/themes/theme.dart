@@ -17,6 +17,7 @@ final ThemeData lightTheme = ThemeData(
     displayMedium: AppTextStyles.subHeadingsText,
     displaySmall: AppTextStyles.bodyText,
   ),
+
 );
 
 final ThemeData darkTheme = ThemeData(

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      initialRoute: "/homepage",
+      initialRoute: "/apppage",
       getPages: AppPages.routes,
     );
   }
