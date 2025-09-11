@@ -53,7 +53,6 @@ class _AppPageState extends State<AppPage> {
 
           },
           iconSize: 30,
-          color: Colors.black,
          ), 
         ],
       ),

@@ -4,13 +4,13 @@ class TuneIconButtonWidget extends StatelessWidget
 {
   final VoidCallback onPressed;
   final double iconSize;
-  final Color color;
+  //final Color color;
 
   const TuneIconButtonWidget({
     Key? key,
     required this.onPressed,
     this.iconSize = 24.0,
-    this.color = Colors.black,
+    //this.color = Color.iconColor,
   });
 
   @override
@@ -18,7 +18,6 @@ class TuneIconButtonWidget extends StatelessWidget
     return IconButton(
       icon: Icon(Icons.tune_rounded),
       iconSize: iconSize,
-      color: color,
       onPressed: onPressed,
     );
   }
