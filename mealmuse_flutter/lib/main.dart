@@ -1,6 +1,6 @@
 import 'package:mealmuse_client/mealmuse_client.dart';
 import 'package:flutter/material.dart';
-import 'package:serverpod_flutter/serverpod_flutter.dart';
+//import 'package:serverpod_flutter/serverpod_flutter.dart';
 //import "package:google_fonts/google_fonts.dart";
 import "package:get/get.dart";
 //import "views/homepage.dart";
