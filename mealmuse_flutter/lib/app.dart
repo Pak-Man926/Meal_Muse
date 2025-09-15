@@ -6,13 +6,15 @@ import "package:mealmuse_flutter/views/schedulepage/schedulepage.dart";
 import "package:mealmuse_flutter/views/searchpage/searchpage.dart";
 
 import "controllers/theme_controller.dart";
-import "routes.dart";
-import "themes/theme.dart";
+//import "routes.dart";
+//import "themes/theme.dart";
 import "widgets/tune_icon_button_widget.dart";
 import "widgets/bottom_navigation_bar.dart";
 
 class AppPage extends StatefulWidget
 {
+  const AppPage({super.key});
+
   @override
   State<AppPage> createState() => _AppPageState();
 }
