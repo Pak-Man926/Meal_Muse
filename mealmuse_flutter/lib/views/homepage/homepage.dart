@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:mealmuse_flutter/widgets/carousel_slider_widget.dart";
 import "package:mealmuse_flutter/models/carousel_items.dart";
+import "package:mealmuse_flutter/widgets/categories_card.dart";
 //import "package:google_fonts/google_fonts.dart";
 //import "package:mealmuse_flutter/widgets/image_card_widget.dart";
 
@@ -49,20 +50,13 @@ class HomeScreen extends StatelessWidget
           children: <Widget> [
             Text("Trending Recipes",
               style: Theme.of(context).textTheme.displayMedium),
-              SizedBox(height:10),
-              // Row(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children:[
-              //     ImageCardWidget(
-              //       onTap: ()
-              //       {},
-              //       ),
-                    
-              //   ],
-              // ),
+              SizedBox(height:20),
               CarouselSliderWidget(items: mealItems),
-
+              SizedBox(height: 10),
+              Text("Popular Categories",
+                style: Theme.of(context).textTheme.displayMedium),
+              SizedBox(height:5),
+              CategoriesCard(icon: Icon(Icons.breakfast_dining_rounded), title: "Breakfast", ontap: (){}),
           ]
         ),
       ),
