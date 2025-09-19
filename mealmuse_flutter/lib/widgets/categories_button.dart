@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
-class CategoriesCard extends StatelessWidget {
+class CategoriesButton extends StatelessWidget {
   final Icon icon;
   final String title;
 
-  const CategoriesCard({
+  const CategoriesButton({
     super.key,
     required this.icon,
     required this.title,
