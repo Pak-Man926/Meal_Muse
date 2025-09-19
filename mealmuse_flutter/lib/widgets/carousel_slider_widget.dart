@@ -16,7 +16,7 @@ class CarouselSliderWidget extends StatelessWidget
   {
       return CarouselSlider(
         options: CarouselOptions(
-          height: 500,
+          height: 470,
           initialPage: 0,
           enableInfiniteScroll: true,
           reverse: false,
@@ -32,11 +32,11 @@ class CarouselSliderWidget extends StatelessWidget
               return Column(
                 children: <Widget>[
                   Container(
-                    width: 300,
+                    width: 350,
                     height: 350,
                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     decoration: BoxDecoration(
-                      color: Colors.grey, 
+                      color: Colors.black, 
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: ClipRRect(
@@ -48,7 +48,7 @@ class CarouselSliderWidget extends StatelessWidget
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
