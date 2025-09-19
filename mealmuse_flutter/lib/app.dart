@@ -50,10 +50,7 @@ class _AppPageState extends State<AppPage> {
           style: Theme.of(context).textTheme.displayLarge),
         actions: [
          TuneIconButtonWidget(
-          onPressed: ()
-          {
-
-          },
+          onPressed: () => Get.toNamed("/settingspage"),
           iconSize: 30,
          ), 
         ],
