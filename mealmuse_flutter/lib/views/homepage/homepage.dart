@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:mealmuse_flutter/widgets/carousel_slider_widget.dart";
 import "package:mealmuse_flutter/models/carousel_items.dart";
-import "package:mealmuse_flutter/widgets/categories_card.dart";
+import "package:mealmuse_flutter/widgets/categories_button.dart";
 //import "package:google_fonts/google_fonts.dart";
 //import "package:mealmuse_flutter/widgets/image_card_widget.dart";
 
@@ -52,11 +52,46 @@ class HomeScreen extends StatelessWidget
               style: Theme.of(context).textTheme.displayMedium),
               SizedBox(height:20),
               CarouselSliderWidget(items: mealItems),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Text("Popular Categories",
                 style: Theme.of(context).textTheme.displayMedium),
-              SizedBox(height:5),
-              CategoriesCard(icon: Icon(Icons.breakfast_dining_rounded), title: "Breakfast", ontap: (){}),
+              SizedBox(height:10),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  childAspectRatio: 4.0,
+                  children: [
+                    CategoriesButton(
+                      icon: Icon(Icons.free_breakfast_rounded,
+                      color: Theme.of(context).colorScheme.onSurface),
+                      title: "Breakfast",
+                      //onPressed: () {},
+                    ),
+                    CategoriesButton(
+                      icon: Icon(Icons.lunch_dining_rounded,
+                      color: Theme.of(context).colorScheme.onSurface),
+                      title: "Lunch",
+                      //ontap: () {},
+                    ),
+                    CategoriesButton(
+                      icon: Icon(Icons.dinner_dining_rounded,
+                      color: Theme.of(context).colorScheme.onSurface),
+                      title: "Dinner",
+                      //ontap: () {},
+                    ),
+                    CategoriesButton(
+                      icon: Icon(Icons.wine_bar_rounded,
+                      color: Theme.of(context).colorScheme.onSurface),
+                      title: "Drinks",
+                      //ontap: () {},
+                    ),
+                  ],
+                  ),
+              ),
           ]
         ),
       ),
