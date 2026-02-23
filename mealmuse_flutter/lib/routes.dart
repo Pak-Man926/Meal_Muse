@@ -1,7 +1,7 @@
 import "package:get/get.dart";
 //import "package:mealmuse_flutter/views/homepage/homepage.dart";
 import "package:mealmuse_flutter/app.dart";
-import "package:mealmuse_flutter/views/homepage/settingspage/settingspage.dart";
+import "package:mealmuse_flutter/modules/homepage/settingspage/settingspage.dart";
 
 class AppPages
 {

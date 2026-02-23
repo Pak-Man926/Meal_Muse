@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:mealmuse_flutter/views/homepage/homepage.dart";
-import "package:mealmuse_flutter/views/savedpage/savedpage.dart";
-import "package:mealmuse_flutter/views/schedulepage/schedulepage.dart";
-import "package:mealmuse_flutter/views/searchpage/searchpage.dart";
+import "package:mealmuse_flutter/modules/homepage/homepage.dart";
+import "package:mealmuse_flutter/modules/savedpage/savedpage.dart";
+import "package:mealmuse_flutter/modules/schedulepage/schedulepage.dart";
+import "package:mealmuse_flutter/modules/searchpage/searchpage.dart";
 
 import "controllers/theme_controller.dart";
 //import "routes.dart";
