@@ -43,9 +43,12 @@ INSTALLED_APPS = [
     'recipes',
     'rest_framework',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    # CORS must be first so it runs before any response is returned
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,23 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# ── CORS ──────────────────────────────────────────────────────────
+# Allow the Flutter app (any origin) to call the API during development.
+# In production, replace CORS_ALLOW_ALL_ORIGINS with CORS_ALLOWED_ORIGINS list.
+CORS_ALLOW_ALL_ORIGINS = True  # dev only — lock this down for production
+CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 ROOT_URLCONF = 'recipe_api.urls'
@@ -131,15 +151,19 @@ STATICFILES_DIRS = [  # additional locations that collectstatic will look for
 
 
 REST_FRAMEWORK = {
+    # Read-only for anonymous users; write access requires login
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
+    # Global filter backends (viewsets can override / extend these)
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 30,
+    # Page-number pagination. The app can override page size with ?page_size=N (max 100)
+    'DEFAULT_PAGINATION_CLASS': 'recipes.api.pagination.FlexiblePageNumberPagination',
+    'PAGE_SIZE': 20,
 }
 
 # https://docs.djangoproject.com/en/3.2/topics/cache/

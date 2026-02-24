@@ -25,12 +25,22 @@ services:
       - caddy
       - postgres
     labels:
-      # routinely check for new recipes
+      # routinely check for new NYT recipes
       deck-chores.new-recipes.command: python manage.py scrape --urls --recipes
       deck-chores.new-recipes.interval: weekly
-      # update all recipes less frequently
+      # update all NYT recipes less frequently
       deck-chores.update-recipes.command: python manage.py scrape --urls --recipes --force
       deck-chores.update-recipes.interval: 30 days
+      # Cookpad Kenya — fresh Kenyan recipes weekly
+      deck-chores.cookpad-recipes.command: python manage.py scrape_cookpad
+      deck-chores.cookpad-recipes.interval: weekly
+      # Cookpad Kenya — force-refresh every 30 days
+      deck-chores.cookpad-update.command: python manage.py scrape_cookpad --force
+      deck-chores.cookpad-update.interval: 30 days
+      # Afriyara Facebook page — scrape new posts fortnightly
+      deck-chores.facebook-recipes.command: python manage.py scrape_facebook --headless --max-posts 100
+      deck-chores.facebook-recipes.interval: 14 days
+
 
   postgres:
     image: postgres:17

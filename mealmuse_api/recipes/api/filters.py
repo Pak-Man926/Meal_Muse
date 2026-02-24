@@ -15,6 +15,23 @@ class RecipeFilter(filters.FilterSet):
         queryset=Category.objects.all(),
         method='filter_categories',
     )
+    # ── Flutter-friendly category filters (no ID needed) ──────────
+    category_name = filters.CharFilter(
+        field_name='categories__name',
+        lookup_expr='iexact',
+        label='Filter by exact category name (e.g. pilau, ugali)',
+    )
+    category_type = filters.CharFilter(
+        field_name='categories__type',
+        lookup_expr='iexact',
+        label='Filter by category type (meal_types / dish_types / cuisines / special_diets)',
+    )
+    # ── Source filter ──────────────────────────────────────────────
+    author = filters.CharFilter(
+        field_name='author',
+        lookup_expr='icontains',
+        label='Filter by author/source (e.g. Afriyara, Cookpad Kenya)',
+    )
 
     def filter_categories(self, queryset, name, value):
         # custom filter to guarantee recipes only appear when they
@@ -37,11 +54,12 @@ class RecipeFilter(filters.FilterSet):
     class Meta:
         model = Recipe
         fields = {
-            'name': ['exact'],
+            'name': ['exact', 'icontains'],
             'slug': ['exact'],
             'rating_value': ['gte'],
             'rating_count': ['gte'],
         }
+
 
 
 class SearchVectorFilter(SearchFilter):

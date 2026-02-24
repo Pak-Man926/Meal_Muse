@@ -8,3 +8,7 @@ django-filter
 gunicorn
 psycopg2-binary
 recipe_scrapers
+beautifulsoup4
+selenium
+webdriver-manager
+django-cors-headers
