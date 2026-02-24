@@ -1,0 +1,10 @@
+Django
+requests
+lxml
+dj-database-url
+djangorestframework
+Markdown
+django-filter
+gunicorn
+psycopg2-binary
+recipe_scrapers
