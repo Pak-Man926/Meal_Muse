@@ -28,17 +28,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Recipe Generator",
-            style: Theme.of(context).textTheme.displayLarge),
-        actions: [
-          TuneIconButtonWidget(
-            onPressed: () => Get.toNamed("/settingspage"),
-            iconSize: 30,
-          ),
-        ],
-      ),
       body: SafeArea(
         top: false,
         bottom: true,
