@@ -10,9 +10,9 @@ import '../../searchpage/views/searchpage_view.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-   final logger = Logger();
+  final logger = Logger();
 
-   final ThemeController themeController = Get.put(ThemeController());
+  final ThemeController themeController = Get.put(ThemeController());
 
   var selectedIndex = 0.obs;
 
@@ -26,7 +26,7 @@ class HomeController extends GetxController {
     SchedulepageView(),
     SavedpageView()
   ];
-  
+
   @override
   void onInit() {
     super.onInit();
@@ -44,5 +44,4 @@ class HomeController extends GetxController {
     super.onClose();
     logger.i("HomeController is being disposed");
   }
-
 }

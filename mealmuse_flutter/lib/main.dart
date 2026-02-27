@@ -7,8 +7,14 @@ import 'app/routes/app_pages.dart';
 import "app/themes/theme.dart";
 
 void main() {
-  runApp(
-    GetMaterialApp(
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
@@ -16,6 +22,6 @@ void main() {
       title: "Meal Muse",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-    ),
-  );
+    );
+  }
 }

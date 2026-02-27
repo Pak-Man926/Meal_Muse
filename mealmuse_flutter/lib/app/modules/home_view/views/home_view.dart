@@ -3,10 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "../../../widgets/bottom_navigation_bar.dart";
 import "../../../widgets/tune_icon_button_widget.dart";
+//import "routes.dart";
+//import "themes/theme.dart";
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  //const HomeView({super.key});
+  const HomeView({super.key});
+
+  // final ThemeController themeController = Get.put(ThemeController());
+
+  // var selectedIndex = 0.obs;
+
+  // void _onItemTapped(int index) {
+  //   selectedIndex.value = index;
+  // }
+
+  // final List<Widget> pages = [
+  //   HomepageView(),
+  //   SearchpageView(),
+  //   SchedulepageView(),
+  //   SavedpageView()
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +42,12 @@ class HomeView extends GetView<HomeController> {
       body: SafeArea(
         top: false,
         bottom: true,
-        child: controller.pages[controller.selectedIndex.value],
+        child: Obx(() => controller.pages[controller.selectedIndex.value]),
       ),
-      bottomNavigationBar: AppBottomNavigationBar(
-        currentIndex: controller.selectedIndex.value,
-        onTap: controller.onItemTapped,
-      ),
+      bottomNavigationBar: Obx(() => AppBottomNavigationBar(
+            currentIndex: controller.selectedIndex.value,
+            onTap: controller.onItemTapped,
+          )),
     );
   }
 }
