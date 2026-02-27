@@ -1,23 +1,27 @@
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 class HomepageController extends GetxController {
   //TODO: Implement HomepageController
+  final logger = Logger();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    logger.i("HomepageController initialized");
+
   }
 
   @override
   void onReady() {
     super.onReady();
+    logger.i("Homepage View is ready and visible");
   }
 
   @override
   void onClose() {
     super.onClose();
+    logger.i("HomepageController is being disposed");
   }
 
-  void increment() => count.value++;
 }
