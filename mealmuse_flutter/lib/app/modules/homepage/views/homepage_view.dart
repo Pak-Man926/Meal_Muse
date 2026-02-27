@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../models/carousel_items.dart';
+import '../../../themes/text_styles.dart';
 import '../../../widgets/carousel_slider_widget.dart';
 import '../../../widgets/categories_button.dart';
+import '../../../widgets/tune_icon_button_widget.dart';
 import '../controllers/homepage_controller.dart';
 //import "package:google_fonts/google_fonts.dart";
 //import "package:mealmuse_flutter/widgets/image_card_widget.dart";
@@ -47,6 +49,19 @@ class HomepageView extends GetView<HomepageController> {
       ),
     ];
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Recipe Generator",
+          style: AppTextStyles.headingsText,
+        ),
+        actions: [
+          TuneIconButtonWidget(
+            onPressed: () => Get.toNamed("/settingspage"),
+            iconSize: 30,
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
