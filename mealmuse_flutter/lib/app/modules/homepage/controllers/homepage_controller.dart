@@ -9,7 +9,6 @@ class HomepageController extends GetxController {
   void onInit() {
     super.onInit();
     logger.i("HomepageController initialized");
-
   }
 
   @override
@@ -23,5 +22,4 @@ class HomepageController extends GetxController {
     super.onClose();
     logger.i("HomepageController is being disposed");
   }
-
 }

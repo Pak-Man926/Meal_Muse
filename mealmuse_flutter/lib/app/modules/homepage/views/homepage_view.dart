@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:meal_muse/utils/constants.dart';
 
 import '../../../models/carousel_items.dart';
-import '../../../themes/text_styles.dart';
+import '../../../../themes/text_styles.dart';
 import '../../../widgets/carousel_slider_widget.dart';
 import '../../../widgets/categories_button.dart';
 import '../../../widgets/tune_icon_button_widget.dart';
@@ -16,6 +17,7 @@ class HomepageView extends GetView<HomepageController> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final List<CarouselItems> mealItems = [
       CarouselItems(
         imageUrls:
@@ -68,14 +70,12 @@ class HomepageView extends GetView<HomepageController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Trending Recipes",
-                  style: Theme.of(context).textTheme.displayMedium),
-              SizedBox(height: 20),
+              Text("Trending Recipes", style: AppTextStyles.subHeadingsText),
+              mediumSpaceSize,
               CarouselSliderWidget(items: mealItems),
-              SizedBox(height: 15),
-              Text("Popular Categories",
-                  style: Theme.of(context).textTheme.displayMedium),
-              SizedBox(height: 10),
+              minSpaceSize,
+              Text("Popular Categories", style: AppTextStyles.subHeadingsText),
+              smallSpaceSize,
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
@@ -83,29 +83,29 @@ class HomepageView extends GetView<HomepageController> {
                   mainAxisSpacing: 10,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 4.0,
+                  childAspectRatio: 5.0,
                   children: [
                     CategoriesButton(
                       icon: Icon(Icons.free_breakfast_rounded,
-                          color: Theme.of(context).colorScheme.onSurface),
+                          color: theme.colorScheme.onSurface),
                       title: "Breakfast",
                       onPressed: () {},
                     ),
                     CategoriesButton(
                       icon: Icon(Icons.lunch_dining_rounded,
-                          color: Theme.of(context).colorScheme.onSurface),
+                          color: theme.colorScheme.onSurface),
                       title: "Lunch",
                       onPressed: () {},
                     ),
                     CategoriesButton(
                       icon: Icon(Icons.dinner_dining_rounded,
-                          color: Theme.of(context).colorScheme.onSurface),
+                          color: theme.colorScheme.onSurface),
                       title: "Dinner",
                       onPressed: () {},
                     ),
                     CategoriesButton(
                       icon: Icon(Icons.wine_bar_rounded,
-                          color: Theme.of(context).colorScheme.onSurface),
+                          color: theme.colorScheme.onSurface),
                       title: "Drinks",
                       onPressed: () {},
                     ),
