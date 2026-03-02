@@ -1,5 +1,5 @@
-name: mealmuse_flutter
-description: A new Flutter project with Serverpod.
+name: meal_muse
+description: A recipe planner app built with Flutter. It allows users to search for recipes, view details, and save their favorite meals.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
