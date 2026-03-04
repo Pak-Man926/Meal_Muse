@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'app/routes/app_pages.dart';
 //import "package:logger/logger.dart";
-import "themes/theme.dart";
+import "core/themes/theme.dart";
 
 void main() {
   runApp(MyApp());
