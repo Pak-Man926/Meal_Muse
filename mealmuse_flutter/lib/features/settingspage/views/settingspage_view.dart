@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:meal_muse/utils/constants.dart';
+import 'package:meal_muse/core/constants/constants.dart';
 
-import '../../../../../themes/text_styles.dart';
+import '../../../core/themes/text_styles.dart';
 import '../controllers/settingspage_controller.dart';
 
 class SettingspageView extends GetView<SettingspageController> {

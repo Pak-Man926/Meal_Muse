@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:meal_muse/utils/constants.dart';
+import 'package:meal_muse/core/constants/constants.dart';
 
-import '../../../models/carousel_items.dart';
-import '../../../../themes/text_styles.dart';
-import '../../../widgets/carousel_slider_widget.dart';
-import '../../../widgets/categories_button.dart';
-import '../../../widgets/tune_icon_button_widget.dart';
+import '../../../app/models/carousel_items.dart';
+import '../../../core/themes/text_styles.dart';
+import '../../../app/widgets/carousel_slider_widget.dart';
+import '../../../app/widgets/categories_button.dart';
+import '../../../app/widgets/tune_icon_button_widget.dart';
 import '../controllers/homepage_controller.dart';
 //import "package:google_fonts/google_fonts.dart";
 //import "package:mealmuse_flutter/widgets/image_card_widget.dart";

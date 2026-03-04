@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import "../../../widgets/bottom_navigation_bar.dart";
-import "../../../widgets/tune_icon_button_widget.dart";
+import "../../../../app/widgets/bottom_navigation_bar.dart";
+import "../../../../app/widgets/tune_icon_button_widget.dart";
 //import "routes.dart";
 //import "themes/theme.dart";
 import '../controllers/home_controller.dart';

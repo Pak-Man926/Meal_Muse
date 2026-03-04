@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import "package:flutter/material.dart";
 
-import '../../../controllers/theme_controller.dart';
-import '../../homepage/views/homepage_view.dart';
-import '../../savedpage/views/savedpage_view.dart';
-import '../../schedulepage/views/schedulepage_view.dart';
-import '../../searchpage/views/searchpage_view.dart';
+import '../../../../app/controllers/theme_controller.dart';
+import '../../../homepage/views/homepage_view.dart';
+import '../../../savedpage/views/savedpage_view.dart';
+import '../../../schedulepage/views/schedulepage_view.dart';
+import '../../../searchpage/views/searchpage_view.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
