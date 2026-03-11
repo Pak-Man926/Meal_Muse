@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/app/app.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:meal_muse/src/app.dart";
 
 void main()
 {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
