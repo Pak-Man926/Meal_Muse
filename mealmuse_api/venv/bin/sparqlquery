@@ -1,4 +1,4 @@
-#!/home/pak_man/Desktop/recipe_api/venv/bin/python3
+#!/home/pak_man/Desktop/Meal_Muse/mealmuse_api/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
