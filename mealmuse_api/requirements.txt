@@ -12,3 +12,4 @@ beautifulsoup4
 selenium
 webdriver-manager
 django-cors-headers
+drf-spectacular

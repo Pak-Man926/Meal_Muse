@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -164,6 +165,15 @@ REST_FRAMEWORK = {
     # Page-number pagination. The app can override page size with ?page_size=N (max 100)
     'DEFAULT_PAGINATION_CLASS': 'recipes.api.pagination.FlexiblePageNumberPagination',
     'PAGE_SIZE': 20,
+    # Schema class for OpenAPI generation tools
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Meal Muse API',
+    'DESCRIPTION': 'API endpoints for fetching and discovering Kenyan recipes and categories.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 # https://docs.djangoproject.com/en/3.2/topics/cache/

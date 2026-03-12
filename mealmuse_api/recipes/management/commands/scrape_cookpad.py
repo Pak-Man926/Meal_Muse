@@ -60,7 +60,8 @@ SEARCH_URL = "https://cookpad.com/ke/search/{keyword}?page={page}"
 RECIPE_URL = "https://cookpad.com/eng/recipes/{recipe_id}"
 
 IMAGE_DIR_NAME = "recipes"
-STATIC_IMAGE_DIR = os.path.join(settings.STATIC_ROOT, IMAGE_DIR_NAME)
+# Write images directly into the local static/ folder so runserver can serve them
+STATIC_IMAGE_DIR = os.path.join(settings.STATICFILES_DIRS[0], IMAGE_DIR_NAME)
 
 # Browser-like headers to reduce bot-blocking
 HEADERS = {
@@ -104,6 +105,42 @@ class Command(BaseCommand):
         self.force = options["force"]
         self._ensure_image_dir()
 
+        try:
+            from selenium import webdriver
+            from selenium.webdriver.chrome.options import Options
+            from selenium.webdriver.chrome.service import Service
+            from webdriver_manager.chrome import ChromeDriverManager
+        except ImportError:
+            self.stderr.write(
+                self.style.ERROR(
+                    "selenium and webdriver-manager are required. "
+                    "Run: pip install selenium webdriver-manager"
+                )
+            )
+            return
+
+        chrome_options = Options()
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        chrome_options.add_argument("--window-size=1280,900")
+        chrome_options.add_argument(
+            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        )
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        chrome_options.add_experimental_option("useAutomationExtension", False)
+
+        self.stdout.write(self.style.MIGRATE_HEADING("▶ Starting Chrome…"))
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()),
+            options=chrome_options,
+        )
+        driver.execute_script(
+            "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})"
+        )
+
         keywords = KENYAN_KEYWORDS
         if options["keyword"]:
             kw = options["keyword"].lower()
@@ -115,16 +152,19 @@ class Command(BaseCommand):
             keywords = {kw: keywords[kw]}
 
         total_scraped = 0
-        for keyword, (cat_name, cat_type) in keywords.items():
-            self.stdout.write(self.style.MIGRATE_HEADING(f"\n▶ Keyword: {keyword}"))
-            category = self._get_or_create_category(cat_name, cat_type)
-            recipe_ids = self._collect_recipe_ids(keyword, options["max_pages"])
-            self.stdout.write(f"  Found {len(recipe_ids)} recipe URLs")
+        try:
+            for keyword, (cat_name, cat_type) in keywords.items():
+                self.stdout.write(self.style.MIGRATE_HEADING(f"\n▶ Keyword: {keyword}"))
+                category = self._get_or_create_category(cat_name, cat_type)
+                recipe_ids = self._collect_recipe_ids(driver, keyword, options["max_pages"])
+                self.stdout.write(f"  Found {len(recipe_ids)} recipe URLs")
 
-            for recipe_id in recipe_ids:
-                scraped = self._scrape_and_save(recipe_id, category)
-                if scraped:
-                    total_scraped += 1
+                for recipe_id in recipe_ids:
+                    scraped = self._scrape_and_save(driver, recipe_id, category)
+                    if scraped:
+                        total_scraped += 1
+        finally:
+            driver.quit()
 
         # Rebuild search vectors for all newly imported recipes
         if total_scraped > 0:
@@ -140,7 +180,7 @@ class Command(BaseCommand):
     # ──────────────────────────────────────────
     # Step 1 — collect recipe IDs from search
     # ──────────────────────────────────────────
-    def _collect_recipe_ids(self, keyword: str, max_pages: int) -> list:
+    def _collect_recipe_ids(self, driver, keyword: str, max_pages: int) -> list:
         """Return a deduplicated list of Cookpad recipe IDs for a keyword."""
         recipe_ids = set()
         encoded_keyword = keyword.replace(" ", "%20")
@@ -148,18 +188,12 @@ class Command(BaseCommand):
         for page in range(1, max_pages + 1):
             url = SEARCH_URL.format(keyword=encoded_keyword, page=page)
             try:
-                resp = requests.get(url, headers=HEADERS, timeout=20)
-            except requests.RequestException as e:
+                driver.get(url)
+                time.sleep(3)  # wait for Cloudflare JS validation
+                soup = BeautifulSoup(driver.page_source, "html.parser")
+            except Exception as e:
                 self.stdout.write(self.style.WARNING(f"  Request error on {url}: {e}"))
                 continue
-
-            if resp.status_code != 200:
-                self.stdout.write(
-                    self.style.WARNING(f"  HTTP {resp.status_code} for {url}")
-                )
-                break
-
-            soup = BeautifulSoup(resp.content, "html.parser")
 
             # Recipe links look like /eng/recipes/12345678 or /ke/recipes/12345678
             links = soup.find_all("a", href=re.compile(r"/recipes/\d+"))
@@ -185,7 +219,7 @@ class Command(BaseCommand):
     # ──────────────────────────────────────────
     # Step 2 — scrape one recipe page
     # ──────────────────────────────────────────
-    def _scrape_and_save(self, recipe_id: str, category: Category) -> bool:
+    def _scrape_and_save(self, driver, recipe_id: str, category: Category) -> bool:
         """Scrape a single Cookpad recipe and persist it. Returns True on success."""
         slug = f"cookpad-{recipe_id}"
 
@@ -194,18 +228,12 @@ class Command(BaseCommand):
 
         url = RECIPE_URL.format(recipe_id=recipe_id)
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=20)
-        except requests.RequestException as e:
+            driver.get(url)
+            time.sleep(2)  # Wait for JS validation
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+        except Exception as e:
             self.stdout.write(self.style.WARNING(f"  Cannot fetch {url}: {e}"))
             return False
-
-        if resp.status_code != 200:
-            self.stdout.write(
-                self.style.WARNING(f"  HTTP {resp.status_code} for {url}")
-            )
-            return False
-
-        soup = BeautifulSoup(resp.content, "html.parser")
 
         # ── Name ──────────────────────────────
         name = self._extract_name(soup)
@@ -233,13 +261,13 @@ class Command(BaseCommand):
         recipe, created = Recipe.objects.update_or_create(
             slug=slug,
             defaults=dict(
-                name=name,
-                description=description or f"A delicious {name} recipe from Cookpad Kenya.",
-                total_time_string=cook_time,
-                servings=servings or "Serves 4",
+                name=name[:500],
+                description=(description or f"A delicious {name[:300]} recipe from Cookpad Kenya."),
+                total_time_string=(cook_time or "")[:100],
+                servings=(servings or "Serves 4")[:100],
                 ingredients=ingredients,
                 instructions=instructions,
-                author=author or "Cookpad Kenya",
+                author=(author or "Cookpad Kenya")[:100],
             ),
         )
         recipe.categories.add(category)

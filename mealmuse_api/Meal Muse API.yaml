@@ -1,0 +1,531 @@
+openapi: 3.0.3
+info:
+  title: Meal Muse API
+  version: 1.0.0
+  description: API endpoints for fetching and discovering Kenyan recipes and categories.
+paths:
+  /api/category/:
+    get:
+      operationId: category_list
+      description: |-
+        Read-only endpoint for recipe categories.
+
+        Query params:
+            ?type=meal_types        filter by category type
+            ?type=dish_types
+            ?type=cuisines
+            ?type=special_diets
+            ?search=kenya           search by name
+
+        Response includes `recipe_count` for each category so the Flutter
+        app can hide empty categories.
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - _UNKNOWN_
+          - cuisines
+          - dish_types
+          - meal_types
+          - special_diets
+        description: |-
+          * `special_diets` - special_diets
+          * `cuisines` - cuisines
+          * `meal_types` - meal_types
+          * `dish_types` - dish_types
+          * `_UNKNOWN_` - _UNKNOWN_
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+  /api/category/{id}/:
+    get:
+      operationId: category_retrieve
+      description: |-
+        Read-only endpoint for recipe categories.
+
+        Query params:
+            ?type=meal_types        filter by category type
+            ?type=dish_types
+            ?type=cuisines
+            ?type=special_diets
+            ?search=kenya           search by name
+
+        Response includes `recipe_count` for each category so the Flutter
+        app can hide empty categories.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this category.
+        required: true
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /api/just-the-recipe/:
+    get:
+      operationId: just_the_recipe_retrieve
+      tags:
+      - just-the-recipe
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/recipe/:
+    get:
+      operationId: recipe_list
+      description: |-
+        Read-only endpoint for recipes.
+
+        ## List / Search
+            GET /api/recipe/
+            GET /api/recipe/?search=ugali
+            GET /api/recipe/?search=pilau&page_size=10
+            GET /api/recipe/?categories=3&categories=7   (must match ALL listed categories)
+            GET /api/recipe/?ordering=-rating_value       (sort by rating, newest, etc.)
+
+        ## Detail
+            GET /api/recipe/<id>/                         (full recipe with ingredients + steps)
+
+        ## Special actions
+            GET /api/recipe/trending/                     (top-rated, for home screen)
+            GET /api/recipe/trending/?count=10            (control how many)
+            GET /api/recipe/random/                       (random picks, for discovery)
+            GET /api/recipe/random/?count=5
+      parameters:
+      - in: query
+        name: author
+        schema:
+          type: string
+        description: Filter by author/source (e.g. Afriyara, Cookpad Kenya)
+      - in: query
+        name: categories
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+        style: form
+      - in: query
+        name: category_name
+        schema:
+          type: string
+        description: Filter by exact category name (e.g. pilau, ugali)
+      - in: query
+        name: category_type
+        schema:
+          type: string
+        description: Filter by category type (meal_types / dish_types / cuisines /
+          special_diets)
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: name__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: rating_count__gte
+        schema:
+          type: integer
+      - in: query
+        name: rating_value__gte
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: slug
+        schema:
+          type: string
+      tags:
+      - recipe
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecipeListList'
+          description: ''
+  /api/recipe/{id}/:
+    get:
+      operationId: recipe_retrieve
+      description: |-
+        Read-only endpoint for recipes.
+
+        ## List / Search
+            GET /api/recipe/
+            GET /api/recipe/?search=ugali
+            GET /api/recipe/?search=pilau&page_size=10
+            GET /api/recipe/?categories=3&categories=7   (must match ALL listed categories)
+            GET /api/recipe/?ordering=-rating_value       (sort by rating, newest, etc.)
+
+        ## Detail
+            GET /api/recipe/<id>/                         (full recipe with ingredients + steps)
+
+        ## Special actions
+            GET /api/recipe/trending/                     (top-rated, for home screen)
+            GET /api/recipe/trending/?count=10            (control how many)
+            GET /api/recipe/random/                       (random picks, for discovery)
+            GET /api/recipe/random/?count=5
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this recipe.
+        required: true
+      tags:
+      - recipe
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDetail'
+          description: ''
+  /api/recipe/random/:
+    get:
+      operationId: recipe_random_retrieve
+      description: |-
+        Returns a random selection of recipes.
+        Useful for an "Inspire Me" / "What should I cook today?" feature.
+
+        Query params:
+            ?count=N    number of recipes to return (default 5, max 20)
+      tags:
+      - recipe
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeList'
+          description: ''
+  /api/recipe/trending/:
+    get:
+      operationId: recipe_trending_retrieve
+      description: |-
+        Returns the highest-rated recipes.
+        The Flutter home screen uses this for the Trending Recipes carousel.
+
+        Query params:
+            ?count=N    number of recipes to return (default 20, max 100)
+      tags:
+      - recipe
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeList'
+          description: ''
+components:
+  schemas:
+    Category:
+      type: object
+      description: Full category data including recipe count.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        recipe_count:
+          type: integer
+          readOnly: true
+          default: 0
+      required:
+      - id
+      - name
+      - recipe_count
+      - type
+    CategoryMini:
+      type: object
+      description: Minimal category data embedded inside recipe responses.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+      required:
+      - id
+      - name
+      - type
+    PaginatedRecipeListList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeList'
+    RecipeDetail:
+      type: object
+      description: |-
+        Full serializer for a single recipe detail view.
+        Includes ingredients and step-by-step instructions.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 500
+        slug:
+          type: string
+          maxLength: 200
+          pattern: ^[-a-zA-Z0-9_]+$
+        image_path:
+          type: string
+          nullable: true
+          maxLength: 210
+        description:
+          type: string
+        total_time_string:
+          type: string
+          nullable: true
+          maxLength: 100
+        servings:
+          type: string
+          maxLength: 100
+        rating_value:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        rating_count:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        ingredients:
+          type: array
+          items:
+            type: string
+        instructions:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryMini'
+          readOnly: true
+        author:
+          type: string
+          maxLength: 100
+        date_added:
+          type: string
+          format: date
+          readOnly: true
+        search_rank:
+          type: number
+          format: double
+          readOnly: true
+          default: 0.0
+      required:
+      - author
+      - categories
+      - date_added
+      - description
+      - id
+      - ingredients
+      - instructions
+      - name
+      - search_rank
+      - servings
+      - slug
+    RecipeList:
+      type: object
+      description: |-
+        Lightweight serializer for recipe list / search results.
+        Used by the Home screen carousel, Search screen, and category pages.
+        Omits the full ingredients/instructions arrays to keep responses fast.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 500
+        slug:
+          type: string
+          maxLength: 200
+          pattern: ^[-a-zA-Z0-9_]+$
+        image_path:
+          type: string
+          nullable: true
+          maxLength: 210
+        description:
+          type: string
+        total_time_string:
+          type: string
+          nullable: true
+          maxLength: 100
+        servings:
+          type: string
+          maxLength: 100
+        rating_value:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        rating_count:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryMini'
+          readOnly: true
+        author:
+          type: string
+          maxLength: 100
+        date_added:
+          type: string
+          format: date
+          readOnly: true
+        search_rank:
+          type: number
+          format: double
+          readOnly: true
+          default: 0.0
+      required:
+      - author
+      - categories
+      - date_added
+      - description
+      - id
+      - name
+      - search_rank
+      - servings
+      - slug
+    TypeEnum:
+      enum:
+      - special_diets
+      - cuisines
+      - meal_types
+      - dish_types
+      - _UNKNOWN_
+      type: string
+      description: |-
+        * `special_diets` - special_diets
+        * `cuisines` - cuisines
+        * `meal_types` - meal_types
+        * `dish_types` - dish_types
+        * `_UNKNOWN_` - _UNKNOWN_
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
