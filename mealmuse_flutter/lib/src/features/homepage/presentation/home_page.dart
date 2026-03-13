@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/themes/text_styles.dart';
 import '../../../models/carousel_items.dart';
@@ -7,8 +8,8 @@ import '../../../widgets/categories_button.dart';
 import '../../../widgets/tune_icon_button_widget.dart';
 
 
-class HomepageView extends StatelessWidget {
-  const HomepageView({super.key});
+class HomePageView extends StatelessWidget {
+  const HomePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class HomepageView extends StatelessWidget {
         ),
         actions: [
           TuneIconButtonWidget(
-            onPressed: () {},
+            onPressed: () => context.go("/settings"),
             iconSize: 30,
           ),
         ],
