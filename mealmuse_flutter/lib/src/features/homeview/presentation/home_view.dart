@@ -6,7 +6,7 @@ import "../../homepage/presentation/home_page.dart";
 import "../../savedpage/presentation/saved_view.dart";
 import "../../schedulepage/presentation/schedule_view.dart";
 import "../../searchpage/presentation/search_view.dart";
-import "../domain/home_view_controller.dart";
+import "../domain/home_view_provider.dart";
 
 class HomeView extends ConsumerWidget {
   HomeView({super.key});
