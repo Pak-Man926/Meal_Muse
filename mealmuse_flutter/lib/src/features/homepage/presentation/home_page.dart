@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/themes/text_styles.dart';
-import '../../../models/carousel_items.dart';
-import '../../../widgets/carousel_slider_widget.dart';
-import '../../../widgets/categories_button.dart';
-import '../../../widgets/tune_icon_button_widget.dart';
+import '../data/carousel_items.dart';
+import '../data/carousel_slider_widget.dart';
+import '../data/categories_button.dart';
+import '../data/tune_icon_button_widget.dart';
 
 
 class HomePageView extends StatelessWidget {
