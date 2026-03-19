@@ -1,9 +1,17 @@
 import "package:flutter/material.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
 
 class ContainerWidget extends StatelessWidget {
   final String label;
+  final Color? backgroundColor;
 
-  const ContainerWidget({super.key, required this.label});
+  const ContainerWidget({super.key, required this.label, this.backgroundColor = AppColors.textSecondary});
+
+  const ContainerWidget.extended({
+    super.key,
+    required this.label,
+    this.backgroundColor = AppColors.primary
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +20,7 @@ class ContainerWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       //alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: backgroundColor ,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(label),
