@@ -15,20 +15,26 @@ class DatePickerWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        height: 95,
-        width: 90,
+        height: 120,
+        width: 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.grey[300],
         ),
         child: FilledButton(
           onPressed: () {},
-          //style: FilledButton.styleFrom(backgroundColor: AppColors.primary),
+          style: FilledButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            disabledBackgroundColor: Colors.grey[300],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: .center,
             children: [
               Text(day),
-              smallSpaceSize,
+              mediumSpaceSize,
               Text(date.toString(), style: AppTextStyles.bodyText),
             ],
           ),
