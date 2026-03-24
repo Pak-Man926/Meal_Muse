@@ -1,11 +1,43 @@
 import "package:flutter/material.dart";
+import "package:meal_muse/src/features/savedpage/data/saved_item_widget.dart";
 
 import "../../../core/constants/constants.dart";
 import "../../../core/themes/text_styles.dart";
 import "../../../widgets/items_widget.dart";
+import "../data/recipe_model.dart";
 
-class SavedPageView extends StatelessWidget
-{
+final List<Recipe> mySavedMeals = [
+  Recipe(
+    mealType: "Dinner",
+    meal: "Mediterranean Pasta",
+    prepTime: 35,
+    composition: 580,
+    imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
+  ),
+  Recipe(
+    mealType: "Breakfast",
+    meal: "Poached Eggs & Salad",
+    prepTime: 15,
+    composition: 320,
+    imageAddress: "assets/avocado-6b1cf76.jpg",
+  ),
+  Recipe(
+    mealType: "Lunch",
+    meal: "Miso Glazed Salmon",
+    prepTime: 25,
+    composition: 450,
+    imageAddress:
+        "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
+  ),
+  Recipe(
+    meal: "Fluffy Pancakes",
+    prepTime: 20,
+    composition: 45,
+    imageAddress: "assets/Fluffy-Pancakes-Featured.jpg",
+  ),
+];
+
+class SavedPageView extends StatelessWidget {
   const SavedPageView({super.key});
 
   @override
@@ -15,66 +47,26 @@ class SavedPageView extends StatelessWidget
         title: Text("Saved", style: AppTextStyles.headingsText),
         centerTitle: true,
       ),
-      body:Padding(
+      body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            ItemsWidget(
-              image: Image.asset("assets/Chicken-stir-fry-V1.jpg"),
-              heading: "Chicken Stir Fry",
-              subHeading: "30 mins | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset("assets/Fluffy-Pancakes-Featured.jpg"),
-              heading: "Fluffy Pancakes",
-              subHeading: "20 mins | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset("assets/Pasta-Carbonara-Recipe-1.jpg"),
-              heading: "Pasta Carbonara",
-              subHeading: "25 mins | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset("assets/vegetable-curry-recipe.jpg"),
-              heading: "Vegetable Curry",
-              subHeading: "30 mins | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset(
-                "assets/201005-r-xl-grilled-chicken-tacos-2000-63b2b629eace4d71a7ee63529e252c38.jpg",
-              ),
-              heading: "Chicken Tacos",
-              subHeading: "48 mins | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset(
-                "assets/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2007__04__honey-glazed-roast-chicken-horiz-a-1800-2057270028084ff2bdb54fcb0f2d3227.jpg",
-              ),
-              heading: "Honey Glazed Roast Chicken",
-              subHeading: "1 hour | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset(
-                "assets/pan-fried-salmon-featured-new.jpg",
-              ),
-              heading: "Pan-Fried Salmon",
-              subHeading: "20 mins | 4 servings",
-            ),
-            mediumSpaceSize,
-            ItemsWidget(
-              image: Image.asset(
-                "assets/pan-fried-salmon-featured-new.jpg",
-              ),
-              heading: "Pan-Fried Salmon",
-              subHeading: "20 mins | 4 servings",
-            ),
-          ],
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.6,
+          ),
+          itemCount: mySavedMeals.length,
+          itemBuilder: (BuildContext context, int index) {
+            Recipe currentRecipe = mySavedMeals[index];
+            return SavedItemWidget(
+              mealType: currentRecipe.mealType,
+              meal: currentRecipe.meal,
+              prepTime: currentRecipe.prepTime,
+              composition: currentRecipe.composition,
+              imageAddress: currentRecipe.imageAddress,
+            );
+          },
         ),
       ),
     );
