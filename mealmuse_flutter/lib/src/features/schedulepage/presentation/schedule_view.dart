@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
 import "package:meal_muse/src/features/schedulepage/data/date_container_widget.dart";
 import "package:meal_muse/src/features/schedulepage/data/schedule_meal_card_widget.dart";
 import "package:meal_muse/src/features/searchpage/data/container_widget.dart";
@@ -12,8 +11,6 @@ class SchedulePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Moved the date logic inside the build method so it updates correctly
-    // if the user leaves the app open overnight.
     DateTime today = DateTime.now();
     const List<String> monthNames = [
       'January',
@@ -44,21 +41,16 @@ class SchedulePageView extends StatelessWidget {
     String currentDay = DateFormat("EEE").format(today);
 
     return Scaffold(
-      // We remove the standard AppBar and body Column entirely,
-      // replacing them with a CustomScrollView.
       body: CustomScrollView(
         slivers: [
-          // 1. The Collapsing Header (SliverAppBar)
           SliverAppBar(
-            pinned: true, // Keeps the "Schedule" title visible at all times
-            expandedHeight: 160.0, // The height when fully pulled down
+            pinned: true, 
+            expandedHeight: 160.0, 
             elevation: 0,
             title: Text("Schedule", style: AppTextStyles.headingsText),
             centerTitle: true,
-            // FlexibleSpaceBar is what handles the shrinking/collapsing animation
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
-                // We add top padding to push the calendar below the pinned AppBar title
                 padding: const EdgeInsets.only(
                   top: kToolbarHeight + 20,
                   left: 10,
@@ -69,8 +61,9 @@ class SchedulePageView extends StatelessWidget {
                   children: [
                     SizedBox(
                       height:
-                          110, // Slightly reduced to fit nicely in the header
+                          100, 
                       child: ListView.builder(
+                        //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains.
                         scrollDirection: Axis.horizontal,
                         itemCount: 7,
                         itemBuilder: (context, index) {
@@ -90,8 +83,6 @@ class SchedulePageView extends StatelessWidget {
               ),
             ),
           ),
-          // 2. The Daily Header Row (Scrolls away normally)
-          // SliverToBoxAdapter lets us drop standard Flutter widgets into a scroll view
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -107,9 +98,6 @@ class SchedulePageView extends StatelessWidget {
               ),
             ),
           ),
-
-          // 3. The List of Meals
-          // SliverList is highly optimized for scrolling long columns of data
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             sliver: SliverList(
