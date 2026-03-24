@@ -22,78 +22,56 @@ class ScheduleCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 3, // Adds a subtle shadow under the card
-      clipBehavior: Clip
-          .antiAlias, // Magically clips the image to fit the Card's rounded corners
+      elevation: 3,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 1. The Image Section
-          SizedBox(
-            height: 180,
-            width: double.infinity,
-            child: Image.asset(
-              imageAddress,
-              fit: BoxFit
-                  .cover, // 'cover' crops the image cleanly without distorting it
-            ),
+          AspectRatio(
+            aspectRatio: 1.6,
+            child: Image.asset(imageAddress, fit: BoxFit.cover),
           ),
-
-          // 2. The Text & Details Section
           Padding(
-            padding: const EdgeInsets.all(
-              12.0,
-            ), // Gives your text some breathing room from the edges
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // The Title and Favorite Button
                 Row(
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceBetween, // Pushes title left, icon right
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      // Prevents super long recipe names from pushing the icon off the screen
                       child: Text(
                         meal,
                         style: AppTextStyles.subHeadingsText,
-                        maxLines: 1, // Keeps the title to one line
-                        overflow: TextOverflow
-                            .ellipsis, // Adds "..." if the title is too long
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     IconButton(
                       onPressed: () {
                         // TODO: Add favorite logic here
                       },
-                      icon: const Icon(
-                        Icons.favorite_border,
-                      ), // Usually outlined until selected
+                      icon: const Icon(Icons.favorite_border),
                       color: Colors.red,
                     ),
                   ],
                 ),
                 smallSpaceSize,
-
-                // The Icons and Data (Prep time & Composition)
                 Row(
                   children: [
-                    // Prep Time
                     const Icon(Icons.timer, size: 20, color: Colors.grey),
                     const SizedBox(width: 4),
                     Text(
                       "$prepTime min",
                       style: const TextStyle(color: Colors.grey),
                     ),
-
-                    const SizedBox(width: 20), // Space between the two stats
-                    // Composition / Calories
+                    const SizedBox(width: 20),
                     const Icon(
                       Icons.local_fire_department,
                       size: 20,
                       color: Colors.grey,
-                    ), // Fireplace is fine, but local_fire_department is standard for calories!
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       "$composition kcal",
