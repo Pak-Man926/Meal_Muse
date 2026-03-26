@@ -40,6 +40,9 @@ class SchedulePageView extends StatelessWidget {
     String currentYear = today.year.toString();
     String currentDay = DateFormat("EEE").format(today);
 
+    int daysSinceSunday = today.weekday % 7;
+    DateTime startOfWeek = today.subtract(Duration(days: daysSinceSunday));
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -67,7 +70,7 @@ class SchedulePageView extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: 7,
                         itemBuilder: (context, index) {
-                          DateTime targetDate = today.add(
+                          DateTime targetDate = startOfWeek.add(
                             Duration(days: index),
                           );
                           String dayName = weekdayNames[targetDate.weekday - 1];
