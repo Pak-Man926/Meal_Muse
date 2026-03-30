@@ -1,5 +1,6 @@
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/features/homeview/presentation/home_view.dart";
+import "package:meal_muse/src/features/itemview/presentation/item_view.dart";
 import "package:meal_muse/src/features/settingspage/presentation/settings_page.dart";
 
 final router = GoRouter(
@@ -12,6 +13,10 @@ final router = GoRouter(
     GoRoute(
       path: "/settings",
       builder: (context, state) => SettingsPageView(),
+    ),
+    GoRoute(
+      path: "/items",
+      builder: (context, state) => ItemView(),
     ),
   ]
 );
