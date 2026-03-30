@@ -7,7 +7,6 @@ import '../data/carousel_slider_widget.dart';
 import '../data/categories_button.dart';
 import '../data/tune_icon_button_widget.dart';
 
-
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
 
@@ -49,13 +48,14 @@ class HomePageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          "Recipe Generator",
-          style: AppTextStyles.headingsText,
-        ),
+        title: Text("Recipe Generator", style: AppTextStyles.headingsText),
         actions: [
           TuneIconButtonWidget(
-            onPressed: () => context.go("/settings"),
+            onPressed: () {
+              //context.push("/settings"):
+              context.push("/items");
+
+            },
             iconSize: 30,
           ),
         ],
@@ -63,52 +63,69 @@ class HomePageView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("Trending Recipes", style: AppTextStyles.subHeadingsText),
-              mediumSpaceSize,
-              CarouselSliderWidget(items: mealItems),
-              minSpaceSize,
-              Text("Popular Categories", style: AppTextStyles.subHeadingsText),
-              smallSpaceSize,
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 5.0,
-                  children: [
-                    CategoriesButton(
-                      icon: Icon(Icons.free_breakfast_rounded,
-                          color: theme.colorScheme.onSurface),
-                      title: "Breakfast",
-                      onPressed: () {},
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("Trending Recipes", style: AppTextStyles.subHeadingsText),
+            mediumSpaceSize,
+            CarouselSliderWidget(items: mealItems),
+            minSpaceSize,
+            Text("Popular Categories", style: AppTextStyles.subHeadingsText),
+            smallSpaceSize,
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                childAspectRatio: 5.0,
+                children: [
+                  CategoriesButton(
+                    icon: Icon(
+                      Icons.free_breakfast_rounded,
+                      color: theme.colorScheme.onSurface,
                     ),
-                    CategoriesButton(
-                      icon: Icon(Icons.lunch_dining_rounded,
-                          color: theme.colorScheme.onSurface),
-                      title: "Lunch",
-                      onPressed: () {},
+                    title: "Breakfast",
+                    onPressed: () {
+                      context.push("/items");
+                    },
+                  ),
+                  CategoriesButton(
+                    icon: Icon(
+                      Icons.lunch_dining_rounded,
+                      color: theme.colorScheme.onSurface,
                     ),
-                    CategoriesButton(
-                      icon: Icon(Icons.dinner_dining_rounded,
-                          color: theme.colorScheme.onSurface),
-                      title: "Dinner",
-                      onPressed: () {},
+                    title: "Lunch",
+                    onPressed: () {
+                      context.push("/items");
+                    },
+                  ),
+                  CategoriesButton(
+                    icon: Icon(
+                      Icons.dinner_dining_rounded,
+                      color: theme.colorScheme.onSurface,
                     ),
-                    CategoriesButton(
-                      icon: Icon(Icons.wine_bar_rounded,
-                          color: theme.colorScheme.onSurface),
-                      title: "Drinks",
-                      onPressed: () {},
+                    title: "Dinner",
+                    onPressed: () {
+                      context.push("/items");
+                    },
+                  ),
+                  CategoriesButton(
+                    icon: Icon(
+                      Icons.wine_bar_rounded,
+                      color: theme.colorScheme.onSurface,
                     ),
-                  ],
-                ),
+                    title: "Drinks",
+                    onPressed: () {
+                      context.push("/items");
+                    },
+                  ),
+                ],
               ),
-            ]),
+            ),
+          ],
+        ),
       ),
     );
   }
