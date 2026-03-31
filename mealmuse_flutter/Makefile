@@ -175,3 +175,7 @@ ios-organizer: ## Open Xcode Organizer on the archive
 ios-build-ipa: ## Build IPA via Flutter (simple path)
 	flutter build ipa --release
 
+serverpod: ## Run serverpod commands
+	@echo "╠ Running serverpod command"
+	@dart run bin/main.dart --apply-migrations	
+
