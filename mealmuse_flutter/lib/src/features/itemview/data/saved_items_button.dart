@@ -32,11 +32,9 @@ class ViewItemsButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onPressed,
-        child: Expanded(
-          child: Text(
-            label,
-            style: AppTextStyles.bodyText.copyWith(color: Colors.black),
-          ),
+        child: Text(
+          label,
+          style: AppTextStyles.bodyText.copyWith(color: Colors.black),
         ),
       ),
     );
