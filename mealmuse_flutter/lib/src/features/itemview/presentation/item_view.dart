@@ -7,7 +7,7 @@ import "../../../core/themes/text_styles.dart";
 class ItemView extends StatelessWidget {
   ItemView({super.key});
 
-  List<String> instructions = [
+  final List<String> instructions = [
     "Boil the pasta in salted water until al dente.",
     "In a separate pan, cook the pancetta until crispy.",
     "In a bowl, whisk together eggs and grated Parmesan cheese.",
