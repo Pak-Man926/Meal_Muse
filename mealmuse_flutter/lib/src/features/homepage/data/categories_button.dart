@@ -18,7 +18,7 @@ class CategoriesButton extends StatelessWidget {
       height: 50,
       width: 100,
       child: OutlinedButton(
-        onPressed: null,
+        onPressed: onPressed,
         child: Row(
           children: [
             icon,
