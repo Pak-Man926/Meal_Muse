@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 
-class ItemsWidget extends StatelessWidget
-{
+class ItemsWidget extends StatelessWidget {
   final Image? image;
   final String heading;
   final String subHeading;
@@ -15,8 +14,7 @@ class ItemsWidget extends StatelessWidget
   });
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
@@ -24,21 +22,28 @@ class ItemsWidget extends StatelessWidget
           width: 60,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: image!.image, // ?? AssetImage("assets/Chicken-stir-fry-V1.jpg"),
+              image: image!
+                  .image, // ?? AssetImage("assets/Chicken-stir-fry-V1.jpg"),
               fit: BoxFit.cover,
-              ),
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        const SizedBox(width: 15,),
+        const SizedBox(width: 15),
         Column(
           children: [
-            Text(heading, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Text(
+              heading,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
             smallSpaceSize,
-            Text(subHeading, style: TextStyle(fontSize: 14, color: Colors.grey),)
+            Text(
+              subHeading,
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
           ],
         ),
-      ]
+      ],
     );
   }
 }

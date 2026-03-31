@@ -5,12 +5,16 @@ class ContainerWidget extends StatelessWidget {
   final String label;
   final Color? backgroundColor;
 
-  const ContainerWidget({super.key, required this.label, this.backgroundColor = AppColors.textSecondary});
+  const ContainerWidget({
+    super.key,
+    required this.label,
+    this.backgroundColor = AppColors.textSecondary,
+  });
 
   const ContainerWidget.extended({
     super.key,
     required this.label,
-    this.backgroundColor = AppColors.primary
+    this.backgroundColor = AppColors.primary,
   });
 
   @override
@@ -20,7 +24,7 @@ class ContainerWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       //alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: backgroundColor ,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(label),
