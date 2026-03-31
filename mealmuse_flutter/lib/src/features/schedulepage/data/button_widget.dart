@@ -1,8 +1,6 @@
-
 import "package:flutter/material.dart";
 
 import "../../../core/themes/colors.dart";
-
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -29,20 +27,16 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: double.infinity,
-        height: 50,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: Text(
-            text,
-            style: textStyle,
-          ),
-        ));
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        child: Text(text, style: textStyle),
+      ),
+    );
   }
 }

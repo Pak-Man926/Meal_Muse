@@ -6,10 +6,7 @@ import "carousel_items.dart";
 class CarouselSliderWidget extends StatelessWidget {
   final List<CarouselItems> items;
 
-  CarouselSliderWidget({
-    super.key,
-    required this.items,
-  });
+  CarouselSliderWidget({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -24,27 +21,26 @@ class CarouselSliderWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
       ),
       items: items.map((item) {
-        return Builder(builder: (BuildContext context) {
-          return Column(children: <Widget>[
-            Container(
-              width: 350,
-              height: 350,
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.network(
-                  item.imageUrls,
-                  fit: BoxFit.cover,
+        return Builder(
+          builder: (BuildContext context) {
+            return Column(
+              children: <Widget>[
+                Container(
+                  width: 350,
+                  height: 350,
+                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.network(item.imageUrls, fit: BoxFit.cover),
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -56,9 +52,13 @@ class CarouselSliderWidget extends StatelessWidget {
                         item.description,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                    ])),
-          ]);
-        });
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        );
       }).toList(),
     );
   }

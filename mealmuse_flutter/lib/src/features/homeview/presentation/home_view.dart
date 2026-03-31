@@ -15,7 +15,7 @@ class HomeView extends ConsumerWidget {
     HomePageView(),
     SearchPageView(),
     SchedulePageView(),
-    SavedPageView()
+    SavedPageView(),
   ];
 
   @override
@@ -23,16 +23,13 @@ class HomeView extends ConsumerWidget {
     final currentIndex = ref.watch(bottomNavProvider);
 
     return Scaffold(
-        body: SafeArea(
-          top: false,
-          bottom: true,
-          child: pages[currentIndex],
-        ),
-        bottomNavigationBar: AppBottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) {
-            ref.read(bottomNavProvider.notifier).setIndex(index);
-          },
-        ));
+      body: SafeArea(top: false, bottom: true, child: pages[currentIndex]),
+      bottomNavigationBar: AppBottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          ref.read(bottomNavProvider.notifier).setIndex(index);
+        },
+      ),
+    );
   }
 }

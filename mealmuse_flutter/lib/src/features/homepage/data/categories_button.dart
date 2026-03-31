@@ -15,17 +15,18 @@ class CategoriesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 50,
-        width: 100,
-        child: OutlinedButton(
-          onPressed: null,
-          child: Row(
-            children: [
-              icon,
-              SizedBox(width: 5),
-              Text(title, style: Theme.of(context).textTheme.labelLarge),
-            ],
-          ),
-        ));
+      height: 50,
+      width: 100,
+      child: OutlinedButton(
+        onPressed: null,
+        child: Row(
+          children: [
+            icon,
+            SizedBox(width: 5),
+            Text(title, style: Theme.of(context).textTheme.labelLarge),
+          ],
+        ),
+      ),
+    );
   }
 }

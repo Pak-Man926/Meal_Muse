@@ -6,17 +6,8 @@ import "package:meal_muse/src/features/settingspage/presentation/settings_page.d
 final router = GoRouter(
   initialLocation: "/",
   routes: [
-    GoRoute(
-      path: "/",
-      builder: (context, state) => HomeView(),
-    ),
-    GoRoute(
-      path: "/settings",
-      builder: (context, state) => SettingsPageView(),
-    ),
-    GoRoute(
-      path: "/items",
-      builder: (context, state) => ItemView(),
-    ),
-  ]
+    GoRoute(path: "/", builder: (context, state) => HomeView()),
+    GoRoute(path: "/settings", builder: (context, state) => SettingsPageView()),
+    GoRoute(path: "/items", builder: (context, state) => ItemView()),
+  ],
 );

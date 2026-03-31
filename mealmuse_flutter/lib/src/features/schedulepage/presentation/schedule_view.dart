@@ -47,8 +47,8 @@ class SchedulePageView extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            pinned: true, 
-            expandedHeight: 160.0, 
+            pinned: true,
+            expandedHeight: 160.0,
             elevation: 0,
             title: Text("Schedule", style: AppTextStyles.headingsText),
             centerTitle: true,
@@ -63,8 +63,7 @@ class SchedulePageView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height:
-                          100, 
+                      height: 100,
                       child: ListView.builder(
                         //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains.
                         scrollDirection: Axis.horizontal,

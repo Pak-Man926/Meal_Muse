@@ -54,7 +54,6 @@ class HomePageView extends StatelessWidget {
             onPressed: () {
               //context.push("/settings"):
               context.push("/items");
-
             },
             iconSize: 30,
           ),

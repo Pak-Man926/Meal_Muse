@@ -29,11 +29,17 @@ class AppBottomNavigationBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(
-            icon: Icon(Icons.search_rounded), label: "Search"),
+          icon: Icon(Icons.search_rounded),
+          label: "Search",
+        ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_outlined), label: "Schedule"),
+          icon: Icon(Icons.calendar_today_outlined),
+          label: "Schedule",
+        ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline_rounded), label: "Saved"),
+          icon: Icon(Icons.bookmark_outline_rounded),
+          label: "Saved",
+        ),
       ],
     );
   }

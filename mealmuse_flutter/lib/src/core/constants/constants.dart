@@ -7,4 +7,4 @@ const tinySpaceSize = SizedBox(height: 5);
 const smallSpaceSize = SizedBox(height: 10);
 const minSpaceSize = SizedBox(height: 15);
 const mediumSpaceSize = SizedBox(height: 20);
-const largeSpaceSize = SizedBox(height:40);
+const largeSpaceSize = SizedBox(height: 40);
