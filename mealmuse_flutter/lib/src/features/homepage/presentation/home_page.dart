@@ -48,12 +48,11 @@ class HomePageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Recipe Generator", style: AppTextStyles.headingsText),
+        title: Text("Meal Muse", style: AppTextStyles.headingsText),
         actions: [
           TuneIconButtonWidget(
             onPressed: () {
-              //context.push("/settings"):
-              context.push("/items");
+              context.push("/settings");
             },
             iconSize: 30,
           ),
