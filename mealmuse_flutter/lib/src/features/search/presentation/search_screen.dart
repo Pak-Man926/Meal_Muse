@@ -12,7 +12,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search", style: AppTextStyles.headingsText),
+        title: Text("Search", style: AppTextStyles.pageTitle),
         centerTitle: true,
       ),
       body: Padding(
@@ -50,7 +50,7 @@ class SearchScreen extends StatelessWidget {
               ],
             ),
             mediumSpaceSize,
-            Text("Results", style: AppTextStyles.subHeadingsText),
+            Text("Results", style: AppTextStyles.sectionHeader),
             mediumSpaceSize,
             RecipeCardWidget(
               image: Image.asset("assets/Chicken-stir-fry-V1.jpg"),

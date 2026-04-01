@@ -72,7 +72,7 @@ class SavedItemWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         meal,
-                        style: AppTextStyles.subHeadingsText,
+                        style: AppTextStyles.sectionHeader,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

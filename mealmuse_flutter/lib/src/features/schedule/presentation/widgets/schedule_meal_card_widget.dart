@@ -43,7 +43,7 @@ class ScheduleCardWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         meal,
-                        style: AppTextStyles.subHeadingsText,
+                        style: AppTextStyles.sectionHeader,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

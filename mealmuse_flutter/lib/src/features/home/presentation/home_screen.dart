@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Meal Muse", style: AppTextStyles.headingsText),
+        title: Text("Meal Muse", style: AppTextStyles.pageTitle),
         actions: [
           TuneIconButtonWidget(
             onPressed: () {
@@ -64,11 +64,11 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Trending Recipes", style: AppTextStyles.subHeadingsText),
+            Text("Trending Recipes", style: AppTextStyles.sectionHeader),
             mediumSpaceSize,
             CarouselSliderWidget(items: mealItems),
             minSpaceSize,
-            Text("Popular Categories", style: AppTextStyles.subHeadingsText),
+            Text("Popular Categories", style: AppTextStyles.sectionHeader),
             smallSpaceSize,
             Expanded(
               child: GridView.count(

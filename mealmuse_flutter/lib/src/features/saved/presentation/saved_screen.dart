@@ -44,7 +44,7 @@ class SavedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Saved", style: AppTextStyles.headingsText),
+        title: Text("Saved", style: AppTextStyles.pageTitle),
         centerTitle: true,
       ),
       body: Padding(

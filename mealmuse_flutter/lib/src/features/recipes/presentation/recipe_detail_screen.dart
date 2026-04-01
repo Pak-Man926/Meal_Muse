@@ -19,10 +19,7 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Creamy Tomato Pasta",
-          style: AppTextStyles.subHeadingsText,
-        ),
+        title: Text("Creamy Tomato Pasta", style: AppTextStyles.pageTitle),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -50,7 +47,7 @@ class RecipeDetailScreen extends StatelessWidget {
                 style: AppTextStyles.bodyText,
               ),
               mediumSpaceSize,
-              Text("Ingredients", style: AppTextStyles.subHeadingsText),
+              Text("Ingredients", style: AppTextStyles.sectionHeader),
               smallSpaceSize,
               ListView.builder(
                 itemCount: 5,
@@ -67,7 +64,7 @@ class RecipeDetailScreen extends StatelessWidget {
                 },
               ),
               smallSpaceSize,
-              Text("Instructions", style: AppTextStyles.subHeadingsText),
+              Text("Instructions", style: AppTextStyles.sectionHeader),
               smallSpaceSize,
               ListView.separated(
                 shrinkWrap: true,

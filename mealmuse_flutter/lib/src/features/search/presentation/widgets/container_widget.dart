@@ -8,7 +8,7 @@ class ContainerWidget extends StatelessWidget {
   const ContainerWidget({
     super.key,
     required this.label,
-    this.backgroundColor = AppColors.textSecondary,
+    this.backgroundColor = AppColors.bone,
   });
 
   const ContainerWidget.extended({

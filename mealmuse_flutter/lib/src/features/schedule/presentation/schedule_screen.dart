@@ -50,7 +50,7 @@ class ScheduleScreen extends StatelessWidget {
             pinned: true,
             expandedHeight: 160.0,
             elevation: 0,
-            title: Text("Schedule", style: AppTextStyles.headingsText),
+            title: Text("Schedule", style: AppTextStyles.pageTitle),
             centerTitle: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
@@ -93,7 +93,7 @@ class ScheduleScreen extends StatelessWidget {
                 children: [
                   Text(
                     "$currentDay, $currentMonth ${today.day}",
-                    style: AppTextStyles.subHeadingsText,
+                    style: AppTextStyles.sectionHeader,
                   ),
                   ContainerWidget.extended(label: "3 Meals Planned"),
                 ],

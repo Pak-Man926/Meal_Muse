@@ -11,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings", style: AppTextStyles.headingsText),
+        title: Text("Settings", style: AppTextStyles.pageTitle),
         centerTitle: true,
       ),
       body: Padding(
@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            Text("Preferences", style: AppTextStyles.subHeadingsText),
+            Text("Preferences", style: AppTextStyles.sectionHeader),
             mediumSpaceSize,
             ListTile(
               title: Text("Units of Measurements"),
@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             mediumSpaceSize,
-            Text("Support", style: AppTextStyles.subHeadingsText),
+            Text("Support", style: AppTextStyles.sectionHeader),
             smallSpaceSize,
             ListTile(
               title: Text("Help & Support"),
