@@ -1,18 +1,12 @@
 import "package:flutter/material.dart";
 
 class AppColors {
-  static const Color primary = Color(
-    0xFFffb347,
-  ); // For main buttons, key icons and active states
-  static const Color secondary = Color(
-    0xFF1e90ff,
-  ); //For accennts and interactive elements
-  static const Color backgroundLight = Color(
-    0xFFffffff,
-  ); // For lightmode app background
-  static const Color backgroundDark = Color(
-    0xFF000000,
-  ); // For darkmode app background
-  static const Color textPrimary = Color(0xFF333333); //For lightmode text
-  static const Color textSecondary = Color(0xFFcccccc); //For darkmode text
+  static const Color primary = Color(0xFFEA2A33); // Saffron Red
+  static const Color charcoal = Color(
+    0xFF181111,
+  ); // Main Text & Dark Backgrounds
+  static const Color bone = Color(0xFFF8F6F6); // surface_container_low
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color mutedText = Color(0xFF886364); // on_surface_variant
+  static const Color glassBorder = Color(0xFFF4F0F0); // For Bottom Nav border
 }

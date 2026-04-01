@@ -1,22 +1,34 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
+import "colors.dart";
 
 class AppTextStyles {
-  //Body includes normal text for paragraphs and general content
-  static final TextStyle bodyText = GoogleFonts.openSans(
+  // 22px Section Headers (Bold)
+  static final TextStyle sectionHeader = GoogleFonts.plusJakartaSans(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    letterSpacing: -0.33, // -0.015em
+    color: AppColors.charcoal,
+  );
+
+  // 18px Primary Page Titles
+  static final TextStyle pageTitle = GoogleFonts.plusJakartaSans(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.27,
+    color: AppColors.charcoal,
+  );
+
+  // 16px Body Text
+  static final TextStyle bodyText = GoogleFonts.plusJakartaSans(
     fontSize: 16,
     fontWeight: FontWeight.normal,
+    color: AppColors.charcoal,
   );
 
-  //Heading includes titles and section headers
-  static final TextStyle headingsText = GoogleFonts.poppins(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  );
-
-  //Subheadings includes subtitles and smaller section headers
-  static final TextStyle subHeadingsText = GoogleFonts.poppins(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
+  // 14px Metadata/Labels
+  static final TextStyle labelMuted = GoogleFonts.plusJakartaSans(
+    fontSize: 14,
+    color: AppColors.mutedText,
   );
 }
