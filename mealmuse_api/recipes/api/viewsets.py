@@ -35,7 +35,6 @@ from recipes.api.serializers import (
 )
 from recipes.models import Category, Recipe
 
-
 CACHE_MINUTE = 60
 CACHE_HOUR = CACHE_MINUTE * 60
 CACHE_DAY = CACHE_HOUR * 24
@@ -48,8 +47,9 @@ TRENDING_COUNT = 20
 # Category
 # ──────────────────────────────────────────────────────────────────
 
-@method_decorator(gzip_page, name='dispatch')
-@method_decorator(cache_page(timeout=CACHE_DAY), name='dispatch')
+
+@method_decorator(gzip_page, name="dispatch")
+@method_decorator(cache_page(timeout=CACHE_DAY), name="dispatch")
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Read-only endpoint for recipe categories.
@@ -64,21 +64,23 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     Response includes `recipe_count` for each category so the Flutter
     app can hide empty categories.
     """
+
     queryset = Category.objects.annotate(
-        recipe_count=Count('recipe', distinct=True)
-    ).order_by('type', 'name')
+        recipe_count=Count("recipe", distinct=True)
+    ).order_by("type", "name")
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
-    pagination_class = None          # return all categories in a single list
-    filterset_fields = ['name', 'type']
-    search_fields = ['name']
+    pagination_class = None  # return all categories in a single list
+    filterset_fields = ["name", "type"]
+    search_fields = ["name"]
 
 
 # ──────────────────────────────────────────────────────────────────
 # Recipe
 # ──────────────────────────────────────────────────────────────────
 
-@method_decorator(gzip_page, name='dispatch')
+
+@method_decorator(gzip_page, name="dispatch")
 class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Read-only endpoint for recipes.
@@ -99,12 +101,13 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         GET /api/recipe/random/                       (random picks, for discovery)
         GET /api/recipe/random/?count=5
     """
-    queryset = Recipe.objects.prefetch_related('categories')
+
+    queryset = Recipe.objects.prefetch_related("categories")
     filterset_class = RecipeFilter
     filter_backends = (SearchVectorFilter, DjangoFilterBackend, OrderingFilter)
-    search_fields = ['search_vector']
-    ordering_fields = ['rating_value', 'rating_count', 'date_added']
-    ordering = ['-date_added']
+    search_fields = ["search_vector"]
+    ordering_fields = ["rating_value", "rating_count", "date_added"]
+    ordering = ["-date_added"]
     permission_classes = [AllowAny]
     pagination_class = FlexiblePageNumberPagination
 
@@ -113,7 +116,7 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         Use the lightweight list serializer for collections,
         and the full detail serializer for individual recipe lookups.
         """
-        if self.action == 'retrieve':
+        if self.action == "retrieve":
             return RecipeDetailSerializer
         return RecipeListSerializer
 
@@ -126,7 +129,12 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         return super().retrieve(request, *args, **kwargs)
 
     # ── GET /api/recipe/trending/ ──────────────────────────────────
-    @action(detail=False, methods=['get'], url_path='trending', permission_classes=[AllowAny])
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="trending",
+        permission_classes=[AllowAny],
+    )
     @method_decorator(cache_page(timeout=CACHE_HOUR))
     def trending(self, request):
         """
@@ -136,22 +144,24 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         Query params:
             ?count=N    number of recipes to return (default 20, max 100)
         """
-        count = min(int(request.query_params.get('count', TRENDING_COUNT)), 100)
+        count = min(int(request.query_params.get("count", TRENDING_COUNT)), 100)
         qs = (
-            Recipe.objects
-            .prefetch_related('categories')
+            Recipe.objects.prefetch_related("categories")
             .filter(rating_value__isnull=False)
-            .order_by('-rating_value', '-rating_count')
-            [:count]
+            .order_by("-rating_value", "-rating_count")[:count]
         )
-        serializer = RecipeListSerializer(qs, many=True, context={'request': request})
-        return Response({
-            'count': len(serializer.data),
-            'results': serializer.data,
-        })
+        serializer = RecipeListSerializer(qs, many=True, context={"request": request})
+        return Response(
+            {
+                "count": len(serializer.data),
+                "results": serializer.data,
+            }
+        )
 
     # ── GET /api/recipe/random/ ────────────────────────────────────
-    @action(detail=False, methods=['get'], url_path='random', permission_classes=[AllowAny])
+    @action(
+        detail=False, methods=["get"], url_path="random", permission_classes=[AllowAny]
+    )
     def random(self, request):
         """
         Returns a random selection of recipes.
@@ -160,15 +170,13 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         Query params:
             ?count=N    number of recipes to return (default 5, max 20)
         """
-        count = min(int(request.query_params.get('count', 5)), 20)
+        count = min(int(request.query_params.get("count", 5)), 20)
         # Use database-level random ordering (efficient for Postgres)
-        qs = (
-            Recipe.objects
-            .prefetch_related('categories')
-            .order_by('?')[:count]
+        qs = Recipe.objects.prefetch_related("categories").order_by("?")[:count]
+        serializer = RecipeListSerializer(qs, many=True, context={"request": request})
+        return Response(
+            {
+                "count": len(serializer.data),
+                "results": serializer.data,
+            }
         )
-        serializer = RecipeListSerializer(qs, many=True, context={'request': request})
-        return Response({
-            'count': len(serializer.data),
-            'results': serializer.data,
-        })

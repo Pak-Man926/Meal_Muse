@@ -16,7 +16,8 @@ class FlexiblePageNumberPagination(PageNumberPagination):
         GET /api/recipe/?page=1&page_size=10      → first 10 recipes
         GET /api/recipe/?page=2&page_size=10      → next 10 recipes
     """
+
     page_size = 20
-    page_size_query_param = 'page_size'
+    page_size_query_param = "page_size"
     max_page_size = 100
-    page_query_param = 'page'
+    page_query_param = "page"

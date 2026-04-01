@@ -27,7 +27,7 @@ from django.contrib.postgres.search import SearchVector
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
 
-from recipe_api.settings import POSTGRES_LANGUAGE_UNACCENT
+from config.settings import POSTGRES_LANGUAGE_UNACCENT
 from recipes.models import Category, Recipe
 
 logger = logging.getLogger(__name__)
@@ -52,16 +52,16 @@ RECIPE_SIGNAL_WORDS = [
 ]
 
 # Section heading patterns used to split post text into fields
-INGREDIENT_HEADINGS = re.compile(
-    r"(?i)^(ingredients?|what you(\'ll)? need)\s*:?\s*$"
-)
+INGREDIENT_HEADINGS = re.compile(r"(?i)^(ingredients?|what you(\'ll)? need)\s*:?\s*$")
 INSTRUCTION_HEADINGS = re.compile(
     r"(?i)^(instructions?|method|directions?|preparation|how to (make|cook|prepare)|steps?)\s*:?\s*$"
 )
 
 
 class Command(BaseCommand):
-    help = "Scrape African/Kenyan recipes from the Afriyara Facebook page using Selenium."
+    help = (
+        "Scrape African/Kenyan recipes from the Afriyara Facebook page using Selenium."
+    )
 
     force = False
 
@@ -155,7 +155,9 @@ class Command(BaseCommand):
                 saved += 1
 
         if saved > 0:
-            self.stdout.write(self.style.MIGRATE_HEADING("\n▶ Building search vectors…"))
+            self.stdout.write(
+                self.style.MIGRATE_HEADING("\n▶ Building search vectors…")
+            )
             self._update_search_vectors()
 
         cache.clear()
@@ -260,9 +262,7 @@ class Command(BaseCommand):
         for article in articles:
             # ── Extract post text ──────────────
             text_parts = []
-            for elem in article.find_all(
-                ["p", "span"], recursive=True
-            ):
+            for elem in article.find_all(["p", "span"], recursive=True):
                 t = elem.get_text(separator="\n", strip=True)
                 if t:
                     text_parts.append(t)
@@ -314,9 +314,15 @@ class Command(BaseCommand):
 
         # ── Name: try first non-empty, non-heading line ──
         name = lines[0]
-        if len(name) > 150 or INGREDIENT_HEADINGS.match(name) or INSTRUCTION_HEADINGS.match(name):
+        if (
+            len(name) > 150
+            or INGREDIENT_HEADINGS.match(name)
+            or INSTRUCTION_HEADINGS.match(name)
+        ):
             # First line is too long or is itself a heading — try to infer a name
-            match = re.search(r"\b(recipe for|how to make|how to cook)\s+(.+?)[\.\n]", text, re.I)
+            match = re.search(
+                r"\b(recipe for|how to make|how to cook)\s+(.+?)[\.\n]", text, re.I
+            )
             name = match.group(2).strip() if match else "Afriyara Recipe"
 
         # ── Split into sections ──
@@ -352,19 +358,27 @@ class Command(BaseCommand):
         # ── Fallback: if no ingredients found, treat all lines as ingredients ──
         if not ingredients and len(lines) > 1:
             for line in lines[1:]:
-                if not INGREDIENT_HEADINGS.match(line) and not INSTRUCTION_HEADINGS.match(line):
+                if not INGREDIENT_HEADINGS.match(
+                    line
+                ) and not INSTRUCTION_HEADINGS.match(line):
                     ingredients.append(re.sub(r"^[\-•*\d]+[\.\)]\s*", "", line))
 
         if not ingredients:
             return None
 
-        description = " ".join(description_lines) or f"A delicious {name} from Afriyara."
+        description = (
+            " ".join(description_lines) or f"A delicious {name} from Afriyara."
+        )
 
         return {
             "name": name[:499],  # guard against CharField max_length
             "description": description[:2000],
             "ingredients": ingredients,
-            "instructions": instructions if instructions else ["See full recipe on Afriyara Facebook page."],
+            "instructions": (
+                instructions
+                if instructions
+                else ["See full recipe on Afriyara Facebook page."]
+            ),
         }
 
     # ──────────────────────────────────────────
@@ -403,9 +417,7 @@ class Command(BaseCommand):
             try:
                 self._download_image(recipe, post["image_url"])
             except Exception as e:
-                self.stdout.write(
-                    self.style.WARNING(f"  Image download failed: {e}")
-                )
+                self.stdout.write(self.style.WARNING(f"  Image download failed: {e}"))
 
         return True
 
@@ -467,9 +479,7 @@ class Command(BaseCommand):
                 weight="B",
                 config=POSTGRES_LANGUAGE_UNACCENT,
             )
-            + SearchVector(
-                "ingredients", weight="C", config=POSTGRES_LANGUAGE_UNACCENT
-            )
+            + SearchVector("ingredients", weight="C", config=POSTGRES_LANGUAGE_UNACCENT)
         )
         for recipe in Recipe.objects.annotate(vector=vector):
             recipe.search_vector = recipe.vector

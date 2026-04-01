@@ -22,7 +22,7 @@ from django.contrib.postgres.search import SearchVector
 from django.core.cache import cache
 from django.core.management.base import BaseCommand, CommandError
 
-from recipe_api.settings import POSTGRES_LANGUAGE_UNACCENT
+from config.settings import POSTGRES_LANGUAGE_UNACCENT
 from recipes.models import Category, Recipe
 
 logger = logging.getLogger(__name__)
@@ -33,26 +33,26 @@ logger = logging.getLogger(__name__)
 KENYAN_KEYWORDS = {
     # meal_types
     "kenyan breakfast": ("kenyan breakfast", Category.TYPE_MEAL_TYPES),
-    "kenyan lunch":     ("kenyan lunch",     Category.TYPE_MEAL_TYPES),
-    "kenyan dinner":    ("kenyan dinner",    Category.TYPE_MEAL_TYPES),
+    "kenyan lunch": ("kenyan lunch", Category.TYPE_MEAL_TYPES),
+    "kenyan dinner": ("kenyan dinner", Category.TYPE_MEAL_TYPES),
     # dish_types — iconic Kenyan dishes
-    "pilau":            ("pilau",            Category.TYPE_DISH_TYPES),
-    "ugali":            ("ugali",            Category.TYPE_DISH_TYPES),
-    "chapati":          ("chapati",          Category.TYPE_DISH_TYPES),
-    "nyama choma":      ("nyama choma",      Category.TYPE_DISH_TYPES),
-    "githeri":          ("githeri",          Category.TYPE_DISH_TYPES),
-    "mukimo":           ("mukimo",           Category.TYPE_DISH_TYPES),
-    "sukuma wiki":      ("sukuma wiki",      Category.TYPE_DISH_TYPES),
-    "mandazi":          ("mandazi",          Category.TYPE_DISH_TYPES),
-    "matumbo":          ("matumbo",          Category.TYPE_DISH_TYPES),
-    "omena":            ("omena",            Category.TYPE_DISH_TYPES),
-    "kachumbari":       ("kachumbari",       Category.TYPE_DISH_TYPES),
-    "maharagwe":        ("maharagwe",        Category.TYPE_DISH_TYPES),
-    "irio":             ("irio",             Category.TYPE_DISH_TYPES),
+    "pilau": ("pilau", Category.TYPE_DISH_TYPES),
+    "ugali": ("ugali", Category.TYPE_DISH_TYPES),
+    "chapati": ("chapati", Category.TYPE_DISH_TYPES),
+    "nyama choma": ("nyama choma", Category.TYPE_DISH_TYPES),
+    "githeri": ("githeri", Category.TYPE_DISH_TYPES),
+    "mukimo": ("mukimo", Category.TYPE_DISH_TYPES),
+    "sukuma wiki": ("sukuma wiki", Category.TYPE_DISH_TYPES),
+    "mandazi": ("mandazi", Category.TYPE_DISH_TYPES),
+    "matumbo": ("matumbo", Category.TYPE_DISH_TYPES),
+    "omena": ("omena", Category.TYPE_DISH_TYPES),
+    "kachumbari": ("kachumbari", Category.TYPE_DISH_TYPES),
+    "maharagwe": ("maharagwe", Category.TYPE_DISH_TYPES),
+    "irio": ("irio", Category.TYPE_DISH_TYPES),
     # cuisines
-    "kenyan":           ("kenyan",           Category.TYPE_CUISINES),
-    "swahili":          ("swahili",          Category.TYPE_CUISINES),
-    "african":          ("african",          Category.TYPE_CUISINES),
+    "kenyan": ("kenyan", Category.TYPE_CUISINES),
+    "swahili": ("swahili", Category.TYPE_CUISINES),
+    "african": ("african", Category.TYPE_CUISINES),
 }
 
 BASE_URL = "https://cookpad.com"
@@ -156,7 +156,9 @@ class Command(BaseCommand):
             for keyword, (cat_name, cat_type) in keywords.items():
                 self.stdout.write(self.style.MIGRATE_HEADING(f"\n▶ Keyword: {keyword}"))
                 category = self._get_or_create_category(cat_name, cat_type)
-                recipe_ids = self._collect_recipe_ids(driver, keyword, options["max_pages"])
+                recipe_ids = self._collect_recipe_ids(
+                    driver, keyword, options["max_pages"]
+                )
                 self.stdout.write(f"  Found {len(recipe_ids)} recipe URLs")
 
                 for recipe_id in recipe_ids:
@@ -168,7 +170,9 @@ class Command(BaseCommand):
 
         # Rebuild search vectors for all newly imported recipes
         if total_scraped > 0:
-            self.stdout.write(self.style.MIGRATE_HEADING("\n▶ Building search vectors…"))
+            self.stdout.write(
+                self.style.MIGRATE_HEADING("\n▶ Building search vectors…")
+            )
             self._update_search_vectors()
 
         # Clear API cache so fresh data is served
@@ -262,7 +266,10 @@ class Command(BaseCommand):
             slug=slug,
             defaults=dict(
                 name=name[:500],
-                description=(description or f"A delicious {name[:300]} recipe from Cookpad Kenya."),
+                description=(
+                    description
+                    or f"A delicious {name[:300]} recipe from Cookpad Kenya."
+                ),
                 total_time_string=(cook_time or "")[:100],
                 servings=(servings or "Serves 4")[:100],
                 ingredients=ingredients,
@@ -313,14 +320,22 @@ class Command(BaseCommand):
         if section:
             items = section.find_all("li")
             if items:
-                return [li.get_text(" ", strip=True) for li in items if li.get_text(strip=True)]
+                return [
+                    li.get_text(" ", strip=True)
+                    for li in items
+                    if li.get_text(strip=True)
+                ]
 
         # Strategy 2 — any ul with 'ingredient' in class
         ul = soup.find("ul", class_=re.compile(r"ingredient", re.I))
         if ul:
             items = ul.find_all("li")
             if items:
-                return [li.get_text(" ", strip=True) for li in items if li.get_text(strip=True)]
+                return [
+                    li.get_text(" ", strip=True)
+                    for li in items
+                    if li.get_text(strip=True)
+                ]
 
         # Strategy 3 — div with data-ingredient attribute
         divs = soup.find_all(attrs={"data-ingredient-id": True})
@@ -333,7 +348,11 @@ class Command(BaseCommand):
             if "ingredient" in attrs:
                 items = tag.find_all("li")
                 if items:
-                    return [li.get_text(" ", strip=True) for li in items if li.get_text(strip=True)]
+                    return [
+                        li.get_text(" ", strip=True)
+                        for li in items
+                        if li.get_text(strip=True)
+                    ]
 
         return []
 
@@ -358,12 +377,18 @@ class Command(BaseCommand):
         if ol:
             items = ol.find_all("li")
             if items:
-                return [li.get_text(" ", strip=True) for li in items if li.get_text(strip=True)]
+                return [
+                    li.get_text(" ", strip=True)
+                    for li in items
+                    if li.get_text(strip=True)
+                ]
 
         # Strategy 3 — any div with data-step attribute
         steps = soup.find_all(attrs={"data-step": True})
         if steps:
-            return [s.get_text(" ", strip=True) for s in steps if s.get_text(strip=True)]
+            return [
+                s.get_text(" ", strip=True) for s in steps if s.get_text(strip=True)
+            ]
 
         return []
 
@@ -418,7 +443,9 @@ class Command(BaseCommand):
     # Image download  (mirrors NYT scraper logic)
     # ──────────────────────────────────────────
     def _download_image(self, recipe: Recipe, image_url: str):
-        extension_match = re.match(r".*(\.\w{3,4})(\?.*)?$", os.path.basename(image_url))
+        extension_match = re.match(
+            r".*(\.\w{3,4})(\?.*)?$", os.path.basename(image_url)
+        )
         extension = extension_match.group(1) if extension_match else ".jpg"
         # Strip query params from extension if present
         extension = extension.split("?")[0]
@@ -460,9 +487,7 @@ class Command(BaseCommand):
                 weight="B",
                 config=POSTGRES_LANGUAGE_UNACCENT,
             )
-            + SearchVector(
-                "ingredients", weight="C", config=POSTGRES_LANGUAGE_UNACCENT
-            )
+            + SearchVector("ingredients", weight="C", config=POSTGRES_LANGUAGE_UNACCENT)
         )
         for recipe in Recipe.objects.annotate(vector=vector):
             recipe.search_vector = recipe.vector

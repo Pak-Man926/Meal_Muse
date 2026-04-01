@@ -2,7 +2,7 @@
 from django.contrib.postgres.search import SearchVector
 from django.db import migrations
 
-from recipe_api.settings import POSTGRES_LANGUAGE_UNACCENT
+from config.settings import POSTGRES_LANGUAGE_UNACCENT
 
 
 def update_search_vector(apps, schema_editor):

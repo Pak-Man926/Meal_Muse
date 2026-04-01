@@ -6,31 +6,31 @@ from django.db.models import F
 from rest_framework.filters import SearchFilter
 from django_filters import rest_framework as filters, ModelMultipleChoiceFilter
 
-from recipe_api.settings import POSTGRES_LANGUAGE_UNACCENT
+from config.settings import POSTGRES_LANGUAGE_UNACCENT
 from recipes.models import Recipe, Category
 
 
 class RecipeFilter(filters.FilterSet):
     categories = ModelMultipleChoiceFilter(
         queryset=Category.objects.all(),
-        method='filter_categories',
+        method="filter_categories",
     )
     # ── Flutter-friendly category filters (no ID needed) ──────────
     category_name = filters.CharFilter(
-        field_name='categories__name',
-        lookup_expr='iexact',
-        label='Filter by exact category name (e.g. pilau, ugali)',
+        field_name="categories__name",
+        lookup_expr="iexact",
+        label="Filter by exact category name (e.g. pilau, ugali)",
     )
     category_type = filters.CharFilter(
-        field_name='categories__type',
-        lookup_expr='iexact',
-        label='Filter by category type (meal_types / dish_types / cuisines / special_diets)',
+        field_name="categories__type",
+        lookup_expr="iexact",
+        label="Filter by category type (meal_types / dish_types / cuisines / special_diets)",
     )
     # ── Source filter ──────────────────────────────────────────────
     author = filters.CharFilter(
-        field_name='author',
-        lookup_expr='icontains',
-        label='Filter by author/source (e.g. Afriyara, Cookpad Kenya)',
+        field_name="author",
+        lookup_expr="icontains",
+        label="Filter by author/source (e.g. Afriyara, Cookpad Kenya)",
     )
 
     def filter_categories(self, queryset, name, value):
@@ -39,27 +39,30 @@ class RecipeFilter(filters.FilterSet):
         categories = value
         if not categories:
             return queryset
-        queryset = queryset.annotate(cats=ArrayAgg('categories__id'))
+        queryset = queryset.annotate(cats=ArrayAgg("categories__id"))
         queryset = queryset.filter(cats__contains=[c.id for c in categories])
         return queryset
 
     def filter_queryset(self, queryset):
         # order by existing fields and then rating with nulls last
-        return super().filter_queryset(queryset).order_by(
-            *queryset.query.order_by,
-            F('rating_value').desc(nulls_last=True),
-            '-rating_count',
+        return (
+            super()
+            .filter_queryset(queryset)
+            .order_by(
+                *queryset.query.order_by,
+                F("rating_value").desc(nulls_last=True),
+                "-rating_count",
+            )
         )
 
     class Meta:
         model = Recipe
         fields = {
-            'name': ['exact', 'icontains'],
-            'slug': ['exact'],
-            'rating_value': ['gte'],
-            'rating_count': ['gte'],
+            "name": ["exact", "icontains"],
+            "slug": ["exact"],
+            "rating_value": ["gte"],
+            "rating_count": ["gte"],
         }
-
 
 
 class SearchVectorFilter(SearchFilter):
@@ -73,20 +76,26 @@ class SearchVectorFilter(SearchFilter):
 
     Results are ordered by search rank.
     """
-    search_vector_field_name = 'search_vector'
+
+    search_vector_field_name = "search_vector"
 
     # TODO - implement trigram search
 
     def filter_queryset(self, request, queryset, view):
         queryset = super().filter_queryset(request, queryset, view)
         # build combined search queries
-        search_queries = [SearchQuery(term, config=POSTGRES_LANGUAGE_UNACCENT) for term in self.get_search_terms(request)]
+        search_queries = [
+            SearchQuery(term, config=POSTGRES_LANGUAGE_UNACCENT)
+            for term in self.get_search_terms(request)
+        ]
         if search_queries:
             search_query = reduce(lambda x, y: x & y, search_queries)
             # include and order by search rank
-            queryset = queryset.model.objects.annotate(search_rank=SearchRank(F('search_vector'), search_query))
+            queryset = queryset.model.objects.annotate(
+                search_rank=SearchRank(F("search_vector"), search_query)
+            )
             queryset = queryset.filter(search_vector=search_query)
-            queryset = queryset.order_by('-search_rank')
+            queryset = queryset.order_by("-search_rank")
         return queryset
 
     def construct_search(self, field_name):

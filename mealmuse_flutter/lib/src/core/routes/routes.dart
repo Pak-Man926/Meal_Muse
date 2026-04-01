@@ -1,13 +1,16 @@
 import "package:go_router/go_router.dart";
-import "package:meal_muse/src/features/homeview/presentation/home_view.dart";
-import "package:meal_muse/src/features/itemview/presentation/item_view.dart";
-import "package:meal_muse/src/features/settingspage/presentation/settings_page.dart";
+import "package:meal_muse/src/features/dashboard/presentation/dashboard_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/recipe_detail_screen.dart";
+import "package:meal_muse/src/features/settings/presentation/settings_screen.dart";
 
 final router = GoRouter(
   initialLocation: "/",
   routes: [
-    GoRoute(path: "/", builder: (context, state) => HomeView()),
-    GoRoute(path: "/settings", builder: (context, state) => SettingsPageView()),
-    GoRoute(path: "/items", builder: (context, state) => ItemView()),
+    GoRoute(path: "/", builder: (context, state) => DashboardScreen()),
+    GoRoute(path: "/settings", builder: (context, state) => SettingsScreen()),
+    GoRoute(
+      path: "/recipes",
+      builder: (context, state) => RecipeDetailScreen(),
+    ),
   ],
 );
