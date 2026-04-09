@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
 
 class AppBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -18,25 +19,24 @@ class AppBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
-
-    return BottomNavigationBar(
-      //type: BottomNavigationBarType.fixed,
-      currentIndex: currentIndex,
-      onTap: onTap,
-      selectedItemColor: theme.primary,
-      unselectedItemColor: theme.onSurface.withOpacity(0.6),
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(
+    return NavigationBar(
+      selectedIndex: currentIndex,
+      onDestinationSelected: onTap,
+      indicatorColor: AppColors.primary.withOpacity(
+        0.2,
+      ), // Subtle fill for selected item
+      // unselectedItemColor: AppColors.mutedText,
+      destinations: const [
+        NavigationDestination(icon: Icon(Icons.home_rounded), label: "Home"),
+        NavigationDestination(
           icon: Icon(Icons.search_rounded),
           label: "Search",
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today_outlined),
+        NavigationDestination(
+          icon: Icon(Icons.calendar_today_rounded),
           label: "Schedule",
         ),
-        BottomNavigationBarItem(
+        NavigationDestination(
           icon: Icon(Icons.bookmark_outline_rounded),
           label: "Saved",
         ),
