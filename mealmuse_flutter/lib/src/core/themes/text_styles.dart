@@ -4,7 +4,7 @@ import "colors.dart";
 
 class AppTextStyles {
   // 22px Section Headers (Bold)
-  static final TextStyle sectionHeader = GoogleFonts.plusJakartaSans(
+  static final TextStyle pageTitle = GoogleFonts.plusJakartaSans(
     fontSize: 22,
     fontWeight: FontWeight.bold,
     letterSpacing: -0.33, // -0.015em
@@ -12,7 +12,7 @@ class AppTextStyles {
   );
 
   // 18px Primary Page Titles
-  static final TextStyle pageTitle = GoogleFonts.plusJakartaSans(
+  static final TextStyle sectionHeader = GoogleFonts.plusJakartaSans(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     letterSpacing: -0.27,
