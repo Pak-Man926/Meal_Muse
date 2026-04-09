@@ -1,7 +1,11 @@
 import "package:flutter/material.dart";
+import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+
+import "../../../../core/themes/text_styles.dart";
 
 class CategoriesButton extends StatelessWidget {
-  final Icon icon;
+  final IconData icon; // Change Icon to IconData
   final String title;
   final VoidCallback? onPressed;
 
@@ -9,24 +13,32 @@ class CategoriesButton extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.onPressed,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: 100,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        child: Row(
-          children: [
-            icon,
-            SizedBox(width: 5),
-            Text(title, style: Theme.of(context).textTheme.labelLarge),
-          ],
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 20,
+          backgroundColor: AppColors.bone,
+          child: Center(
+            child: IconButton(
+              // Create the Icon widget here to apply the color
+              icon: Icon(icon, size: 20, color: AppColors.primary),
+              onPressed: onPressed,
+            ),
+          ),
         ),
-      ),
+        tinySpaceSize, // Assuming tinySpaceSize is a constant
+        Text(
+          title,
+          style: AppTextStyles.bodyText.copyWith(fontSize: 14),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     );
   }
 }
