@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
+import "../../../../core/themes/colors.dart";
 import "button_widget.dart";
 
 class ScheduleCardWidget extends StatelessWidget {
@@ -9,6 +10,7 @@ class ScheduleCardWidget extends StatelessWidget {
   final int prepTime;
   final int composition;
   final String imageAddress;
+  final Function()? onTap;
 
   const ScheduleCardWidget({
     super.key,
@@ -17,6 +19,7 @@ class ScheduleCardWidget extends StatelessWidget {
     required this.prepTime,
     required this.composition,
     required this.imageAddress,
+    this.onTap,
   });
 
   @override
@@ -60,27 +63,25 @@ class ScheduleCardWidget extends StatelessWidget {
                 smallSpaceSize,
                 Row(
                   children: [
-                    const Icon(Icons.timer, size: 20, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    Text(
-                      "$prepTime min",
-                      style: const TextStyle(color: Colors.grey),
+                    const Icon(
+                      Icons.timer,
+                      size: 20,
+                      color: AppColors.mutedText,
                     ),
+                    const SizedBox(width: 4),
+                    Text("$prepTime min", style: AppTextStyles.labelMuted),
                     const SizedBox(width: 20),
                     const Icon(
                       Icons.local_fire_department,
                       size: 20,
-                      color: Colors.grey,
+                      color: AppColors.mutedText,
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      "$composition kcal",
-                      style: const TextStyle(color: Colors.grey),
-                    ),
+                    Text("$composition kcal", style: AppTextStyles.labelMuted),
                   ],
                 ),
                 smallSpaceSize,
-                CustomButton.primary(text: "View Recipe"),
+                CustomButton.primary(text: "View Recipe", onPressed: onTap),
               ],
             ),
           ),

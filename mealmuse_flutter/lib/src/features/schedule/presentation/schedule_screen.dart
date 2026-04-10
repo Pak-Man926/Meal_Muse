@@ -48,7 +48,7 @@ class ScheduleScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
-            expandedHeight: 160.0,
+            expandedHeight: 150.0,
             elevation: 0,
             title: Text("Schedule", style: AppTextStyles.pageTitle),
             centerTitle: true,
@@ -58,6 +58,7 @@ class ScheduleScreen extends StatelessWidget {
                   top: kToolbarHeight + 20,
                   left: 10,
                   right: 10,
+                  //bottom: 20,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +69,25 @@ class ScheduleScreen extends StatelessWidget {
                         //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains.
                         scrollDirection: Axis.horizontal,
                         itemCount: 7,
+                        // Inside your ScheduleScreen ListView.builder
                         itemBuilder: (context, index) {
                           DateTime targetDate = startOfWeek.add(
                             Duration(days: index),
                           );
+
+                          // Logic to check if targetDate is the same day as DateTime.now()
+                          bool isToday =
+                              targetDate.year == today.year &&
+                              targetDate.month == today.month &&
+                              targetDate.day == today.day;
+
                           String dayName = weekdayNames[targetDate.weekday - 1];
+
                           return DatePickerWidget(
                             day: dayName,
                             date: targetDate.day,
+                            isActive:
+                                isToday, // Pass the comparison result here
                           );
                         },
                       ),
@@ -87,7 +99,7 @@ class ScheduleScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left:10.0, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -111,6 +123,7 @@ class ScheduleScreen extends StatelessWidget {
                   prepTime: 15,
                   composition: 320,
                   imageAddress: "assets/avocado-6b1cf76.jpg",
+                  onTap: () {},
                 ),
                 mediumSpaceSize,
                 ScheduleCardWidget(
@@ -120,6 +133,7 @@ class ScheduleScreen extends StatelessWidget {
                   composition: 450,
                   imageAddress:
                       "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
+                  onTap: () {},
                 ),
                 mediumSpaceSize,
                 ScheduleCardWidget(
@@ -128,6 +142,7 @@ class ScheduleScreen extends StatelessWidget {
                   prepTime: 35,
                   composition: 580,
                   imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
+                  onTap: () {},
                 ),
                 largeSpaceSize,
               ]),

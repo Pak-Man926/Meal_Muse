@@ -20,14 +20,26 @@ class CategoriesButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 20,
-          backgroundColor: AppColors.bone,
-          child: Center(
-            child: IconButton(
-              // Create the Icon widget here to apply the color
-              icon: Icon(icon, size: 20, color: AppColors.primary),
-              onPressed: onPressed,
+        MaterialButton(
+          onPressed: onPressed,
+          //hoverColor: AppColors.primary.withOpacity(0.2),
+          shape: CircleBorder(
+            //borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: AppColors.primary.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+          child: CircleAvatar(
+            radius: 20,
+            backgroundColor: AppColors.bone,
+            child: Center(
+              child: IconButton(
+                // Create the Icon widget here to apply the color
+                icon: Icon(icon, size: 20, color: AppColors.primary),
+                //highlightColor: AppColors.primary.withOpacity(0.2),
+                onPressed: onPressed,
+              ),
             ),
           ),
         ),

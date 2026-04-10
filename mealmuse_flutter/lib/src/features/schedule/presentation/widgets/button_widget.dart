@@ -1,19 +1,18 @@
 import "package:flutter/material.dart";
 
 import "../../../../core/themes/colors.dart";
+import "../../../../core/themes/text_styles.dart";
 
 class CustomButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
   final Color? color;
-  final TextStyle? textStyle;
 
   const CustomButton({
     super.key,
     required this.text,
     this.onPressed,
-    this.color = const Color.fromARGB(255, 220, 226, 233),
-    this.textStyle,
+    this.color = AppColors.bone,
   });
 
   const CustomButton.primary({
@@ -21,7 +20,6 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.color = AppColors.primary,
-    this.textStyle,
   });
 
   @override
@@ -35,7 +33,10 @@ class CustomButton extends StatelessWidget {
           backgroundColor: color,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        child: Text(text, style: textStyle),
+        child: Text(
+          text,
+          style: AppTextStyles.bodyText.copyWith(color: Colors.white),
+        ),
       ),
     );
   }

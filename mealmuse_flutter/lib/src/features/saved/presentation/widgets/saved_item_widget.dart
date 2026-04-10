@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
 
+import "../../../../core/themes/colors.dart";
+
 class SavedItemWidget extends StatelessWidget {
   final String? mealType;
   final String meal;
@@ -63,11 +65,11 @@ class SavedItemWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 // Title Row
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: .spaceBetween,
                   children: [
                     Expanded(
                       child: Text(
@@ -82,22 +84,22 @@ class SavedItemWidget extends StatelessWidget {
                 smallSpaceSize,
                 Row(
                   children: [
-                    const Icon(Icons.timer, size: 18, color: Colors.grey),
+                    const Icon(Icons.timer, size: 18, color:AppColors.mutedText),
                     const SizedBox(width: 4),
                     Text(
                       "$prepTime min",
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      style: AppTextStyles.labelMuted.copyWith(fontSize: 10),
                     ),
                     const SizedBox(width: 16),
                     const Icon(
                       Icons.local_fire_department,
                       size: 18,
-                      color: Colors.grey,
+                      color:AppColors.mutedText,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       "$composition kcal",
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      style: AppTextStyles.labelMuted.copyWith(fontSize: 10),
                     ),
                   ],
                 ),

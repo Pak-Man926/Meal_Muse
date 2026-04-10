@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
+import "../../../core/themes/colors.dart";
 import "widgets/container_widget.dart";
 
 import "../../recipes/presentation/widgets/recipe_card_widget.dart";
@@ -12,11 +14,11 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search", style: AppTextStyles.pageTitle),
+        title: Text("Search Recipes", style: AppTextStyles.pageTitle),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: .start,
           children: [
@@ -26,8 +28,9 @@ class SearchScreen extends StatelessWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Search for recipes",
+                      focusColor: AppColors.primary.withOpacity(0.2),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                       prefixIcon: Icon(Icons.search),
                     ),
@@ -50,7 +53,10 @@ class SearchScreen extends StatelessWidget {
               ],
             ),
             mediumSpaceSize,
-            Text("Results", style: AppTextStyles.sectionHeader),
+            Text(
+              "Results",
+              style: AppTextStyles.sectionHeader.copyWith(fontSize: 22),
+            ),
             mediumSpaceSize,
             Expanded(
               child: ListView.builder(
@@ -61,30 +67,49 @@ class SearchScreen extends StatelessWidget {
                   return Column(
                     children: [
                       RecipeCardWidget(
+                        onTap: () {
+                          //context.push("/recipes/1");
+                        },
                         image: Image.asset("assets/Chicken-stir-fry-V1.jpg"),
                         heading: "Chicken Stir Fry",
                         subHeading: "30 mins | 4 servings",
                       ),
                       mediumSpaceSize,
                       RecipeCardWidget(
-                        image: Image.asset("assets/Fluffy-Pancakes-Featured.jpg"),
+                        onTap: () {
+                          //context.push("/recipes/1");
+                        },
+                        image: Image.asset(
+                          "assets/Fluffy-Pancakes-Featured.jpg",
+                        ),
                         heading: "Fluffy Pancakes",
                         subHeading: "20 mins | 4 servings",
                       ),
                       mediumSpaceSize,
                       RecipeCardWidget(
-                        image: Image.asset("assets/Pasta-Carbonara-Recipe-1.jpg"),
+                        onTap: () {
+                          //context.push("/recipes/1");
+                        },
+                        image: Image.asset(
+                          "assets/Pasta-Carbonara-Recipe-1.jpg",
+                        ),
                         heading: "Pasta Carbonara",
                         subHeading: "25 mins | 4 servings",
                       ),
                       mediumSpaceSize,
                       RecipeCardWidget(
+                        onTap: () {
+                          //context.push("/recipes/1");
+                        },
                         image: Image.asset("assets/vegetable-curry-recipe.jpg"),
                         heading: "Vegetable Curry",
                         subHeading: "30 mins | 4 servings",
                       ),
                       mediumSpaceSize,
                       RecipeCardWidget(
+                        onTap: () {
+                          //context.push("/recipes/1");
+                        },
                         image: Image.asset(
                           "assets/201005-r-xl-grilled-chicken-tacos-2000-63b2b629eace4d71a7ee63529e252c38.jpg",
                         ),
@@ -93,6 +118,9 @@ class SearchScreen extends StatelessWidget {
                       ),
                       mediumSpaceSize,
                       RecipeCardWidget(
+                        onTap: () {
+                          //context.push("/recipes/1");
+                        },
                         image: Image.asset(
                           "assets/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2007__04__honey-glazed-roast-chicken-horiz-a-1800-2057270028084ff2bdb54fcb0f2d3227.jpg",
                         ),
