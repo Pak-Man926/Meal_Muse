@@ -50,7 +50,7 @@ class ScheduleScreen extends StatelessWidget {
             pinned: true,
             expandedHeight: 150.0,
             elevation: 0,
-            title: Text("Schedule", style: AppTextStyles.pageTitle),
+            title: Text("Meal Schedule", style: AppTextStyles.pageTitle),
             centerTitle: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
@@ -99,7 +99,7 @@ class ScheduleScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(left:10.0, right: 10),
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
