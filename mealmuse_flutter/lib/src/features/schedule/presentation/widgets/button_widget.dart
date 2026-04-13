@@ -7,12 +7,14 @@ class CustomButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
   final Color? color;
+  final IconData? icon;
 
   const CustomButton({
     super.key,
     required this.text,
     this.onPressed,
     this.color = AppColors.bone,
+    this.icon,
   });
 
   const CustomButton.primary({
@@ -20,6 +22,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.color = AppColors.primary,
+    this.icon,
   });
 
   @override
@@ -31,11 +34,23 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
         ),
-        child: Text(
-          text,
-          style: AppTextStyles.bodyText.copyWith(color: Colors.white),
+        child: Row(
+          mainAxisAlignment: .center,
+          children: [
+            Icon(icon, color: Colors.white),
+            SizedBox(width: 8),
+
+            const SizedBox(width: 5), // Space between icon and text
+
+            Text(
+              text,
+              style: AppTextStyles.bodyText.copyWith(color: Colors.white),
+            ),
+          ],
         ),
       ),
     );
