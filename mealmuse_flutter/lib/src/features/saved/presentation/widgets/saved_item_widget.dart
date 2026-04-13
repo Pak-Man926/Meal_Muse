@@ -84,7 +84,11 @@ class SavedItemWidget extends StatelessWidget {
                 smallSpaceSize,
                 Row(
                   children: [
-                    const Icon(Icons.timer, size: 18, color:AppColors.mutedText),
+                    const Icon(
+                      Icons.timer,
+                      size: 18,
+                      color: AppColors.mutedText,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       "$prepTime min",
@@ -94,7 +98,7 @@ class SavedItemWidget extends StatelessWidget {
                     const Icon(
                       Icons.local_fire_department,
                       size: 18,
-                      color:AppColors.mutedText,
+                      color: AppColors.mutedText,
                     ),
                     const SizedBox(width: 4),
                     Text(
