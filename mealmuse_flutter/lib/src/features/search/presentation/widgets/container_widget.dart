@@ -24,7 +24,7 @@ class ContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 30,
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       //alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class ContainerWidget extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onTap,
-        child: Text(label, style: AppTextStyles.bodyText),
+        child: Text(label, style: AppTextStyles.bodyText.copyWith(fontSize: 12)),
       ),
     );
   }
