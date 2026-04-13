@@ -48,7 +48,14 @@ class RecipeCardWidget extends StatelessWidget {
           const SizedBox(width: 15),
           Column(
             children: [
-              Text(heading, style: AppTextStyles.bodyText.copyWith(fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
+              Text(
+                heading,
+                style: AppTextStyles.bodyText.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
               smallSpaceSize,
               Text(
                 subHeading,
