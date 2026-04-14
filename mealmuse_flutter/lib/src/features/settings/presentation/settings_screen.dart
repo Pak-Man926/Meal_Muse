@@ -19,51 +19,66 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            Text("Preferences", style: AppTextStyles.sectionHeader),
-            mediumSpaceSize,
-            ListTile(
-              title: Text("Units of Measurements"),
-              subtitle: Text("Metrics"),
-              trailing: Switch(
-                value: false,
-                onChanged: (value) {},
-                activeColor: AppColors.primary,
-              ),
+            Container(
+              height: 30,
+              width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              //color: AppColors.primary.withOpacity(0.1),
             ),
-            smallSpaceSize,
-            ListTile(
-              title: Text("Dietary Restrictions"),
-              trailing: Icon(Icons.chevron_right),
+            child: Switch(
+              value: false,
+              onChanged: (value) {},
+              activeColor: AppColors.primary.withOpacity(0.1),
+              
             ),
-            smallSpaceSize,
-            ListTile(
-              title: Text("App Theme"),
-              subtitle: Text("Light"),
-              trailing: Switch(
-                value: false,
-                onChanged: (value) {},
-                activeColor: AppColors.primary,
-              ),
+
             ),
-            smallSpaceSize,
-            ListTile(
-              title: Text("Notifications"),
-              subtitle: Text("Off"),
-              trailing: Switch(
-                value: false,
-                onChanged: (value) {},
-                activeColor: AppColors.primary,
-              ),
-            ),
-            mediumSpaceSize,
-            Text("Support", style: AppTextStyles.sectionHeader),
-            smallSpaceSize,
-            ListTile(
-              title: Text("Help & Support"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            smallSpaceSize,
-            ListTile(title: Text("About"), trailing: Icon(Icons.chevron_right)),
+            // Text("Preferences", style: AppTextStyles.sectionHeader),
+            // mediumSpaceSize,
+            // ListTile(
+            //   title: Text("Units of Measurements"),
+            //   subtitle: Text("Metrics"),
+            //   trailing: Switch(
+            //     value: false,
+            //     onChanged: (value) {},
+            //     activeColor: AppColors.primary,
+            //   ),
+            // ),
+            // smallSpaceSize,
+            // ListTile(
+            //   title: Text("Dietary Restrictions"),
+            //   trailing: Icon(Icons.chevron_right),
+            // ),
+            // smallSpaceSize,
+            // ListTile(
+            //   title: Text("App Theme"),
+            //   subtitle: Text("Light"),
+            //   trailing: Switch(
+            //     value: false,
+            //     onChanged: (value) {},
+            //     activeColor: AppColors.primary,
+            //   ),
+            // ),
+            // smallSpaceSize,
+            // ListTile(
+            //   title: Text("Notifications"),
+            //   subtitle: Text("Off"),
+            //   trailing: Switch(
+            //     value: false,
+            //     onChanged: (value) {},
+            //     activeColor: AppColors.primary,
+            //   ),
+            // ),
+            // mediumSpaceSize,
+            // Text("Support", style: AppTextStyles.sectionHeader),
+            // smallSpaceSize,
+            // ListTile(
+            //   title: Text("Help & Support"),
+            //   trailing: Icon(Icons.chevron_right),
+            // ),
+            // smallSpaceSize,
+            // ListTile(title: Text("About"), trailing: Icon(Icons.chevron_right)),
           ],
         ),
       ),
