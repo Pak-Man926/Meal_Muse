@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../../../core/themes/colors.dart";
+import "../../../../core/themes/colors.dart";
 
 class ItemCheckBoxWidget extends StatelessWidget {
   final String title;
@@ -25,9 +25,13 @@ class ItemCheckBoxWidget extends StatelessWidget {
       },
       controlAffinity: ListTileControlAffinity.trailing,
       checkboxShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(8.0),
       ),
       checkColor: AppColors.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      hoverColor: AppColors.mutedText.withOpacity(0.1),
     );
   }
 }
