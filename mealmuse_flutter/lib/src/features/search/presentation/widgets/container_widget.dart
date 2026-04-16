@@ -33,7 +33,10 @@ class ContainerWidget extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onTap,
-        child: Text(label, style: AppTextStyles.bodyText.copyWith(fontSize: 12)),
+        child: Text(
+          label,
+          style: AppTextStyles.bodyText.copyWith(fontSize: 12),
+        ),
       ),
     );
   }

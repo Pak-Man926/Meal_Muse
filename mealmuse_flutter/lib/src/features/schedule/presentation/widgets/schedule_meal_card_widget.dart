@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
 import "../../../../core/themes/colors.dart";
-import "button_widget.dart";
+import "../../../../models/widgets/button_widget.dart";
 
 class ScheduleCardWidget extends StatelessWidget {
   final String mealType;
