@@ -29,7 +29,9 @@ class ItemSwitchWidget extends StatelessWidget {
       hoverColor: AppColors.mutedText.withOpacity(0.1),
       //thumbColor: WidgetStatePropertyAll(AppColors.mutedText.withOpacity(0.5)),
       //trackColor: WidgetStatePropertyAll(AppColors.mutedText.withOpacity(0.1)),
-      trackOutlineColor: WidgetStatePropertyAll(AppColors.charcoal.withOpacity(0.2)),
+      trackOutlineColor: WidgetStatePropertyAll(
+        AppColors.charcoal.withOpacity(0.2),
+      ),
     );
   }
 }

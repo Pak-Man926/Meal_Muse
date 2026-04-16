@@ -8,15 +8,14 @@ class ItemCheckBoxWidget extends StatelessWidget {
   //final ValueChanged<bool> onChanged;
 
   const ItemCheckBoxWidget({
-  super.key,
-  required this.title,
-  this.value = false,
-  //this.onChanged,,
+    super.key,
+    required this.title,
+    this.value = false,
+    //this.onChanged,,
   });
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return CheckboxListTile(
       title: Text(title),
       value: value,
@@ -28,9 +27,7 @@ class ItemCheckBoxWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       checkColor: AppColors.primary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       hoverColor: AppColors.mutedText.withOpacity(0.1),
     );
   }
