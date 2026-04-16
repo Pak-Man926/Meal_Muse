@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+late PackageInfo packageInfo;
 
 const String appName = "Meal Muse";
 const String apiBaseUrl = "https://www.themealdb.com/api/json/v1/1/";
