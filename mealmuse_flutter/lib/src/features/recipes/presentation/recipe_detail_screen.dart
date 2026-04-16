@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/recipes/data/ingredients_model.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
-import "package:meal_muse/src/features/schedule/presentation/widgets/button_widget.dart";
+import "package:meal_muse/src/models/widgets/button_widget.dart";
 import "../../../core/themes/colors.dart";
 import "widgets/ingredient_list_widget.dart";
 import "widgets/saved_items_button.dart";
