@@ -4,11 +4,17 @@ import "package:meal_muse/src/core/themes/text_styles.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
+import 'package:intl/intl.dart';
 
 import "../../../core/themes/colors.dart";
+import "../../../models/widgets/button_widget.dart";
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  SettingsScreen({super.key});
+
+  DateTime currentDate = DateTime.now();
+
+  String get currentYear => currentDate.year.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,9 @@ class SettingsScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.bone,
                   borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: AppColors.charcoal.withOpacity(0.1)),
+                  border: Border.all(
+                    color: AppColors.charcoal.withOpacity(0.1),
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -77,7 +85,56 @@ class SettingsScreen extends StatelessWidget {
               mediumSpaceSize,
               Text("Support", style: AppTextStyles.sectionHeader),
               smallSpaceSize,
-              
+              ListTile(
+                leading: Icon(Icons.help, color: AppColors.mutedText),
+                title: Text(
+                  "FAQs & Help Center",
+                  style: AppTextStyles.bodyText,
+                ),
+                trailing: Icon(
+                  Icons.chevron_right_rounded,
+                  color: AppColors.mutedText,
+                ),
+                onTap: () {},
+              ),
+              Divider(thickness: 0.1),
+              ListTile(
+                leading: Icon(Icons.info, color: AppColors.mutedText),
+                title: Text("About App", style: AppTextStyles.bodyText),
+                trailing: Icon(
+                  Icons.chevron_right_rounded,
+                  color: AppColors.mutedText,
+                ),
+                onTap: () {},
+              ),
+              Divider(thickness: 0.1),
+              ListTile(
+                leading: Icon(Icons.policy_rounded, color: AppColors.mutedText),
+                title: Text("Privacy Policy", style: AppTextStyles.bodyText),
+                trailing: Icon(
+                  Icons.chevron_right_rounded,
+                  color: AppColors.mutedText,
+                ),
+                onTap: () {},
+              ),
+              mediumSpaceSize,
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "$appName ${packageInfo.version} (${packageInfo.buildNumber})",
+                      style: AppTextStyles.labelMuted,
+                    ),
+                    smallSpaceSize,
+                    Text(
+                      " © $currentYear Meal Muse. All rights reserved.",
+                      style: AppTextStyles.labelMuted,
+                    ),
+                  ],
+                ),
+              ),
+              largeSpaceSize,
+              CustomButton.primary(text: 'Save', onPressed: () {}),
             ],
           ),
         ),
