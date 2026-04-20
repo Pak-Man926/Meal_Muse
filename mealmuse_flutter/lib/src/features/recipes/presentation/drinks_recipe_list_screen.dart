@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class BreakfastRecipeListScreen extends StatelessWidget {
-  const BreakfastRecipeListScreen({super.key});
+class DrinksRecipeListScreen extends StatelessWidget {
+  const DrinksRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Breakfast",
+          "Drinks",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Breakfast Recipes",
+              "Artisanal Sips",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
+              "Discover a curated collection of liquid inspirations, from sophisticated midnight cocktails to vibrant morning juices. Our drink recipes are crafted to elevate your sipping experience, whether you're unwinding after a long day or kickstarting your morning with a burst of flavor.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
               maxLines: 3,

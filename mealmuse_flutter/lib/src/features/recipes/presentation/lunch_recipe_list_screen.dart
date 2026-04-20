@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class BreakfastRecipeListScreen extends StatelessWidget {
-  const BreakfastRecipeListScreen({super.key});
+class LunchRecipeListScreen extends StatelessWidget {
+  const LunchRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Breakfast",
+          "Lunch",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Breakfast Recipes",
+              "Midday essentials",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,31 +68,31 @@ class BreakfastRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
+              "Fuel your afternoon with our selection of hearty and healthy lunch options, designed to keep you energized and satisfied throughout the day.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
               maxLines: 3,
             ),
-            smallSpaceSize,
-            Container(
-              height: 30,
-              width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ContainerWidget.extended(label: "All Recipes"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
-                ],
-              ),
-            ),
-            smallSpaceSize,
+            // smallSpaceSize,
+            // Container(
+            //   height: 30,
+            //   width: double.infinity,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       ContainerWidget.extended(label: "All Recipes"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //     ],
+            //   ),
+            // ),
+            mediumSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,
