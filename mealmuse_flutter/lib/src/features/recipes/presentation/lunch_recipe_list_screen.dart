@@ -71,7 +71,7 @@ class LunchRecipeListScreen extends StatelessWidget {
               "Fuel your afternoon with our selection of hearty and healthy lunch options, designed to keep you energized and satisfied throughout the day.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 3,
+              maxLines: 5,
             ),
             // smallSpaceSize,
             // Container(

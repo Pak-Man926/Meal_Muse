@@ -71,7 +71,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
               "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 3,
+              maxLines: 5,
             ),
             smallSpaceSize,
             Container(

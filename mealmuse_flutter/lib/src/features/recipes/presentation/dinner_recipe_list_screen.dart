@@ -71,7 +71,7 @@ class DinnerRecipeListScreen extends StatelessWidget {
               "Explore our curated selection of soul-warming main courses. From quick weeknight meals to impressive dishes for special occasions, our dinner recipes are designed to satisfy your cravings and bring joy to your evening table.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 3,
+              maxLines: 5,
             ),
             smallSpaceSize,
             Container(
