@@ -1,12 +1,13 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/features/home/presentation/widgets/categories_button.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +41,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class LunchRecipeListScreen extends StatelessWidget {
-  const LunchRecipeListScreen({super.key});
+class DrinksRecipeListScreen extends StatelessWidget {
+  const DrinksRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Lunch",
+          "Drinks",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +61,7 @@ class LunchRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Midday essentials",
+              "Artisanal Sips",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,31 +69,31 @@ class LunchRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Fuel your afternoon with our selection of hearty and healthy lunch options, designed to keep you energized and satisfied throughout the day.",
+              "Discover a curated collection of liquid inspirations, from sophisticated midnight cocktails to vibrant morning juices. Our drink recipes are crafted to elevate your sipping experience, whether you're unwinding after a long day or kickstarting your morning with a burst of flavor.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 5,
+              maxLines: 7,
             ),
-            // smallSpaceSize,
-            // Container(
-            //   height: 30,
-            //   width: double.infinity,
-            //   child: ListView(
-            //     scrollDirection: Axis.horizontal,
-            //     children: [
-            //       ContainerWidget.extended(label: "All Recipes"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Quick & Easy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Healthy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Quick & Easy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Healthy"),
-            //     ],
-            //   ),
-            // ),
-            mediumSpaceSize,
+            smallSpaceSize,
+            Container(
+              height: 90,
+              width: double.infinity,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  CategoriesButton(icon: Icons.local_bar_rounded, title: "Cocktails"),
+                  const SizedBox(width: 10),
+                  CategoriesButton(icon: Icons.coffee, title: "Coffee"),
+                  const SizedBox(width: 10),
+                  CategoriesButton(icon: Icons.blender_rounded, title: "Smoothies"),
+                  const SizedBox(width: 10),
+                  CategoriesButton(icon: Icons.water_drop_rounded, title: "Juices"),
+                  const SizedBox(width: 10),
+                  CategoriesButton(icon: Icons.wine_bar_rounded, title: "Wine"),
+                ],
+              ),
+            ),
+            smallSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,

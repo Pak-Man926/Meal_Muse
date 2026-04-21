@@ -3,10 +3,10 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class SnacksRecipeListScreen extends StatelessWidget {
-  const SnacksRecipeListScreen({super.key});
+class BreakfastRecipeListScreen extends StatelessWidget {
+  const BreakfastRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Snacks",
+          "Breakfast",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class SnacksRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Bite-Sized Delights",
+              "Breakfast Recipes",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,31 +68,42 @@ class SnacksRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Quick bites and savory delights to keep you energized between meals. From crispy chips and creamy dips to wholesome energy bars and refreshing fruit salads, our snack recipes are perfect for satisfying your cravings and keeping you fueled throughout the day.",
+              "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 7,
+              maxLines: 5,
             ),
-            // smallSpaceSize,
-            // Container(
-            //   height: 30,
-            //   width: double.infinity,
-            //   child: ListView(
-            //     scrollDirection: Axis.horizontal,
-            //     children: [
-            //       ContainerWidget.extended(label: "All Recipes"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Quick & Easy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Healthy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Quick & Easy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Healthy"),
-            //     ],
-            //   ),
-            // ),
-            mediumSpaceSize,
+            smallSpaceSize,
+            Container(
+              height: 30,
+              width: double.infinity,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ContainerWidget(
+                    label: "All Recipes",
+                    isActive: true,
+                    backgroundColor:
+                      AppColors.primary.withOpacity(0.2),
+                    onTap: () {
+                      
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Quick & Easy", backgroundColor:
+                      AppColors.primary.withOpacity(0.2),
+                      ),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Healthy", backgroundColor:
+                      AppColors.primary.withOpacity(0.2),),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Quick & Easy"),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Healthy"),
+                ],
+              ),
+            ),
+            smallSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,

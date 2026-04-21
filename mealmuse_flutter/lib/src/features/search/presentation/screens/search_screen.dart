@@ -2,10 +2,10 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
-import "../../../core/themes/colors.dart";
-import "widgets/container_widget.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
 
-import "../../recipes/presentation/widgets/recipe_card_widget.dart";
+import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_card_widget.dart";
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -43,13 +43,34 @@ class SearchScreen extends StatelessWidget {
               spacing: 10,
               runSpacing: 10,
               children: [
-                ContainerWidget(label: "Quick Recipes"),
-                ContainerWidget(label: "Healthy"),
-                ContainerWidget(label: "Vegan"),
-                ContainerWidget(label: "Gluten-free"),
-                ContainerWidget(label: "Italian"),
-                ContainerWidget(label: "Under 30 minutes"),
-                ContainerWidget(label: "Breakfast"),
+                ContainerWidget.extended(
+                  label: "Quick Recipes",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
+                ContainerWidget.extended(
+                  label: "Healthy",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
+                ContainerWidget.extended(
+                  label: "Vegan",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
+                ContainerWidget.extended(
+                  label: "Gluten-free",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
+                ContainerWidget.extended(
+                  label: "Italian",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
+                ContainerWidget.extended(
+                  label: "Under 30 minutes",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
+                ContainerWidget.extended(
+                  label: "Breakfast",
+                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                ),
               ],
             ),
             mediumSpaceSize,

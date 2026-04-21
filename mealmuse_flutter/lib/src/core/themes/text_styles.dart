@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
-import "colors.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
 
 class AppTextStyles {
   // 22px Section Headers (Bold)

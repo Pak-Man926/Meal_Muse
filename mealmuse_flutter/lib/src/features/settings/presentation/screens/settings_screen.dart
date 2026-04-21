@@ -6,8 +6,8 @@ import "package:meal_muse/src/features/settings/presentation/widgets/item_switch
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
 import 'package:intl/intl.dart';
 
-import "../../../core/themes/colors.dart";
-import "../../../models/widgets/button_widget.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});

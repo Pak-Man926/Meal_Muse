@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/src/features/saved/presentation/saved_breakfast_meals.dart";
-import "package:meal_muse/src/features/saved/presentation/combined_saved_meals.dart";
-import "package:meal_muse/src/features/saved/presentation/saved_drinks.dart";
-import "package:meal_muse/src/features/saved/presentation/saved_lunch_meals.dart";
-import "package:meal_muse/src/features/saved/presentation/saved_dinner_meals.dart";
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/features/saved/presentation/screens/saved_breakfast_meals.dart";
+import "package:meal_muse/src/features/saved/presentation/screens/combined_saved_meals.dart";
+import "package:meal_muse/src/features/saved/presentation/screens/saved_drinks.dart";
+import "package:meal_muse/src/features/saved/presentation/screens/saved_lunch_meals.dart";
+import "package:meal_muse/src/features/saved/presentation/screens/saved_dinner_meals.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 class SavedScreen extends StatelessWidget {
   const SavedScreen({super.key});

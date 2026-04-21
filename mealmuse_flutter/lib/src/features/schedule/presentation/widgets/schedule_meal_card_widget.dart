@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
-import "../../../../core/themes/colors.dart";
-import "../../../../models/widgets/button_widget.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
 class ScheduleCardWidget extends StatelessWidget {
   final String mealType;
@@ -56,7 +56,7 @@ class ScheduleCardWidget extends StatelessWidget {
                         // TODO: Add favorite logic here
                       },
                       icon: const Icon(Icons.favorite_border),
-                      color: Colors.red,
+                      color:AppColors.primary,
                     ),
                   ],
                 ),

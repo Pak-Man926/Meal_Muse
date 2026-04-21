@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
-import "widgets/bottom_navigation_bar.dart";
-import "../../home/presentation/home_screen.dart";
-import "../../saved/presentation/saved_screen.dart";
-import "../../schedule/presentation/schedule_screen.dart";
-import "../../search/presentation/search_screen.dart";
-import "dashboard_controller.dart";
+import "package:meal_muse/src/features/dashboard/presentation/widgets/bottom_navigation_bar.dart";
+import "package:meal_muse/src/features/home/presentation/screens/home_screen.dart";
+import "package:meal_muse/src/features/saved/presentation/screens/saved_screen.dart";
+import "package:meal_muse/src/features/schedule/presentation/screens/schedule_screen.dart";
+import "package:meal_muse/src/features/search/presentation/screens/search_screen.dart";
+import '../controllers/dashboard_controller.dart';
 
 class DashboardScreen extends ConsumerWidget {
   DashboardScreen({super.key});

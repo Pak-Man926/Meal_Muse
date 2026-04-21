@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../domain/recipe.dart';
+import 'package:meal_muse/src/features/recipes/domain/recipe.dart';
 
 /// The Data Layer (Repository) handles data retrieval and submission.
 /// It interacts with the outside world (APIs, Databases, etc.) to fetch raw data

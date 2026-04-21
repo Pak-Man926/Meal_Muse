@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "widgets/date_container_widget.dart";
-import "widgets/schedule_meal_card_widget.dart";
-import "../../search/presentation/widgets/container_widget.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
+import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
+import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
+import "package:meal_muse/src/core/themes/text_styles.dart";
 import 'package:intl/intl.dart';
 
 class ScheduleScreen extends StatelessWidget {
@@ -107,7 +108,7 @@ class ScheduleScreen extends StatelessWidget {
                     "$currentDay, $currentMonth ${today.day}",
                     style: AppTextStyles.sectionHeader,
                   ),
-                  ContainerWidget.extended(label: "3 Meals Planned"),
+                  ContainerWidget.extended(label: "3 Meals Planned", backgroundColor: AppColors.primary.withOpacity(0.2),),
                 ],
               ),
             ),

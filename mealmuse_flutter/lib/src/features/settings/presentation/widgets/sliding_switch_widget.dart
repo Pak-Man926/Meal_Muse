@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/themes/colors.dart";
 
-import "../../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 class SlidingSwitchWidget extends StatelessWidget {
   final String label;

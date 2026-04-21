@@ -6,12 +6,14 @@ class ContainerWidget extends StatelessWidget {
   final String label;
   final Function()? onTap;
   final Color backgroundColor;
+  final bool isActive;
 
   const ContainerWidget({
     super.key,
     required this.label,
     this.onTap,
     this.backgroundColor = AppColors.bone,
+    this.isActive = false,
   });
 
   const ContainerWidget.extended({
@@ -19,6 +21,7 @@ class ContainerWidget extends StatelessWidget {
     required this.label,
     this.onTap,
     this.backgroundColor = AppColors.primary,
+    this.isActive = false,
   });
 
   @override
@@ -28,7 +31,7 @@ class ContainerWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       //alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.2),
+        color: isActive ? backgroundColor : AppColors.bone,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextButton(

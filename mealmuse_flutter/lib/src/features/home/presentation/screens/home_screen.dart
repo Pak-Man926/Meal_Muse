@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_muse/src/core/themes/colors.dart';
-import '../../../core/constants/constants.dart';
-import '../../../core/themes/text_styles.dart';
-import '../domain/carousel_items.dart';
-import 'widgets/carousel_slider_widget.dart';
-import 'widgets/categories_button.dart';
-import 'widgets/tune_icon_button_widget.dart';
+import 'package:meal_muse/src/core/constants/constants.dart';
+import 'package:meal_muse/src/core/themes/text_styles.dart';
+import 'package:meal_muse/src/features/home/domain/carousel_items.dart';
+import 'package:meal_muse/src/features/home/presentation/widgets/carousel_slider_widget.dart';
+import 'package:meal_muse/src/features/home/presentation/widgets/categories_button.dart';
+import 'package:meal_muse/src/features/home/presentation/widgets/tune_icon_button_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

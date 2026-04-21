@@ -3,10 +3,10 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class BreakfastRecipeListScreen extends StatelessWidget {
-  const BreakfastRecipeListScreen({super.key});
+class TrendingRecipesListScreen extends StatelessWidget {
+  const TrendingRecipesListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Breakfast",
+          "Trending Recipes",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -59,20 +59,20 @@ class BreakfastRecipeListScreen extends StatelessWidget {
           mainAxisAlignment: .start,
           crossAxisAlignment: .start,
           children: [
-            Text(
-              "Breakfast Recipes",
-              style: AppTextStyles.sectionHeader.copyWith(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            smallSpaceSize,
-            Text(
-              "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
-              style: AppTextStyles.bodyText,
-              overflow: TextOverflow.clip,
-              maxLines: 5,
-            ),
+            // Text(
+            //   "Breakfast Recipes",
+            //   style: AppTextStyles.sectionHeader.copyWith(
+            //     fontSize: 26,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // smallSpaceSize,
+            // Text(
+            //   "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
+            //   style: AppTextStyles.bodyText,
+            //   overflow: TextOverflow.clip,
+            //   maxLines: 5,
+            // ),
             smallSpaceSize,
             Container(
               height: 30,
@@ -80,7 +80,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  ContainerWidget.extended(label: "All Recipes"),
+                  ContainerWidget.extended(label: "All Recipes", isActive: true, backgroundColor: AppColors.primary.withOpacity(0.2),),
                   const SizedBox(width: 10),
                   ContainerWidget.extended(label: "Quick & Easy"),
                   const SizedBox(width: 10),

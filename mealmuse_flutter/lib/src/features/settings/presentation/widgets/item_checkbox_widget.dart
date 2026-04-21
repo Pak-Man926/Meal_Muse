@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../../../../core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
 
 class ItemCheckBoxWidget extends StatelessWidget {
   final String title;

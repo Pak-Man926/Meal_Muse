@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
 
-import '../../../../core/themes/colors.dart';
-import '../../../../core/themes/text_styles.dart';
+import 'package:meal_muse/src/core/themes/colors.dart';
+import 'package:meal_muse/src/core/themes/text_styles.dart';
 
 class DatePickerWidget extends StatelessWidget {
   final String day;

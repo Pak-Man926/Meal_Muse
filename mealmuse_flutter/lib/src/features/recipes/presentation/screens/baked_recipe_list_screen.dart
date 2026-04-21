@@ -3,10 +3,10 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class DrinksRecipeListScreen extends StatelessWidget {
-  const DrinksRecipeListScreen({super.key});
+class BakedRecipeListScreen extends StatelessWidget {
+  const BakedRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Drinks",
+          "Baked Foods",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class DrinksRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Artisanal Sips",
+              "Artisanal Breads & Pastries",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,10 +68,10 @@ class DrinksRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Discover a curated collection of liquid inspirations, from sophisticated midnight cocktails to vibrant morning juices. Our drink recipes are crafted to elevate your sipping experience, whether you're unwinding after a long day or kickstarting your morning with a burst of flavor.",
+              "Master the art of baking with our curated recipes for crusty loaves, flaky pastries and golden-brown delights. From wild yeast starters to sophisticated laminations.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 7,
+              maxLines: 5,
             ),
             smallSpaceSize,
             Container(
@@ -80,7 +80,12 @@ class DrinksRecipeListScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  ContainerWidget.extended(label: "All Recipes"),
+                  ContainerWidget(
+                    label: "All Recipes",
+                    isActive: true,
+                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                    onTap: () {},
+                  ),
                   const SizedBox(width: 10),
                   ContainerWidget.extended(label: "Quick & Easy"),
                   const SizedBox(width: 10),

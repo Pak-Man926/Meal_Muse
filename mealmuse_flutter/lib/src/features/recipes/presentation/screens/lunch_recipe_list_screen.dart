@@ -3,10 +3,10 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class DinnerRecipeListScreen extends StatelessWidget {
-  const DinnerRecipeListScreen({super.key});
+class LunchRecipeListScreen extends StatelessWidget {
+  const LunchRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Dinner",
+          "Lunch",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class DinnerRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "The Evening Table",
+              "Midday essentials",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,31 +68,31 @@ class DinnerRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Explore our curated selection of soul-warming main courses. From quick weeknight meals to impressive dishes for special occasions, our dinner recipes are designed to satisfy your cravings and bring joy to your evening table.",
+              "Fuel your afternoon with our selection of hearty and healthy lunch options, designed to keep you energized and satisfied throughout the day.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
-            smallSpaceSize,
-            Container(
-              height: 30,
-              width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ContainerWidget.extended(label: "All Recipes"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
-                ],
-              ),
-            ),
-            smallSpaceSize,
+            // smallSpaceSize,
+            // Container(
+            //   height: 30,
+            //   width: double.infinity,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       ContainerWidget.extended(label: "All Recipes"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //     ],
+            //   ),
+            // ),
+            mediumSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,

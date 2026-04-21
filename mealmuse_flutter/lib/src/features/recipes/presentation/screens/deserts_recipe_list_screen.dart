@@ -3,10 +3,10 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class BakedRecipeListScreen extends StatelessWidget {
-  const BakedRecipeListScreen({super.key});
+class DesertRecipeListScreen extends StatelessWidget {
+  const DesertRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Baked Foods",
+          "Deserts",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class BakedRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Artisanal Breads & Pastries",
+              "Sweet Endings",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,31 +68,31 @@ class BakedRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Master the art of baking with our curated recipes for crusty loaves, flaky pastries and golden-brown delights. From wild yeast starters to sophisticated laminations.",
+              "Indulge in our collection of delectable dessert recipes, from classic favorites to innovative creations. Whether you're craving a rich chocolate cake, a refreshing fruit tart, or a creamy cheesecake, our dessert recipes are sure to satisfy your sweet tooth and impress your guests.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
-              maxLines: 5,
+              maxLines: 7,
             ),
-            smallSpaceSize,
-            Container(
-              height: 30,
-              width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ContainerWidget.extended(label: "All Recipes"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
-                ],
-              ),
-            ),
-            smallSpaceSize,
+            // smallSpaceSize,
+            // Container(
+            //   height: 30,
+            //   width: double.infinity,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       ContainerWidget.extended(label: "All Recipes"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //     ],
+            //   ),
+            // ),
+            mediumSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,

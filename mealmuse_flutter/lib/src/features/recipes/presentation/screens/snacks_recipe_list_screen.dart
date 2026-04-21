@@ -3,10 +3,10 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
-import "package:meal_muse/src/features/search/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../core/themes/colors.dart";
-import "../../../core/themes/text_styles.dart";
+import "package:meal_muse/src/core/themes/colors.dart";
+import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,15 +40,15 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class SoupRecipeListScreen extends StatelessWidget {
-  const SoupRecipeListScreen({super.key});
+class SnacksRecipeListScreen extends StatelessWidget {
+  const SnacksRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Soups",
+          "Snacks",
           style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
         ),
         centerTitle: true,
@@ -60,7 +60,7 @@ class SoupRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Simmered Comfort",
+              "Bite-Sized Delights",
               style: AppTextStyles.sectionHeader.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class SoupRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Warm your soul with our selection of hearty stews,creamy bisques, and refreshing broths. Whether you're in the mood for a comforting chicken noodle soup, a rich tomato bisque, or a vibrant vegetable broth, our soup recipes are sure to satisfy your cravings and nourish your body.",
+              "Quick bites and savory delights to keep you energized between meals. From crispy chips and creamy dips to wholesome energy bars and refreshing fruit salads, our snack recipes are perfect for satisfying your cravings and keeping you fueled throughout the day.",
               style: AppTextStyles.bodyText,
               overflow: TextOverflow.clip,
               maxLines: 7,

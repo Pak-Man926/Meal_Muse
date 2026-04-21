@@ -1,16 +1,16 @@
 import "package:go_router/go_router.dart";
-import "package:meal_muse/src/features/dashboard/presentation/dashboard_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/baked_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/breakfast_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/deserts_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/dinner_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/drinks_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/lunch_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/recipe_detail_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/snacks_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/soups_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/trending_recipes_list_screen.dart";
-import "package:meal_muse/src/features/settings/presentation/settings_screen.dart";
+import "package:meal_muse/src/features/dashboard/presentation/screens/dashboard_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/baked_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/breakfast_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/deserts_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/dinner_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/drinks_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/lunch_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/recipe_detail_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/snacks_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/soups_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/trending_recipes_list_screen.dart";
+import "package:meal_muse/src/features/settings/presentation/screens/settings_screen.dart";
 
 final router = GoRouter(
   initialLocation: "/",
