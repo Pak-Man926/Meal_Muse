@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                 Text("Trending Recipes", style: AppTextStyles.sectionHeader),
                 TextButton(
                   onPressed: () {
-                    //context.push("/recipes");
+                    context.push("/trendingrecipes");
                   },
                   child: Text(
                     "See All",
@@ -104,56 +104,56 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.free_breakfast_rounded,
                     title: "Breakfast",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/breakfastrecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.lunch_dining_rounded,
                     title: "Lunch",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/lunchrecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.dinner_dining_rounded,
                     title: "Dinner",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/dinnerrecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.wine_bar_rounded,
                     title: "Drinks",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/drinkrecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.icecream,
                     title: "Deserts",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/desertrecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.soup_kitchen_rounded,
                     title: "Soups",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/souprecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.restaurant,
                     title: "Snacks",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/snackrecipes");
                     },
                   ),
                   CategoriesButton(
                     icon: Icons.bakery_dining_rounded,
                     title: "Baked Foods",
                     onPressed: () {
-                      context.push("/recipes");
+                      context.push("/bakedrecipes");
                     },
                   ),
                 ],
