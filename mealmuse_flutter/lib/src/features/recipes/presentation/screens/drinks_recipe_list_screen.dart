@@ -81,13 +81,22 @@ class DrinksRecipeListScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  CategoriesButton(icon: Icons.local_bar_rounded, title: "Cocktails"),
+                  CategoriesButton(
+                    icon: Icons.local_bar_rounded,
+                    title: "Cocktails",
+                  ),
                   const SizedBox(width: 10),
                   CategoriesButton(icon: Icons.coffee, title: "Coffee"),
                   const SizedBox(width: 10),
-                  CategoriesButton(icon: Icons.blender_rounded, title: "Smoothies"),
+                  CategoriesButton(
+                    icon: Icons.blender_rounded,
+                    title: "Smoothies",
+                  ),
                   const SizedBox(width: 10),
-                  CategoriesButton(icon: Icons.water_drop_rounded, title: "Juices"),
+                  CategoriesButton(
+                    icon: Icons.water_drop_rounded,
+                    title: "Juices",
+                  ),
                   const SizedBox(width: 10),
                   CategoriesButton(icon: Icons.wine_bar_rounded, title: "Wine"),
                 ],

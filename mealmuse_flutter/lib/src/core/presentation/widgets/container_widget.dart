@@ -21,7 +21,7 @@ class ContainerWidget extends StatelessWidget {
     required this.label,
     this.onTap,
     this.backgroundColor = AppColors.primary,
-    this.isActive = false,
+    this.isActive = true,
   });
 
   @override

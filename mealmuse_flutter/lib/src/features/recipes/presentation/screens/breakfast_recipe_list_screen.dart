@@ -83,19 +83,19 @@ class BreakfastRecipeListScreen extends StatelessWidget {
                   ContainerWidget(
                     label: "All Recipes",
                     isActive: true,
-                    backgroundColor:
-                      AppColors.primary.withOpacity(0.2),
-                    onTap: () {
-                      
-                    },
+                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                    onTap: () {},
                   ),
                   const SizedBox(width: 10),
-                  ContainerWidget(label: "Quick & Easy", backgroundColor:
-                      AppColors.primary.withOpacity(0.2),
-                      ),
+                  ContainerWidget(
+                    label: "Quick & Easy",
+                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                  ),
                   const SizedBox(width: 10),
-                  ContainerWidget(label: "Healthy", backgroundColor:
-                      AppColors.primary.withOpacity(0.2),),
+                  ContainerWidget(
+                    label: "Healthy",
+                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                  ),
                   const SizedBox(width: 10),
                   ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),

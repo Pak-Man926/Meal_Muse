@@ -56,7 +56,7 @@ class ScheduleCardWidget extends StatelessWidget {
                         // TODO: Add favorite logic here
                       },
                       icon: const Icon(Icons.favorite_border),
-                      color:AppColors.primary,
+                      color: AppColors.primary,
                     ),
                   ],
                 ),

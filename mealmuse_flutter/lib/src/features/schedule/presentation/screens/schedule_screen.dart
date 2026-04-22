@@ -108,7 +108,10 @@ class ScheduleScreen extends StatelessWidget {
                     "$currentDay, $currentMonth ${today.day}",
                     style: AppTextStyles.sectionHeader,
                   ),
-                  ContainerWidget.extended(label: "3 Meals Planned", backgroundColor: AppColors.primary.withOpacity(0.2),),
+                  ContainerWidget.extended(
+                    label: "3 Meals Planned",
+                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                  ),
                 ],
               ),
             ),
