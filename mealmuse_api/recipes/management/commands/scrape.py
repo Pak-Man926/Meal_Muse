@@ -35,11 +35,17 @@ class Command(BaseCommand):
             "--recipes", action="store_true", help="Scrapes all recipes"
         )
         parser.add_argument("--specific-recipe-slug", help="Scrapes a specific recipe")
-        parser.add_argument("--force", action="store_true", help="Forces an update")
+        parser.add_argument(
+            "--max-category-size",
+            type=int,
+            default=50,
+            help="Maximum amount of recipes to store per category (default 50)."
+        )
 
     def handle(self, *args, **options):
 
         self.force = options["force"]
+        self.max_category_size = options.get("max_category_size", 50)
 
         # validate required args
         if not any(
@@ -299,15 +305,51 @@ class Command(BaseCommand):
             # convert ingredient groups into a custom/flat list
             recipe_data["ingredients"] = self._convert_ingredient_groups(recipe_data)
         # save the recipe
+        parsed_minutes = None
+        cook_time = recipe_data.get('total_time')
+        if cook_time:
+            time_str = str(cook_time).lower()
+            m = 0
+            hr_match = re.search(r"(\d+)\s*(hr|hour)", time_str)
+            if hr_match: m += int(hr_match.group(1)) * 60
+            min_match = re.search(r"(\d+)\s*(min)", time_str)
+            if min_match: m += int(min_match.group(1))
+            if m == 0 and time_str.strip().isdigit(): m = int(time_str.strip())
+            if m > 0: parsed_minutes = m
+
+        std_categories = {"Breakfast", "Lunch", "Dinner", "Drinks", "Desserts", "Soups", "Snacks", "Baked Foods"}
+        matched_cats = set()
+        for keyword in scraper.keywords():
+            kw = keyword.lower()
+            for std_cat in std_categories:
+                if std_cat.lower() in kw:
+                    matched_cats.add(std_cat)
+
+        if not matched_cats:
+            import random
+            matched_cats.add(random.choice(list(std_categories)))
+
+        valid_cats = []
+        for cat_name in matched_cats:
+            category, _ = Category.objects.get_or_create(
+                name=cat_name,
+                defaults=dict(type=Category.TYPE_MEAL_TYPES),
+            )
+            if category.recipe_set.count() < self.max_category_size or self.force:
+                valid_cats.append(category)
+
+        if not valid_cats:
+            raise Exception("All generated categories for this recipe are at maximum capacity (Limit: {}). Skipping.".format(self.max_category_size))
+
         recipe, _ = Recipe.objects.update_or_create(
             slug=os.path.basename(url),
             defaults=dict(
                 name=recipe_data.get("title"),
                 description=self._replace_recipe_links_to_internal(
                     recipe_data.get("description")
-                ),
-                total_time_string=f"{recipe_data.get('total_time')} min",
-                servings=recipe_data.get("yields") or "",
+                ) if recipe_data.get("description") else f"Delicious {recipe_data.get('title')}",
+                total_time=parsed_minutes,
+                servings=str(recipe_data.get("yields") or "")[:100],
                 rating_value=recipe_data.get("ratings"),
                 rating_count=recipe_data.get("ratings_count"),
                 ingredients=self._replace_recipe_links_to_internal(
@@ -316,20 +358,11 @@ class Command(BaseCommand):
                 instructions=self._replace_recipe_links_to_internal(
                     recipe_data.get("instructions_list")
                 ),
-                author=recipe_data.get("author"),
+                author=str(recipe_data.get("author") or "")[:100],
             ),
         )
-        # set categories/keywords
-        categories = []
-        for keyword in scraper.keywords():
-            category, _ = Category.objects.update_or_create(
-                name=keyword.lower(),
-                defaults=dict(
-                    type=Category.TYPE_UNKNOWN,
-                ),
-            )
-            categories.append(category)
-        recipe.categories.set(categories)
+
+        recipe.categories.set(valid_cats)
 
         return recipe, scraper.image()
 
@@ -358,8 +391,8 @@ class Command(BaseCommand):
                 shutil.copyfileobj(response.raw, out_file)
 
         # save the recipe with the new image path
-        recipe.image_path = f"{settings.STATIC_URL}recipes/{image_name}"
-        recipe.save()
+        recipe.images = [f"{settings.STATIC_URL}recipes/{image_name}"]
+        recipe.save(update_fields=["images"])
 
     def _replace_recipe_links_to_internal(
         self, value: Union[str, list]

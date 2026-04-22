@@ -55,9 +55,9 @@ class RecipeListSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "slug",
-            "image_path",  # relative URL — prefix with server base URL in the app
+            "images",  # array of relative URLs — prefix with server base URL in the app
             "description",
-            "total_time_string",
+            "total_time",
             "servings",
             "rating_value",
             "rating_count",
@@ -91,9 +91,9 @@ class RecipeDetailSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "slug",
-            "image_path",
+            "images",
             "description",
-            "total_time_string",
+            "total_time",
             "servings",
             "rating_value",
             "rating_count",
@@ -124,10 +124,12 @@ class JustTheRecipeSerializer(serializers.Serializer):
     """
 
     name = serializers.CharField(source="title", required=False, default="")
-    image_path = serializers.CharField(source="image", required=False, default="")
+    images = serializers.ListField(
+        child=serializers.CharField(), source="image", required=False, default=list
+    )
     description = serializers.CharField(required=False, default="")
-    total_time_string = serializers.CharField(
-        source="total_time", required=False, default=""
+    total_time = serializers.IntegerField(
+        required=False, default=None, allow_null=True
     )
     rating_value = serializers.IntegerField(
         source="ratings", required=False, default=None, allow_null=True

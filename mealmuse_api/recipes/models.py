@@ -8,11 +8,9 @@ from django.db.models import Index
 class Recipe(models.Model):
     name = models.CharField(max_length=500)
     slug = models.SlugField(max_length=200, unique=True)
-    image_path = models.CharField(max_length=210, null=True, blank=True)
+    images = fields.ArrayField(base_field=models.CharField(max_length=500), default=list, blank=True)
     description = models.TextField()
-    total_time_string = models.CharField(
-        null=True, blank=True, max_length=100
-    )  # human readable, e.g "1 hour"
+    total_time = models.IntegerField(null=True, blank=True)
     servings = models.CharField(max_length=100)
     rating_value = models.IntegerField(null=True, blank=True)
     rating_count = models.IntegerField(null=True, blank=True)

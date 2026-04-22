@@ -31,28 +31,23 @@ logger = logging.getLogger(__name__)
 # Kenyan keyword → (category_name, category_type)
 # ──────────────────────────────────────────────
 KENYAN_KEYWORDS = {
-    # meal_types
-    "kenyan breakfast": ("kenyan breakfast", Category.TYPE_MEAL_TYPES),
-    "kenyan lunch": ("kenyan lunch", Category.TYPE_MEAL_TYPES),
-    "kenyan dinner": ("kenyan dinner", Category.TYPE_MEAL_TYPES),
-    # dish_types — iconic Kenyan dishes
-    "pilau": ("pilau", Category.TYPE_DISH_TYPES),
-    "ugali": ("ugali", Category.TYPE_DISH_TYPES),
-    "chapati": ("chapati", Category.TYPE_DISH_TYPES),
-    "nyama choma": ("nyama choma", Category.TYPE_DISH_TYPES),
-    "githeri": ("githeri", Category.TYPE_DISH_TYPES),
-    "mukimo": ("mukimo", Category.TYPE_DISH_TYPES),
-    "sukuma wiki": ("sukuma wiki", Category.TYPE_DISH_TYPES),
-    "mandazi": ("mandazi", Category.TYPE_DISH_TYPES),
-    "matumbo": ("matumbo", Category.TYPE_DISH_TYPES),
-    "omena": ("omena", Category.TYPE_DISH_TYPES),
-    "kachumbari": ("kachumbari", Category.TYPE_DISH_TYPES),
-    "maharagwe": ("maharagwe", Category.TYPE_DISH_TYPES),
-    "irio": ("irio", Category.TYPE_DISH_TYPES),
-    # cuisines
-    "kenyan": ("kenyan", Category.TYPE_CUISINES),
-    "swahili": ("swahili", Category.TYPE_CUISINES),
-    "african": ("african", Category.TYPE_CUISINES),
+    "breakfast": ("Breakfast", Category.TYPE_MEAL_TYPES),
+    "lunch": ("Lunch", Category.TYPE_MEAL_TYPES),
+    "dinner": ("Dinner", Category.TYPE_MEAL_TYPES),
+    "pilau": ("Dinner", Category.TYPE_DISH_TYPES),
+    "ugali": ("Dinner", Category.TYPE_DISH_TYPES),
+    "chapati": ("Baked Foods", Category.TYPE_DISH_TYPES),
+    "nyama choma": ("Dinner", Category.TYPE_DISH_TYPES),
+    "githeri": ("Lunch", Category.TYPE_DISH_TYPES),
+    "mukimo": ("Dinner", Category.TYPE_DISH_TYPES),
+    "sukuma wiki": ("Lunch", Category.TYPE_DISH_TYPES),
+    "mandazi": ("Snacks", Category.TYPE_DISH_TYPES),
+    "matumbo": ("Dinner", Category.TYPE_DISH_TYPES),
+    "omena": ("Dinner", Category.TYPE_DISH_TYPES),
+    "kachumbari": ("Lunch", Category.TYPE_DISH_TYPES),
+    "drinks": ("Drinks", Category.TYPE_DISH_TYPES),
+    "desserts": ("Desserts", Category.TYPE_DISH_TYPES),
+    "soups": ("Soups", Category.TYPE_DISH_TYPES),
 }
 
 BASE_URL = "https://cookpad.com"
@@ -262,6 +257,17 @@ class Command(BaseCommand):
         description = self._extract_description(soup)
 
         # ── Persist ───────────────────────────
+        # Parse time to integer minutes
+        parsed_minutes = None
+        if cook_time:
+            time_lower = cook_time.lower()
+            m = 0
+            hr_match = re.search(r"(\d+)\s*(hr|hour)", time_lower)
+            if hr_match: m += int(hr_match.group(1)) * 60
+            min_match = re.search(r"(\d+)\s*(min)", time_lower)
+            if min_match: m += int(min_match.group(1))
+            if m > 0: parsed_minutes = m
+
         recipe, created = Recipe.objects.update_or_create(
             slug=slug,
             defaults=dict(
@@ -270,7 +276,7 @@ class Command(BaseCommand):
                     description
                     or f"A delicious {name[:300]} recipe from Cookpad Kenya."
                 ),
-                total_time_string=(cook_time or "")[:100],
+                total_time=parsed_minutes,
                 servings=(servings or "Serves 4")[:100],
                 ingredients=ingredients,
                 instructions=instructions,
@@ -461,8 +467,8 @@ class Command(BaseCommand):
             with open(image_path, "wb") as f:
                 shutil.copyfileobj(resp.raw, f)
 
-        recipe.image_path = f"{settings.STATIC_URL}{IMAGE_DIR_NAME}/{image_filename}"
-        recipe.save(update_fields=["image_path"])
+        recipe.images = [f"{settings.STATIC_URL}{IMAGE_DIR_NAME}/{image_filename}"]
+        recipe.save(update_fields=["images"])
 
     # ──────────────────────────────────────────
     # Category helper

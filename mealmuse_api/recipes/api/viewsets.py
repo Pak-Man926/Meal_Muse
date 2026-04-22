@@ -135,10 +135,9 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         url_path="trending",
         permission_classes=[AllowAny],
     )
-    @method_decorator(cache_page(timeout=CACHE_HOUR))
     def trending(self, request):
         """
-        Returns the highest-rated recipes.
+        Returns a random selection of trending recipes.
         The Flutter home screen uses this for the Trending Recipes carousel.
 
         Query params:
@@ -147,8 +146,7 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
         count = min(int(request.query_params.get("count", TRENDING_COUNT)), 100)
         qs = (
             Recipe.objects.prefetch_related("categories")
-            .filter(rating_value__isnull=False)
-            .order_by("-rating_value", "-rating_count")[:count]
+            .order_by("?")[:count]
         )
         serializer = RecipeListSerializer(qs, many=True, context={"request": request})
         return Response(
