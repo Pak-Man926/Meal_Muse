@@ -40,8 +40,8 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class DesertRecipeListScreen extends StatelessWidget {
-  const DesertRecipeListScreen({super.key});
+class DessertRecipeListScreen extends StatelessWidget {
+  const DessertRecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import "package:go_router/go_router.dart";
 import "package:meal_muse/src/features/dashboard/presentation/screens/dashboard_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/baked_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/breakfast_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/deserts_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/desserts_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/dinner_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/drinks_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/lunch_recipe_list_screen.dart";
@@ -38,8 +38,8 @@ final router = GoRouter(
       builder: (context, state) => DrinksRecipeListScreen(),
     ),
     GoRoute(
-      path: "/desertrecipes",
-      builder: (context, state) => DesertRecipeListScreen(),
+      path: "/dessertrecipes",
+      builder: (context, state) => DessertRecipeListScreen(),
     ),
     GoRoute(
       path: "/souprecipes",
