@@ -130,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   CategoriesButton(
                     icon: Icons.icecream,
-                    title: "Deserts",
+                    title: "Desserts",
                     onPressed: () {
                       context.push("/desertrecipes");
                     },
