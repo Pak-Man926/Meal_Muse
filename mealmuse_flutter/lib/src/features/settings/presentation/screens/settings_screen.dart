@@ -1,20 +1,16 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
-import 'package:intl/intl.dart';
 
 import "package:meal_muse/src/core/themes/colors.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
-
-  DateTime currentDate = DateTime.now();
-
-  String get currentYear => currentDate.year.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +101,7 @@ class SettingsScreen extends StatelessWidget {
                   Icons.chevron_right_rounded,
                   color: AppColors.mutedText,
                 ),
-                onTap: () {},
+                onTap: () => context.push("/about"),
               ),
               Divider(thickness: 0.1),
               ListTile(
@@ -116,22 +112,6 @@ class SettingsScreen extends StatelessWidget {
                   color: AppColors.mutedText,
                 ),
                 onTap: () {},
-              ),
-              mediumSpaceSize,
-              Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "$appName ${packageInfo.version} (${packageInfo.buildNumber})",
-                      style: AppTextStyles.labelMuted,
-                    ),
-                    smallSpaceSize,
-                    Text(
-                      " © $currentYear Meal Muse. All rights reserved.",
-                      style: AppTextStyles.labelMuted,
-                    ),
-                  ],
-                ),
               ),
               largeSpaceSize,
               CustomButton.primary(text: 'Save', onPressed: () {}),

@@ -11,12 +11,14 @@ import "package:meal_muse/src/features/recipes/presentation/screens/snacks_recip
 import "package:meal_muse/src/features/recipes/presentation/screens/soups_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/trending_recipes_list_screen.dart";
 import "package:meal_muse/src/features/settings/presentation/screens/settings_screen.dart";
+import "package:meal_muse/src/features/settings/presentation/screens/about_screen.dart";
 
 final router = GoRouter(
   initialLocation: "/",
   routes: [
     GoRoute(path: "/", builder: (context, state) => DashboardScreen()),
     GoRoute(path: "/settings", builder: (context, state) => SettingsScreen()),
+    GoRoute(path: "/about", builder: (context, state) => AboutScreen()),
     GoRoute(
       path: "/recipes",
       builder: (context, state) => RecipeDetailScreen(),
