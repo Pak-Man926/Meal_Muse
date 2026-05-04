@@ -7,12 +7,14 @@ class ItemSwitchWidget extends StatelessWidget {
   final String title;
   final Icon? icon;
   final bool value;
+  final Function(bool) onChanged;
 
   const ItemSwitchWidget({
     super.key,
     required this.title,
     this.icon,
     this.value = false,
+    required this.onChanged,
   });
 
   @override
@@ -21,7 +23,7 @@ class ItemSwitchWidget extends StatelessWidget {
       title: Text(title, style: AppTextStyles.bodyText),
       value: value,
       onChanged: (newValue) {
-        // Handle slider change
+        onChanged(newValue);
       },
       controlAffinity: ListTileControlAffinity.trailing,
       secondary: icon,
