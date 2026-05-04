@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/text_styles.dart";
+import "package:meal_muse/src/core/utils/theme_provider.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
@@ -9,11 +11,13 @@ import "package:meal_muse/src/features/settings/presentation/widgets/sliding_swi
 import "package:meal_muse/src/core/themes/colors.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeModeState = ref.watch(themeProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings", style: AppTextStyles.pageTitle),
@@ -68,16 +72,41 @@ class SettingsScreen extends StatelessWidget {
               mediumSpaceSize,
               Text("App Theme", style: AppTextStyles.sectionHeader),
               smallSpaceSize,
-              ItemSwitchWidget(
-                title: "Light Mode",
-                icon: Icon(Icons.light_mode_outlined),
+              Consumer(
+                builder: (context, ref, child) {
+                  return ItemSwitchWidget(
+                    title: themeModeState == ThemeMode.dark
+                        ? "Dark Mode"
+                        : "Light Mode",
+                    icon: Icon(
+                      themeModeState == ThemeMode.dark
+                          ? Icons.dark_mode_outlined
+                          : Icons.light_mode_outlined,
+                    ),
+                    value: themeModeState == ThemeMode.dark,
+                    onChanged: (value) =>
+                        ref.read(themeProvider.notifier).changeTheme(value),
+                  );
+                },
               ),
               mediumSpaceSize,
               Text("Notifications", style: AppTextStyles.sectionHeader),
               smallSpaceSize,
-              ItemSwitchWidget(title: "Push Notifications", value: true),
+              ItemSwitchWidget(
+                title: "Push Notifications",
+                value: true,
+                onChanged: (value) {
+                  // Placeholder for notification toggle logic
+                },
+              ),
               Divider(thickness: 0.1),
-              ItemSwitchWidget(title: "Recipe Recommendations", value: true),
+              ItemSwitchWidget(
+                title: "Recipe Recommendations",
+                value: true,
+                onChanged: (value) {
+                  // Placeholder for notification toggle logic
+                },
+              ),
               mediumSpaceSize,
               Text("Support", style: AppTextStyles.sectionHeader),
               smallSpaceSize,
