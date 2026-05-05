@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
+import "../../themes/colors.dart";
 
 class ContainerWidget extends StatelessWidget {
   final String label;
@@ -12,7 +11,9 @@ class ContainerWidget extends StatelessWidget {
     super.key,
     required this.label,
     this.onTap,
-    this.backgroundColor = AppColors.bone,
+    this.backgroundColor = ThemeMode.light == true
+        ? LightAppColors.bone
+        : DarkAppColors.containerLow,
     this.isActive = false,
   });
 
@@ -20,25 +21,31 @@ class ContainerWidget extends StatelessWidget {
     super.key,
     required this.label,
     this.onTap,
-    this.backgroundColor = AppColors.primary,
+    this.backgroundColor = ThemeMode.light == true
+        ? LightAppColors.primary
+        : DarkAppColors.primary,
     this.isActive = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
-      height: 30,
+      height: 35,
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       //alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: isActive ? backgroundColor : AppColors.bone,
+        color: isActive
+            ? backgroundColor
+            : theme.colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextButton(
         onPressed: onTap,
         child: Text(
           label,
-          style: AppTextStyles.bodyText.copyWith(fontSize: 12),
+          style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),
         ),
       ),
     );

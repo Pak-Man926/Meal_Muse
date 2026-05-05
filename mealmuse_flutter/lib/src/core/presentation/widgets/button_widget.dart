@@ -13,7 +13,9 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.text,
     this.onPressed,
-    this.color = AppColors.bone,
+    this.color = ThemeMode.light == true
+        ? LightAppColors.bone
+        : DarkAppColors.containerLow,
     this.icon,
   });
 
@@ -21,12 +23,15 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.text,
     this.onPressed,
-    this.color = AppColors.primary,
+    this.color = ThemeMode.light == true
+        ? LightAppColors.primary
+        : DarkAppColors.primary,
     this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: double.infinity,
       height: 50,
@@ -48,7 +53,7 @@ class CustomButton extends StatelessWidget {
 
             Text(
               text,
-              style: AppTextStyles.bodyText.copyWith(color: Colors.white),
+              style: theme.textTheme.bodyLarge!.copyWith(color: Colors.white),
             ),
           ],
         ),
