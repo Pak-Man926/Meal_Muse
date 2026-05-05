@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
@@ -45,11 +46,14 @@ class TrendingRecipesListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Trending Recipes",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -83,7 +87,7 @@ class TrendingRecipesListScreen extends StatelessWidget {
                   ContainerWidget.extended(
                     label: "All Recipes",
                     isActive: true,
-                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                   ),
                   const SizedBox(width: 10),
                   ContainerWidget.extended(label: "Quick & Easy"),
@@ -107,6 +111,9 @@ class TrendingRecipesListScreen extends StatelessWidget {
                     prepTime: mySavedMeals[index].prepTime,
                     composition: mySavedMeals[index].composition,
                     imageAddress: mySavedMeals[index].imageAddress,
+                    onTap: () {
+                      context.push("/recipes");
+                    },
                   );
                 },
               ),

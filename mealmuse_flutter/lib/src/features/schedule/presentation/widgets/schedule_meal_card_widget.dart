@@ -24,6 +24,7 @@ class ScheduleCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
       elevation: 3,
       clipBehavior: Clip.antiAlias,
@@ -46,7 +47,7 @@ class ScheduleCardWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         meal,
-                        style: AppTextStyles.sectionHeader,
+                        style: theme.textTheme.headlineMedium,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -56,28 +57,31 @@ class ScheduleCardWidget extends StatelessWidget {
                         // TODO: Add favorite logic here
                       },
                       icon: const Icon(Icons.favorite_border),
-                      color: AppColors.primary,
+                      color: theme.colorScheme.primary,
                     ),
                   ],
                 ),
                 smallSpaceSize,
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.timer,
                       size: 20,
-                      color: AppColors.mutedText,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(width: 4),
-                    Text("$prepTime min", style: AppTextStyles.labelMuted),
+                    Text("$prepTime min", style: theme.textTheme.labelMedium),
                     const SizedBox(width: 20),
-                    const Icon(
+                    Icon(
                       Icons.local_fire_department,
                       size: 20,
-                      color: AppColors.mutedText,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(width: 4),
-                    Text("$composition kcal", style: AppTextStyles.labelMuted),
+                    Text(
+                      "$composition kcal",
+                      style: theme.textTheme.labelMedium,
+                    ),
                   ],
                 ),
                 smallSpaceSize,

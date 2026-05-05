@@ -13,9 +13,10 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("About", style: AppTextStyles.pageTitle),
+        title: Text("About", style: theme.textTheme.titleLarge),
         centerTitle: true,
       ),
       body: Column(
@@ -27,12 +28,12 @@ class AboutScreen extends StatelessWidget {
               children: [
                 Text(
                   "$appName ${packageInfo.version} (${packageInfo.buildNumber})",
-                  style: AppTextStyles.labelMuted,
+                  style: theme.textTheme.labelMedium,
                 ),
                 smallSpaceSize,
                 Text(
                   " © $currentYear Meal Muse. All rights reserved.",
-                  style: AppTextStyles.labelMuted,
+                  style: theme.textTheme.labelMedium,
                 ),
               ],
             ),

@@ -45,11 +45,14 @@ class DessertRecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Deserts",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          "Desserts",
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -61,7 +64,7 @@ class DessertRecipeListScreen extends StatelessWidget {
           children: [
             Text(
               "Sweet Endings",
-              style: AppTextStyles.sectionHeader.copyWith(
+              style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -69,7 +72,7 @@ class DessertRecipeListScreen extends StatelessWidget {
             smallSpaceSize,
             Text(
               "Indulge in our collection of delectable dessert recipes, from classic favorites to innovative creations. Whether you're craving a rich chocolate cake, a refreshing fruit tart, or a creamy cheesecake, our dessert recipes are sure to satisfy your sweet tooth and impress your guests.",
-              style: AppTextStyles.bodyText,
+              style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,
             ),

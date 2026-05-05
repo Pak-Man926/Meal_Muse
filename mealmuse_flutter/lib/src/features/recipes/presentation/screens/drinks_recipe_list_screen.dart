@@ -46,11 +46,14 @@ class DrinksRecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Drinks",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -62,7 +65,7 @@ class DrinksRecipeListScreen extends StatelessWidget {
           children: [
             Text(
               "Artisanal Sips",
-              style: AppTextStyles.sectionHeader.copyWith(
+              style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -70,7 +73,7 @@ class DrinksRecipeListScreen extends StatelessWidget {
             smallSpaceSize,
             Text(
               "Discover a curated collection of liquid inspirations, from sophisticated midnight cocktails to vibrant morning juices. Our drink recipes are crafted to elevate your sipping experience, whether you're unwinding after a long day or kickstarting your morning with a burst of flavor.",
-              style: AppTextStyles.bodyText,
+              style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,
             ),

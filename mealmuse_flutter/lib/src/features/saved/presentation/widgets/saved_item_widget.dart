@@ -22,6 +22,7 @@ class SavedItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
       elevation: 3,
       clipBehavior: Clip.antiAlias,
@@ -74,7 +75,7 @@ class SavedItemWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         meal,
-                        style: AppTextStyles.sectionHeader,
+                        style: theme.textTheme.headlineMedium,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -84,26 +85,30 @@ class SavedItemWidget extends StatelessWidget {
                 smallSpaceSize,
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.timer,
                       size: 18,
-                      color: AppColors.mutedText,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       "$prepTime min",
-                      style: AppTextStyles.labelMuted.copyWith(fontSize: 10),
+                      style: theme.textTheme.labelMedium!.copyWith(
+                        fontSize: 10,
+                      ),
                     ),
                     const SizedBox(width: 16),
-                    const Icon(
+                    Icon(
                       Icons.local_fire_department,
                       size: 18,
-                      color: AppColors.mutedText,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       "$composition kcal",
-                      style: AppTextStyles.labelMuted.copyWith(fontSize: 10),
+                      style: theme.textTheme.labelMedium!.copyWith(
+                        fontSize: 10,
+                      ),
                     ),
                   ],
                 ),

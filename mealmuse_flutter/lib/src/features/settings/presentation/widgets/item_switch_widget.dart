@@ -19,8 +19,10 @@ class ItemSwitchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SwitchListTile(
-      title: Text(title, style: AppTextStyles.bodyText),
+      //title: Text(title, style: AppTextStyles.bodyText),
+      title: Text(title),
       value: value,
       onChanged: (newValue) {
         onChanged(newValue);
@@ -28,11 +30,11 @@ class ItemSwitchWidget extends StatelessWidget {
       controlAffinity: ListTileControlAffinity.trailing,
       secondary: icon,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      hoverColor: AppColors.mutedText.withOpacity(0.1),
+      hoverColor: theme.colorScheme.onSurfaceVariant.withOpacity(0.1),
       //thumbColor: WidgetStatePropertyAll(AppColors.mutedText.withOpacity(0.5)),
       //trackColor: WidgetStatePropertyAll(AppColors.mutedText.withOpacity(0.1)),
       trackOutlineColor: WidgetStatePropertyAll(
-        AppColors.charcoal.withOpacity(0.2),
+        theme.colorScheme.onSurface.withOpacity(0.2),
       ),
     );
   }

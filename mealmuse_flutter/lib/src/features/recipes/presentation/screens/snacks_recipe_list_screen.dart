@@ -45,11 +45,14 @@ class SnacksRecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Snacks",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -61,7 +64,7 @@ class SnacksRecipeListScreen extends StatelessWidget {
           children: [
             Text(
               "Bite-Sized Delights",
-              style: AppTextStyles.sectionHeader.copyWith(
+              style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -69,7 +72,7 @@ class SnacksRecipeListScreen extends StatelessWidget {
             smallSpaceSize,
             Text(
               "Quick bites and savory delights to keep you energized between meals. From crispy chips and creamy dips to wholesome energy bars and refreshing fruit salads, our snack recipes are perfect for satisfying your cravings and keeping you fueled throughout the day.",
-              style: AppTextStyles.bodyText,
+              style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,
             ),

@@ -45,11 +45,14 @@ class SoupRecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Soups",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -61,7 +64,7 @@ class SoupRecipeListScreen extends StatelessWidget {
           children: [
             Text(
               "Simmered Comfort",
-              style: AppTextStyles.sectionHeader.copyWith(
+              style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -69,7 +72,7 @@ class SoupRecipeListScreen extends StatelessWidget {
             smallSpaceSize,
             Text(
               "Warm your soul with our selection of hearty stews,creamy bisques, and refreshing broths. Whether you're in the mood for a comforting chicken noodle soup, a rich tomato bisque, or a vibrant vegetable broth, our soup recipes are sure to satisfy your cravings and nourish your body.",
-              style: AppTextStyles.bodyText,
+              style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,
             ),

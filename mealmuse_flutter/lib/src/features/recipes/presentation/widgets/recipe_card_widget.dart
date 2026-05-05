@@ -20,9 +20,10 @@ class RecipeCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return MaterialButton(
       onPressed: onTap,
-      hoverColor: AppColors.primary.withOpacity(0.2),
+      hoverColor: theme.colorScheme.primary.withOpacity(0.2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Row(
         children: [
@@ -50,7 +51,7 @@ class RecipeCardWidget extends StatelessWidget {
             children: [
               Text(
                 heading,
-                style: AppTextStyles.bodyText.copyWith(
+                style: theme.textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 2,
@@ -59,7 +60,7 @@ class RecipeCardWidget extends StatelessWidget {
               smallSpaceSize,
               Text(
                 subHeading,
-                style: AppTextStyles.labelMuted.copyWith(fontSize: 12),
+                style: theme.textTheme.labelMedium!.copyWith(fontSize: 12),
               ),
             ],
           ),

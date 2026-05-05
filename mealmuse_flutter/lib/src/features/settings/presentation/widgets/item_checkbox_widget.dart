@@ -16,6 +16,7 @@ class ItemCheckBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return CheckboxListTile(
       title: Text(title),
       value: value,
@@ -26,9 +27,9 @@ class ItemCheckBoxWidget extends StatelessWidget {
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      checkColor: AppColors.primary,
+      checkColor: theme.colorScheme.primary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      hoverColor: AppColors.mutedText.withOpacity(0.1),
+      hoverColor: theme.colorScheme.onSurfaceVariant.withOpacity(0.1),
     );
   }
 }

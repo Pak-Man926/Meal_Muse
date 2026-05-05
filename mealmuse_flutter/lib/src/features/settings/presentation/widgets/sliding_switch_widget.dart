@@ -17,6 +17,7 @@ class SlidingSwitchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -29,7 +30,7 @@ class SlidingSwitchWidget extends StatelessWidget {
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: AppColors.charcoal.withOpacity(0.1),
+                      color: theme.colorScheme.onSurface.withOpacity(0.1),
                       blurRadius: 4,
                       offset: const Offset(0, 0),
                     ),
@@ -40,8 +41,10 @@ class SlidingSwitchWidget extends StatelessWidget {
             label,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bodyText.copyWith(
-              color: isSelected ? AppColors.charcoal : AppColors.mutedText,
+            style: theme.textTheme.bodyLarge!.copyWith(
+              color: isSelected
+                  ? theme.colorScheme.onSurface
+                  : theme.colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w600,
             ),
           ),

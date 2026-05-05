@@ -31,16 +31,17 @@ class RecipeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipe Details", style: AppTextStyles.pageTitle),
+        title: Text("Recipe Details", style: theme.textTheme.titleLarge),
         centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {},
             icon: Icon(
               Icons.favorite_outline_rounded,
-              color: AppColors.primary.withOpacity(0.8),
+              color: theme.colorScheme.primary.withOpacity(0.8),
             ),
             //isSelected: true ? AppColors.primary.withOpacity(0.8) : AppColors.bone,
           ),
@@ -68,7 +69,7 @@ class RecipeDetailScreen extends StatelessWidget {
               smallSpaceSize,
               Text(
                 "Homemade Pasta Carbonara",
-                style: AppTextStyles.sectionHeader.copyWith(
+                style: theme.textTheme.headlineMedium!.copyWith(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -97,7 +98,7 @@ class RecipeDetailScreen extends StatelessWidget {
                 onPressed: () {},
               ),
               smallSpaceSize,
-              Text("Ingredients", style: AppTextStyles.sectionHeader),
+              Text("Ingredients", style: theme.textTheme.headlineMedium),
               ListView.builder(
                 itemCount: ingredients.length,
                 shrinkWrap: true,
@@ -116,7 +117,7 @@ class RecipeDetailScreen extends StatelessWidget {
                 },
               ),
               smallSpaceSize,
-              Text("Instructions", style: AppTextStyles.sectionHeader),
+              Text("Instructions", style: theme.textTheme.headlineMedium),
               smallSpaceSize,
               ListView.separated(
                 shrinkWrap: true,
@@ -131,15 +132,15 @@ class RecipeDetailScreen extends StatelessWidget {
                         height: 24,
                         width: 24,
                         decoration: BoxDecoration(
-                          color: AppColors.primary,
+                          color: theme.colorScheme.primary,
                           shape: BoxShape.circle,
                         ),
                         child: Center(
                           child: Text(
                             "${index + 1}".toString(),
-                            style: AppTextStyles.labelMuted.copyWith(
+                            style: theme.textTheme.labelMedium!.copyWith(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -148,8 +149,8 @@ class RecipeDetailScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           instructions[index],
-                          style: AppTextStyles.bodyText.copyWith(
-                            fontSize: 16,
+                          style: theme.textTheme.bodyLarge!.copyWith(
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

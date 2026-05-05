@@ -18,23 +18,26 @@ class ViewItemsButton extends StatelessWidget {
     super.key,
     required this.label,
     this.onPressed,
-    this.color = AppColors.primary,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final resolvedColor = color ?? theme.colorScheme.primary;
+
     return Container(
       height: 50,
       width: 150,
       decoration: BoxDecoration(
-        color: color,
+        color: resolvedColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextButton(
         onPressed: onPressed,
         child: Text(
           label,
-          style: AppTextStyles.bodyText.copyWith(color: Colors.black),
+          style: theme.textTheme.bodyLarge!.copyWith(color: Colors.black),
         ),
       ),
     );

@@ -18,6 +18,7 @@ class CategoriesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         MaterialButton(
@@ -26,17 +27,17 @@ class CategoriesButton extends StatelessWidget {
           shape: CircleBorder(
             //borderRadius: BorderRadius.circular(12),
             side: BorderSide(
-              color: AppColors.primary.withOpacity(0.2),
+              color: theme.colorScheme.primary.withOpacity(0.2),
               width: 1,
             ),
           ),
           child: CircleAvatar(
             radius: 20,
-            backgroundColor: AppColors.bone,
+            backgroundColor: theme.colorScheme.surfaceContainerLow,
             child: Center(
               child: IconButton(
                 // Create the Icon widget here to apply the color
-                icon: Icon(icon, size: 20, color: AppColors.primary),
+                icon: Icon(icon, size: 20, color: theme.colorScheme.primary),
                 //highlightColor: AppColors.primary.withOpacity(0.2),
                 onPressed: onPressed,
               ),
@@ -46,7 +47,7 @@ class CategoriesButton extends StatelessWidget {
         tinySpaceSize, // Assuming tinySpaceSize is a constant
         Text(
           title,
-          style: AppTextStyles.bodyText.copyWith(fontSize: 14),
+          style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),

@@ -45,11 +45,14 @@ class DinnerRecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Dinner",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -61,7 +64,7 @@ class DinnerRecipeListScreen extends StatelessWidget {
           children: [
             Text(
               "The Evening Table",
-              style: AppTextStyles.sectionHeader.copyWith(
+              style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -69,13 +72,13 @@ class DinnerRecipeListScreen extends StatelessWidget {
             smallSpaceSize,
             Text(
               "Explore our curated selection of soul-warming main courses. From quick weeknight meals to impressive dishes for special occasions, our dinner recipes are designed to satisfy your cravings and bring joy to your evening table.",
-              style: AppTextStyles.bodyText,
+              style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
             smallSpaceSize,
             Container(
-              height: 30,
+              height: 35,
               width: double.infinity,
               child: ListView(
                 scrollDirection: Axis.horizontal,
@@ -83,17 +86,17 @@ class DinnerRecipeListScreen extends StatelessWidget {
                   ContainerWidget(
                     label: "All Recipes",
                     isActive: true,
-                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                     onTap: () {},
                   ),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
+                  ContainerWidget(label: "Healthy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
+                  ContainerWidget(label: "Healthy"),
                 ],
               ),
             ),

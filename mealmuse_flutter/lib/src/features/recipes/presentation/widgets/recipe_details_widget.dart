@@ -15,16 +15,17 @@ class RecipeDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: 100,
       width: 120,
       decoration: BoxDecoration(
-        color: AppColors.glassBorder,
+        color: theme.colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.charcoal.withOpacity(0.2)),
+        border: Border.all(color: theme.colorScheme.onSurface.withOpacity(0.2)),
       ),
       foregroundDecoration: BoxDecoration(
-        color: AppColors.glassBorder.withOpacity(0.2),
+        color: theme.colorScheme.surfaceContainerLowest.withOpacity(0.2),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -32,7 +33,7 @@ class RecipeDetailsWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTextStyles.labelMuted.copyWith(
+            style: theme.textTheme.labelMedium!.copyWith(
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
@@ -40,8 +41,8 @@ class RecipeDetailsWidget extends StatelessWidget {
           smallSpaceSize,
           Text(
             subTitle,
-            style: AppTextStyles.bodyText.copyWith(
-              fontSize: 18,
+            style: theme.textTheme.bodyLarge!.copyWith(
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),

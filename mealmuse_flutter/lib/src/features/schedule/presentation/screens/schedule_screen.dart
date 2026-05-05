@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/colors.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
@@ -12,6 +13,7 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     DateTime today = DateTime.now();
     const List<String> monthNames = [
       'January',
@@ -51,7 +53,7 @@ class ScheduleScreen extends StatelessWidget {
             pinned: true,
             expandedHeight: 150.0,
             elevation: 0,
-            title: Text("Meal Schedule", style: AppTextStyles.pageTitle),
+            title: Text("Meal Schedule", style: theme.textTheme.titleLarge),
             centerTitle: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
@@ -106,11 +108,11 @@ class ScheduleScreen extends StatelessWidget {
                 children: [
                   Text(
                     "$currentDay, $currentMonth ${today.day}",
-                    style: AppTextStyles.sectionHeader,
+                    style: theme.textTheme.headlineMedium,
                   ),
                   ContainerWidget.extended(
                     label: "3 Meals Planned",
-                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                   ),
                 ],
               ),
@@ -127,7 +129,9 @@ class ScheduleScreen extends StatelessWidget {
                   prepTime: 15,
                   composition: 320,
                   imageAddress: "assets/avocado-6b1cf76.jpg",
-                  onTap: () {},
+                  onTap: () {
+                    context.push("/recipes");
+                  },
                 ),
                 mediumSpaceSize,
                 ScheduleCardWidget(

@@ -1,12 +1,8 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
-import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
-
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -45,11 +41,14 @@ class BakedRecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Baked Foods",
-          style: AppTextStyles.pageTitle.copyWith(color: AppColors.primary),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.colorScheme.primary,
+          ),
         ),
         centerTitle: true,
       ),
@@ -61,7 +60,7 @@ class BakedRecipeListScreen extends StatelessWidget {
           children: [
             Text(
               "Artisanal Breads & Pastries",
-              style: AppTextStyles.sectionHeader.copyWith(
+              style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -69,7 +68,7 @@ class BakedRecipeListScreen extends StatelessWidget {
             smallSpaceSize,
             Text(
               "Master the art of baking with our curated recipes for crusty loaves, flaky pastries and golden-brown delights. From wild yeast starters to sophisticated laminations.",
-              style: AppTextStyles.bodyText,
+              style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
@@ -83,17 +82,17 @@ class BakedRecipeListScreen extends StatelessWidget {
                   ContainerWidget(
                     label: "All Recipes",
                     isActive: true,
-                    backgroundColor: AppColors.primary.withOpacity(0.2),
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                     onTap: () {},
                   ),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
+                  ContainerWidget(label: "Healthy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
+                  ContainerWidget(label: "Healthy"),
                 ],
               ),
             ),

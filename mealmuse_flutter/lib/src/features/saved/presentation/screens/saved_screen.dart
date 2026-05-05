@@ -12,20 +12,21 @@ class SavedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return DefaultTabController(
       initialIndex: 0,
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Saved Recipes", style: AppTextStyles.pageTitle),
+          title: Text("Saved Recipes", style: theme.textTheme.titleLarge),
           centerTitle: true,
           bottom: TabBar(
             //padding: const EdgeInsets.all(10),
-            dividerColor: AppColors.glassBorder,
+            dividerColor: theme.dividerColor,
             isScrollable: true,
-            indicatorColor: AppColors.primary,
-            labelColor: AppColors.primary.withOpacity(0.8),
-            unselectedLabelColor: AppColors.mutedText,
+            indicatorColor: theme.colorScheme.primary,
+            labelColor: theme.colorScheme.primary.withOpacity(0.8),
+            unselectedLabelColor: theme.colorScheme.onSurfaceVariant,
             tabs: [
               Tab(text: "All"),
               Tab(text: "Breakfast"),

@@ -2,13 +2,10 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
 import "package:meal_muse/src/core/utils/theme_provider.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
-
-import "package:meal_muse/src/core/themes/colors.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -17,10 +14,11 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeModeState = ref.watch(themeProvider);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings", style: AppTextStyles.pageTitle),
+        title: Text("Settings", style: theme.textTheme.titleLarge),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -29,17 +27,18 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: .start,
             children: [
-              Text("Units of measurement", style: AppTextStyles.sectionHeader),
+              //Text("Units of measurement", style: AppTextStyles.sectionHeader),
+              Text("Units of measurement"),
               smallSpaceSize,
               Container(
                 height: 45,
                 width: double.infinity,
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
-                  color: AppColors.bone,
+                  color: theme.colorScheme.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(18),
                   border: Border.all(
-                    color: AppColors.charcoal.withOpacity(0.1),
+                    color: theme.colorScheme.onSurface.withOpacity(0.1),
                   ),
                 ),
                 child: Row(
@@ -59,7 +58,10 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ),
               mediumSpaceSize,
-              Text("Dietary Restrictions", style: AppTextStyles.sectionHeader),
+              Text(
+                "Dietary Restrictions",
+                style: theme.textTheme.headlineMedium,
+              ),
               smallSpaceSize,
               ItemCheckBoxWidget(title: "Vegetarian"),
               Divider(thickness: 0.1),
@@ -70,7 +72,7 @@ class SettingsScreen extends ConsumerWidget {
               ItemCheckBoxWidget(title: "Dairy-Free"),
               Divider(thickness: 0.1),
               mediumSpaceSize,
-              Text("App Theme", style: AppTextStyles.sectionHeader),
+              Text("App Theme", style: theme.textTheme.headlineMedium),
               smallSpaceSize,
               Consumer(
                 builder: (context, ref, child) {
@@ -90,7 +92,7 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               mediumSpaceSize,
-              Text("Notifications", style: AppTextStyles.sectionHeader),
+              Text("Notifications", style: theme.textTheme.headlineMedium),
               smallSpaceSize,
               ItemSwitchWidget(
                 title: "Push Notifications",
@@ -108,37 +110,46 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               mediumSpaceSize,
-              Text("Support", style: AppTextStyles.sectionHeader),
+              Text("Support", style: theme.textTheme.headlineMedium),
               smallSpaceSize,
               ListTile(
-                leading: Icon(Icons.help, color: AppColors.mutedText),
+                leading: Icon(
+                  Icons.help,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
                 title: Text(
                   "FAQs & Help Center",
-                  style: AppTextStyles.bodyText,
+                  style: theme.textTheme.bodyLarge,
                 ),
                 trailing: Icon(
                   Icons.chevron_right_rounded,
-                  color: AppColors.mutedText,
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
                 onTap: () {},
               ),
               Divider(thickness: 0.1),
               ListTile(
-                leading: Icon(Icons.info, color: AppColors.mutedText),
-                title: Text("About App", style: AppTextStyles.bodyText),
+                leading: Icon(
+                  Icons.info,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                title: Text("About App", style: theme.textTheme.bodyLarge),
                 trailing: Icon(
                   Icons.chevron_right_rounded,
-                  color: AppColors.mutedText,
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
                 onTap: () => context.push("/about"),
               ),
               Divider(thickness: 0.1),
               ListTile(
-                leading: Icon(Icons.policy_rounded, color: AppColors.mutedText),
-                title: Text("Privacy Policy", style: AppTextStyles.bodyText),
+                leading: Icon(
+                  Icons.policy_rounded,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                title: Text("Privacy Policy", style: theme.textTheme.bodyLarge),
                 trailing: Icon(
                   Icons.chevron_right_rounded,
-                  color: AppColors.mutedText,
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
                 onTap: () {},
               ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_muse/src/core/themes/colors.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
-import 'package:meal_muse/src/core/themes/text_styles.dart';
 import 'package:meal_muse/src/features/home/domain/carousel_items.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/carousel_slider_widget.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/categories_button.dart';
@@ -13,6 +11,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final List<CarouselItems> mealItems = [
       CarouselItems(
         imageUrls:
@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Meal Muse", style: AppTextStyles.pageTitle),
+        title: Text("Meal Muse", style: theme.textTheme.titleLarge),
         actions: [
           TuneIconButtonWidget(
             onPressed: () {
@@ -72,15 +72,15 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [
-                Text("Trending Recipes", style: AppTextStyles.sectionHeader),
+                Text("Trending Recipes", style: theme.textTheme.headlineMedium),
                 TextButton(
                   onPressed: () {
                     context.push("/trendingrecipes");
                   },
                   child: Text(
                     "See All",
-                    style: AppTextStyles.bodyText.copyWith(
-                      color: AppColors.primary,
+                    style: theme.textTheme.bodyLarge!.copyWith(
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                 ),
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
             mediumSpaceSize,
             CarouselSliderWidget(items: mealItems),
             minSpaceSize,
-            Text("Popular Categories", style: AppTextStyles.sectionHeader),
+            Text("Popular Categories", style: theme.textTheme.headlineMedium),
             mediumSpaceSize,
             Expanded(
               child: GridView.count(
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.icecream,
                     title: "Desserts",
                     onPressed: () {
-                      context.push("/desertrecipes");
+                      context.push("/dessertrecipes");
                     },
                   ),
                   CategoriesButton(

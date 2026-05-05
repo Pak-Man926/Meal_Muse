@@ -9,22 +9,23 @@ class IngredientListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: 40,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColors.glassBorder.withOpacity(0.8),
+        color: theme.colorScheme.surfaceContainerLowest.withOpacity(0.8),
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
         //contentPadding: EdgeInsets.all(10),
         leading: Icon(Icons.check_circle_rounded, size: 15),
-        iconColor: AppColors.primary,
+        iconColor: theme.colorScheme.primary,
         title: Text(
           ingredients,
-          style: AppTextStyles.bodyText.copyWith(
+          style: theme.textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.w500,
-            fontSize: 16,
+            fontSize: 13,
           ),
         ),
       ),

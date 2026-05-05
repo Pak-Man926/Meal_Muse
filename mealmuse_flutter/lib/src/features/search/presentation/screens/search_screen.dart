@@ -12,9 +12,10 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search Recipes", style: AppTextStyles.pageTitle),
+        title: Text("Search Recipes", style: theme.textTheme.titleLarge),
         centerTitle: true,
       ),
       body: Padding(
@@ -28,7 +29,7 @@ class SearchScreen extends StatelessWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Search for recipes",
-                      focusColor: AppColors.primary.withOpacity(0.2),
+                      focusColor: theme.colorScheme.primary.withOpacity(0.2),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -45,38 +46,38 @@ class SearchScreen extends StatelessWidget {
               children: [
                 ContainerWidget.extended(
                   label: "Quick Recipes",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
                 ContainerWidget.extended(
                   label: "Healthy",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
                 ContainerWidget.extended(
                   label: "Vegan",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
                 ContainerWidget.extended(
                   label: "Gluten-free",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
                 ContainerWidget.extended(
                   label: "Italian",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
                 ContainerWidget.extended(
                   label: "Under 30 minutes",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
                 ContainerWidget.extended(
                   label: "Breakfast",
-                  backgroundColor: AppColors.primary.withOpacity(0.2),
+                  backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                 ),
               ],
             ),
             mediumSpaceSize,
             Text(
               "Results",
-              style: AppTextStyles.sectionHeader.copyWith(fontSize: 22),
+              style: theme.textTheme.headlineMedium!.copyWith(fontSize: 22),
             ),
             mediumSpaceSize,
             Expanded(

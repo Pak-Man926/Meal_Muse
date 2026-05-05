@@ -18,6 +18,7 @@ class DatePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10),
       child: Container(
@@ -26,12 +27,16 @@ class DatePickerWidget extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           // Toggle background color based on isActive
-          color: isActive ? AppColors.primary : AppColors.bone,
-          border: isActive ? null : Border.all(color: AppColors.glassBorder),
+          color: isActive
+              ? theme.colorScheme.primary
+              : theme.colorScheme.surfaceContainerLow,
+          border: isActive
+              ? null
+              : Border.all(color: theme.colorScheme.surfaceContainerLowest),
           boxShadow: isActive
               ? [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.3),
+                    color: theme.colorScheme.primary.withOpacity(0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -42,12 +47,13 @@ class DatePickerWidget extends StatelessWidget {
           // Use InkWell instead of FilledButton for cleaner styling
           onTap: () {},
           borderRadius: BorderRadius.circular(15),
+          canRequestFocus: true,
           child: Column(
             mainAxisAlignment: .center,
             children: [
               Text(
                 day,
-                style: AppTextStyles.bodyText.copyWith(
+                style: theme.textTheme.bodyLarge!.copyWith(
                   color: isActive ? Colors.white : Colors.grey,
                   fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
                 ),
@@ -55,7 +61,7 @@ class DatePickerWidget extends StatelessWidget {
               smallSpaceSize,
               Text(
                 date.toString(),
-                style: AppTextStyles.sectionHeader.copyWith(
+                style: theme.textTheme.headlineMedium!.copyWith(
                   color: isActive ? Colors.white : Colors.black,
                 ),
               ),
