@@ -19,12 +19,13 @@ class AppBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return NavigationBar(
       selectedIndex: currentIndex,
       onDestinationSelected: onTap,
-      indicatorColor: AppColors.primary.withOpacity(
-        0.2,
-      ), // Subtle fill for selected item
+      indicatorColor: theme
+          .navigationBarTheme
+          .indicatorColor, // Subtle fill for selected item
       // unselectedItemColor: AppColors.mutedText,
       destinations: const [
         NavigationDestination(icon: Icon(Icons.home_rounded), label: "Home"),

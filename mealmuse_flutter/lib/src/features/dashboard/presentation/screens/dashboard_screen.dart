@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
-import "package:meal_muse/src/features/dashboard/presentation/widgets/bottom_navigation_bar.dart";
+import "package:meal_muse/src/features/dashboard/presentation/widgets/navigation_bar.dart";
 import "package:meal_muse/src/features/home/presentation/screens/home_screen.dart";
 import "package:meal_muse/src/features/saved/presentation/screens/saved_screen.dart";
 import "package:meal_muse/src/features/schedule/presentation/screens/schedule_screen.dart";
