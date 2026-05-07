@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:flutter_riverpod/legacy.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/utils/theme_provider.dart";
@@ -8,12 +9,17 @@ import "package:meal_muse/src/features/settings/presentation/widgets/item_switch
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
+final measurementProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 class SettingsScreen extends ConsumerWidget {
   SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeModeState = ref.watch(themeProvider);
+    //final measurementState = ref.read(measurementProvider.notifier).state;
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -41,20 +47,29 @@ class SettingsScreen extends ConsumerWidget {
                     color: theme.colorScheme.onSurface.withOpacity(0.1),
                   ),
                 ),
-                child: Row(
-                  children: [
-                    SlidingSwitchWidget(
-                      label: "Metric (g,ml)",
-                      isSelected: true,
-                      onTap: () {},
-                    ),
-                    smallSpaceSize,
-                    SlidingSwitchWidget(
-                      label: "Imperial (oz, lb)",
-                      isSelected: false,
-                      onTap: () {},
-                    ),
-                  ],
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final isMetric = ref.watch(measurementProvider);
+                    return Row(
+                      children: [
+                        SlidingSwitchWidget(
+                          label: "Metric (g,ml)",
+                          isSelected: isMetric == true,
+                          onTap: () =>
+                              ref.read(measurementProvider.notifier).state =
+                                  true,
+                        ),
+                        smallSpaceSize,
+                        SlidingSwitchWidget(
+                          label: "Imperial (oz, lb)",
+                          isSelected: isMetric == false,
+                          onTap: () =>
+                              ref.read(measurementProvider.notifier).state =
+                                  false,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
               mediumSpaceSize,

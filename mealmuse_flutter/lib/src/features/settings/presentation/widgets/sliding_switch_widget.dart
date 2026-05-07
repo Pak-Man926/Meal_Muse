@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-
 class SlidingSwitchWidget extends StatelessWidget {
   final String label;
   final bool isSelected;
@@ -20,10 +19,14 @@ class SlidingSwitchWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 100),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Colors.transparent,
+            color: isSelected
+                ? theme
+                      .colorScheme
+                      .surface // Use the lifted surface color
+                : theme.colorScheme.surfaceContainerLowest,
             borderRadius: BorderRadius.circular(18),
             boxShadow: isSelected
                 ? [
