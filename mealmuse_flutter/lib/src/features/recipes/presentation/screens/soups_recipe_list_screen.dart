@@ -5,7 +5,6 @@ import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_wid
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-
 final List<Recipe> mySavedMeals = [
   Recipe(
     mealType: "Breakfast",

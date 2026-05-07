@@ -5,7 +5,8 @@ class TuneIconButtonWidget extends StatelessWidget {
   final double iconSize;
   //final Color color;
 
-  const TuneIconButtonWidget({super.key, 
+  const TuneIconButtonWidget({
+    super.key,
     required this.onPressed,
     this.iconSize = 24.0,
     //this.color = Color.iconColor,

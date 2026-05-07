@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 
-
 class CategoriesButton extends StatelessWidget {
   final IconData icon; // Change Icon to IconData
   final String title;

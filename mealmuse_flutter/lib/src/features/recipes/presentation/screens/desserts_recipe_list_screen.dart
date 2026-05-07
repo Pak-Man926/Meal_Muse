@@ -3,7 +3,6 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 
-
 final List<Recipe> mySavedMeals = [
   Recipe(
     mealType: "Breakfast",
