@@ -9,7 +9,7 @@ import "package:meal_muse/src/features/search/presentation/screens/search_screen
 import '../controllers/dashboard_controller.dart';
 
 class DashboardScreen extends ConsumerWidget {
-  DashboardScreen({super.key});
+  const DashboardScreen({super.key});
 
   final List<Widget> pages = const [
     HomeScreen(),

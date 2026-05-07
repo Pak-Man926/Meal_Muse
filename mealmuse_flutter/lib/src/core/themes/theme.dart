@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_muse/src/core/themes/colors.dart';
 import 'package:meal_muse/src/core/themes/text_styles.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Theme {
   static final saffronLightTheme = ThemeData(

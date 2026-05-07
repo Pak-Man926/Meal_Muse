@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
 
-import "package:meal_muse/src/core/themes/text_styles.dart";
 
 class CategoriesButton extends StatelessWidget {
   final IconData icon; // Change Icon to IconData

@@ -2,8 +2,6 @@ import "package:flutter/material.dart";
 import "package:carousel_slider/carousel_slider.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
 import "package:meal_muse/src/features/home/domain/carousel_items.dart";
 
 class CarouselSliderWidget extends StatelessWidget {

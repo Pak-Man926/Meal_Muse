@@ -3,11 +3,8 @@ import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
-import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
-
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -105,7 +102,7 @@ class TrendingRecipesListScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: mySavedMeals.length,
                 itemBuilder: (context, index) {
-                  return ScheduleCardWidget(
+                  return MealCardWidget(
                     mealType: mySavedMeals[index].mealType!,
                     meal: mySavedMeals[index].meal,
                     prepTime: mySavedMeals[index].prepTime,

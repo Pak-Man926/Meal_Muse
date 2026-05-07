@@ -3,7 +3,7 @@ import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/themes/colors.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
-import "package:meal_muse/src/features/schedule/presentation/widgets/schedule_meal_card_widget.dart";
+import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
 import "package:meal_muse/src/core/themes/text_styles.dart";
 import 'package:intl/intl.dart';
@@ -123,7 +123,7 @@ class ScheduleScreen extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 smallSpaceSize,
-                ScheduleCardWidget(
+                MealCardWidget(
                   mealType: "Breakfast",
                   meal: "Poached Eggs & Salad",
                   prepTime: 15,
@@ -134,23 +134,27 @@ class ScheduleScreen extends StatelessWidget {
                   },
                 ),
                 mediumSpaceSize,
-                ScheduleCardWidget(
+                MealCardWidget(
                   mealType: "Lunch",
                   meal: "Miso Glazed Salmon Salad",
                   prepTime: 25,
                   composition: 450,
                   imageAddress:
                       "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
-                  onTap: () {},
+                  onTap: () {
+                    context.push("/recipes");
+                  },
                 ),
                 mediumSpaceSize,
-                ScheduleCardWidget(
+                MealCardWidget(
                   mealType: "Dinner",
                   meal: "Mediterranean Paste",
                   prepTime: 35,
                   composition: 580,
                   imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
-                  onTap: () {},
+                  onTap: () {
+                    context.push("/recipes");
+                  },
                 ),
                 largeSpaceSize,
               ]),

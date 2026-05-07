@@ -1,10 +1,8 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
-class ScheduleCardWidget extends StatelessWidget {
+class MealCardWidget extends StatelessWidget {
   final String mealType;
   final String meal;
   final int prepTime;
@@ -12,7 +10,7 @@ class ScheduleCardWidget extends StatelessWidget {
   final String imageAddress;
   final Function()? onTap;
 
-  const ScheduleCardWidget({
+  const MealCardWidget({
     super.key,
     required this.mealType,
     required this.meal,
