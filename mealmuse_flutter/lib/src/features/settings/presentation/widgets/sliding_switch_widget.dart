@@ -25,7 +25,7 @@ class SlidingSwitchWidget extends StatelessWidget {
             color: isSelected
                 ? theme
                       .colorScheme
-                      .surface // Use the lifted surface color
+                      .primary.withOpacity(0.6)// Use the lifted surface color
                 : theme.colorScheme.surfaceContainerLowest,
             borderRadius: BorderRadius.circular(18),
             boxShadow: isSelected
