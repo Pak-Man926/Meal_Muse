@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
-import 'package:meal_muse/src/features/home/domain/carousel_items.dart';
+import 'package:meal_muse/src/features/home/presentation/models/carousel_items.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/carousel_slider_widget.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/categories_button.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/tune_icon_button_widget.dart';

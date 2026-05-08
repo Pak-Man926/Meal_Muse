@@ -6,7 +6,7 @@ import "package:meal_muse/src/features/home/presentation/screens/home_screen.dar
 import "package:meal_muse/src/features/saved/presentation/screens/saved_screen.dart";
 import "package:meal_muse/src/features/schedule/presentation/screens/schedule_screen.dart";
 import "package:meal_muse/src/features/search/presentation/screens/search_screen.dart";
-import '../controllers/dashboard_controller.dart';
+import '../providers/dashboard_provider.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});

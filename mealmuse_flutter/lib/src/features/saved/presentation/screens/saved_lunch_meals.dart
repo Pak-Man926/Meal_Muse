@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/src/features/saved/domain/recipe_model.dart";
+import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 
 final List<Recipe> mySavedMeals = [

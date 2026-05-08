@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/recipes/data/ingredients_model.dart";
+import "package:meal_muse/src/features/recipes/presentation/models/ingredients_model.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/core/themes/colors.dart";
