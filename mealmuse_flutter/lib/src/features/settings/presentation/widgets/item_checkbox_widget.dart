@@ -5,13 +5,13 @@ import "package:meal_muse/src/core/themes/colors.dart";
 class ItemCheckBoxWidget extends StatelessWidget {
   final String title;
   final bool value;
-  //final ValueChanged<bool> onChanged;
+  final ValueChanged<bool>? onChanged;
 
   const ItemCheckBoxWidget({
     super.key,
     required this.title,
     this.value = false,
-    //this.onChanged,,
+    this.onChanged,
   });
 
   @override
@@ -21,13 +21,15 @@ class ItemCheckBoxWidget extends StatelessWidget {
       title: Text(title),
       value: value,
       onChanged: (newValue) {
-        //onChanged?.call(newValue ?? false);
+        //onChanged.toString();
+        onChanged?.call(newValue ?? false);
       },
       controlAffinity: ListTileControlAffinity.trailing,
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      checkColor: theme.colorScheme.primary,
+      activeColor: theme.colorScheme.primary,
+      checkColor: theme.colorScheme.onPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       hoverColor: theme.colorScheme.onSurfaceVariant.withOpacity(0.1),
     );
