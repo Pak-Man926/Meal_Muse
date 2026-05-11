@@ -36,6 +36,8 @@ class ItemSwitchWidget extends StatelessWidget {
       trackOutlineColor: WidgetStatePropertyAll(
         theme.colorScheme.onSurface.withOpacity(0.2),
       ),
+      //activeColor: theme.colorScheme.primary,
+      activeTrackColor: theme.colorScheme.primary.withOpacity(0.4),
     );
   }
 }
