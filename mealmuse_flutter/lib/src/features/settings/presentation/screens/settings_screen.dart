@@ -2,18 +2,16 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_riverpod/legacy.dart";
 import "package:go_router/go_router.dart";
+import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/utils/theme_provider.dart";
+import "package:meal_muse/src/core/themes/providers/theme_provider.dart";
+import "package:meal_muse/src/features/settings/presentation/provider/settings_provider.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
-final measurementProvider = StateProvider<bool>((ref) {
-  return false;
-});
-
-class SettingsScreen extends ConsumerWidget {
+final class SettingsScreen extends ConsumerWidget {
   SettingsScreen({super.key});
 
   @override
@@ -21,6 +19,7 @@ class SettingsScreen extends ConsumerWidget {
     final themeModeState = ref.watch(themeProvider);
     //final measurementState = ref.read(measurementProvider.notifier).state;
     final theme = Theme.of(context);
+    final logger = Logger();
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +40,7 @@ class SettingsScreen extends ConsumerWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerLow,
+                  color: theme.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(18),
                   border: Border.all(
                     color: theme.colorScheme.onSurface.withOpacity(0.1),
@@ -78,14 +77,36 @@ class SettingsScreen extends ConsumerWidget {
                 style: theme.textTheme.headlineMedium,
               ),
               smallSpaceSize,
-              ItemCheckBoxWidget(title: "Vegetarian"),
-              Divider(thickness: 0.1),
-              ItemCheckBoxWidget(title: "Vegan"),
-              Divider(thickness: 0.1),
-              ItemCheckBoxWidget(title: "Gluten-Free"),
-              Divider(thickness: 0.1),
-              ItemCheckBoxWidget(title: "Dairy-Free"),
-              Divider(thickness: 0.1),
+              Consumer(
+                builder: (context, ref, child) {
+                  final selectedRestrictions = ref.watch(dietaryProvider);
+
+                  Widget buildDietTile(String title) {
+                    return ItemCheckBoxWidget(
+                      title: title,
+                      value: selectedRestrictions.contains(title) == true,
+                      onChanged: (value) {
+                        ref
+                            .read(dietaryProvider.notifier)
+                            .toggleRestriction(title);
+                      },
+                    );
+                  }
+
+                  return Column(
+                    children: [
+                      buildDietTile("Vegetarian"),
+                      Divider(thickness: 0.1),
+                      buildDietTile("Vegan"),
+                      Divider(thickness: 0.1),
+                      buildDietTile("Gluten-Free"),
+                      Divider(thickness: 0.1),
+                      buildDietTile("Dairy-Free"),
+                      Divider(thickness: 0.1),
+                    ],
+                  );
+                },
+              ),
               mediumSpaceSize,
               Text("App Theme", style: theme.textTheme.headlineMedium),
               smallSpaceSize,
@@ -109,19 +130,34 @@ class SettingsScreen extends ConsumerWidget {
               mediumSpaceSize,
               Text("Notifications", style: theme.textTheme.headlineMedium),
               smallSpaceSize,
-              ItemSwitchWidget(
-                title: "Push Notifications",
-                value: true,
-                onChanged: (value) {
-                  // Placeholder for notification toggle logic
+              Consumer(
+                builder: (context, ref, child) {
+                  final allowNotifications = ref.watch(notificationsProvider);
+                  return ItemSwitchWidget(
+                    title: "Push Notifications",
+                    value: allowNotifications,
+                    onChanged: (newvalue) {
+                      // Placeholder for notification toggle logic
+                      ref.read(notificationsProvider.notifier).state = newvalue;
+                    },
+                  );
                 },
               ),
               Divider(thickness: 0.1),
-              ItemSwitchWidget(
-                title: "Recipe Recommendations",
-                value: true,
-                onChanged: (value) {
-                  // Placeholder for notification toggle logic
+              Consumer(
+                builder: (context, ref, child) {
+                  final allowRecommendations = ref.watch(
+                    recipeRecommendationsProvider,
+                  );
+                  return ItemSwitchWidget(
+                    title: "Recipe Recommendations",
+                    value: allowRecommendations,
+                    onChanged: (newvalue) {
+                      // Placeholder for notification toggle logic
+                      ref.read(recipeRecommendationsProvider.notifier).state =
+                          newvalue;
+                    },
+                  );
                 },
               ),
               mediumSpaceSize,
@@ -169,7 +205,22 @@ class SettingsScreen extends ConsumerWidget {
                 onTap: () {},
               ),
               largeSpaceSize,
-              CustomButton.primary(text: 'Save', onPressed: () {}),
+              CustomButton.primary(
+                text: 'Save',
+                onPressed: () {
+                  final isMetric = ref.read(measurementProvider);
+                  final dietList = ref.read(dietaryProvider);
+                  final allowNotifications = ref.read(notificationsProvider);
+                  final allowRecommendations = ref.read(
+                    recipeRecommendationsProvider,
+                  );
+
+                  logger.i(
+                    "Settings Saved: isMetric=$isMetric, dietaryRestrictions=$dietList, allowNotifications=$allowNotifications, allowRecommendations=$allowRecommendations",
+                  );
+                  context.pop();
+                },
+              ),
             ],
           ),
         ),
