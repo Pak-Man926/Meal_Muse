@@ -1,7 +1,6 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_riverpod/legacy.dart";
 
-
 // A Notifier that manages a list of selected dietary restrictions
 class DietaryRestrictionsNotifier extends StateNotifier<List<String>> {
   DietaryRestrictionsNotifier() : super([]);
@@ -17,7 +16,20 @@ class DietaryRestrictionsNotifier extends StateNotifier<List<String>> {
   }
 }
 
-// The provider
-final dietaryProvider = StateNotifierProvider<DietaryRestrictionsNotifier, List<String>>((ref) {
-  return DietaryRestrictionsNotifier();
+// The providers
+final dietaryProvider =
+    StateNotifierProvider<DietaryRestrictionsNotifier, List<String>>((ref) {
+      return DietaryRestrictionsNotifier();
+    });
+
+final measurementProvider = StateProvider<bool>((ref) {
+  return true;
+});
+
+final notificationsProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
+final recipeRecommendationsProvider = StateProvider<bool>((ref) {
+  return false;
 });
