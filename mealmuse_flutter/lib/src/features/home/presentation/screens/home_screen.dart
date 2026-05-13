@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
+import 'package:meal_muse/src/features/home/data/trending_request.dart';
 import 'package:meal_muse/src/features/home/presentation/models/carousel_items.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/carousel_slider_widget.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/categories_button.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/tune_icon_button_widget.dart';
+import "package:pull_to_refresh/pull_to_refresh.dart";
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,44 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final List<CarouselItems> mealItems = [
-      CarouselItems(
-        imageUrls:
-            "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg",
-        title: "Beef and Mustard Pie",
-        duration: 20,
-        description: "A delicious beef and mustard pie recipe.",
-      ),
-      CarouselItems(
-        imageUrls:
-            "https://www.themealdb.com/images/media/meals/vvpprx1487325699.jpg",
-        title: "Chicken Handi",
-        duration: 45,
-        description: "A flavorful chicken handi recipe.",
-      ),
-      CarouselItems(
-        imageUrls:
-            "https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg",
-        title: "Chickpea Fajitas",
-        duration: 75,
-        description: "A tasty chickpea fajitas recipe.",
-      ),
-      CarouselItems(
-        imageUrls:
-            "https://www.themealdb.com/images/media/meals/1529444830.jpg",
-        title: "Lamb Biryani",
-        duration: 55,
-        description: "A spicy lamb biryani recipe.",
-      ),
-      CarouselItems(
-        imageUrls:
-            "https://www.themealdb.com/images/media/meals/1548772327.jpg",
-        title: "Pork and Apple Burgers",
-        duration: 35,
-        description: "A juicy pork and apple burgers recipe.",
-      ),
-    ];
+    final logger = Logger();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -87,7 +54,61 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             mediumSpaceSize,
-            CarouselSliderWidget(items: mealItems),
+            // Inside your HomeScreen Consumer:
+            // Inside your HomeScreen build method:
+            Consumer(
+              builder: (context, ref, child) {
+                final trendingRecipeState = ref.watch(trendingRecipeProvider);
+
+                return trendingRecipeState.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+
+                  error: (error, stack) {
+                    // UI logging for specific widget failures
+                    Logger().e("Widget failed to render recipes", error: error);
+                    return const Center(
+                      child: Text("Error fetching trending recipes."),
+                    );
+                  },
+
+                  data: (trendingData) {
+                    // trendingData is your TrendingRecipes wrapper object.
+                    // We need to map over its "results" list.
+                    if (trendingData.results.isEmpty) {
+                      return const Center(
+                        child: Text("No trending recipes available."),
+                      );
+                    }
+
+                    final mealItems = trendingData.results.map((recipe) {
+                      // Safely grab the image and prepend your API Base URL
+                      // because your API returns relative paths like "/uploads/..."
+                      final imagePath = recipe.images.isNotEmpty
+                          ? recipe.images.first
+                          : '';
+
+                      // Using imageBaseUrl from constants.dart which automatically
+                      // removes the /api suffix from your API_URL
+                      final fullImageUrl = imagePath.isNotEmpty
+                          ? "$imageBaseUrl$imagePath"
+                          : "https://via.placeholder.com/400"; // Fallback if no image
+
+                      return CarouselItems(
+                        imageUrls: fullImageUrl,
+                        title: recipe.name,
+                        duration: recipe.totalTime,
+                        // Use the description if it's not null, otherwise fallback to slug
+                        description:
+                            recipe.description?.toString() ?? recipe.slug,
+                      );
+                    }).toList();
+
+                    return CarouselSliderWidget(items: mealItems);
+                  },
+                );
+              },
+            ),
             minSpaceSize,
             Text("Popular Categories", style: theme.textTheme.headlineMedium),
             mediumSpaceSize,
