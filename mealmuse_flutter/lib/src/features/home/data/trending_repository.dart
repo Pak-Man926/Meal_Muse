@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
-import 'package:meal_muse/src/features/home/data/trending_recipe_model.dart';
+import 'package:meal_muse/src/features/home/domain/trending_recipe_model.dart';
 
 final dio = Dio();
 final logger = Logger();
