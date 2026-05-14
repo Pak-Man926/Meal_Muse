@@ -111,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                       items: mealItems,
                       onTap: (tappedItem) {
                         Logger().i(
-                          "Tapped on a trending recipe: ${tappedItem.title} ${tappedItem.id}",
+                          "Tapped on a trending recipe: ${tappedItem.title} \n ID :${tappedItem.id}",
                         );
                         context.push("/recipes/${tappedItem.id}");
                       },
