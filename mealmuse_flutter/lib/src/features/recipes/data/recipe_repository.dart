@@ -1,44 +1,37 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_muse/src/features/recipes/presentation/models/recipe_model.dart';
+import 'package:logger/logger.dart';
+import 'package:meal_muse/src/core/constants/constants.dart';
+import 'package:meal_muse/src/features/recipes/domain/recipe_model.dart';
 
-/// The Data Layer (Repository) handles data retrieval and submission.
-/// It interacts with the outside world (APIs, Databases, etc.) to fetch raw data
-/// and returns clean Domain models (like Recipe) back to the UI/Providers.
+final dio = Dio();
+final logger = Logger();
+
 class RecipeRepository {
-  // In a real application, you'd inject Dio, http.Client, or a local DB here
-  // final HttpClient apiClient;
-  // RecipeRepository({required this.apiClient});
+  Future<RecipesDetails> getRecipesDetails(int id) async {
+    try {
+      final response = await dio.get("$apiBaseUrl/recipes/$id");
 
-  Future<List<Recipe>> fetchRecipes() async {
-    // 1. Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
+      if (response.statusCode == 200) {
+        // Log the count so you know the call succeeded without printing the massive JSON
+        logger.i("Recipe Details: ${response.data}");
 
-    // 2. Mocking an API response mapping
-    // final response = await apiClient.get('/api/recipes');
-    // return (response.data as List).map((json) => Recipe.fromJson(json)).toList();
-
-    return [
-      Recipe(
-        imageUrl:
-            "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg",
-        name: "Sample Repo Recipe",
-        description:
-            "This data came from the newly created Repository pattern in the data/ folder.",
-        ingredients: ["Ingredient A", "Ingredient B"],
-        procedure: ["Step 1", "Step 2"],
-      ),
-    ];
+        // 2. Parse the single Map directly!
+        return RecipesDetails.fromJson(response.data);
+      } else {
+        logger.e(
+          "Failed to fetchrecipes details. Status code ${response.statusCode}",
+        );
+        throw Exception("Failed to fetc hrecipe details");
+      }
+    } catch (e, stackTrace) {
+      // Catch Dio errors or parsing errors and log the stack trace
+      logger.e("Error in getTrendingRecipes", error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 }
 
-/// Creates a singleton-like instance of your repository that can be accessed globally
-final recipeRepositoryProvider = Provider<RecipeRepository>((ref) {
-  return RecipeRepository();
-});
-
-/// A FutureProvider that handles calling the API and giving the results to the UI.
-/// UI widgets can do: `ref.watch(recipesProvider).when(data: ..., loading: ..., error: ...)`
-final recipesFutureProvider = FutureProvider<List<Recipe>>((ref) async {
-  final repository = ref.watch(recipeRepositoryProvider);
-  return repository.fetchRecipes();
+final recipeDetailsProvider = FutureProvider.family<RecipesDetails, int>((ref, id) async {
+  return RecipeRepository().getRecipesDetails(id);
 });
