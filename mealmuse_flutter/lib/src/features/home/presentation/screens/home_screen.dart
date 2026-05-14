@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
-import 'package:meal_muse/src/features/home/data/trending_request.dart';
+import 'package:meal_muse/src/features/home/data/trending_repository.dart';
 import 'package:meal_muse/src/features/home/presentation/models/carousel_items.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/carousel_slider_widget.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/categories_button.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/tune_icon_button_widget.dart';
+import 'package:meal_muse/src/features/recipes/data/recipe_repository.dart';
 import "package:pull_to_refresh/pull_to_refresh.dart";
 
 class HomeScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final logger = Logger();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -95,6 +97,7 @@ class HomeScreen extends StatelessWidget {
                           : "https://via.placeholder.com/400"; // Fallback if no image
 
                       return CarouselItems(
+                        id: recipe.id,
                         imageUrls: fullImageUrl,
                         title: recipe.name,
                         duration: recipe.totalTime,
@@ -104,7 +107,15 @@ class HomeScreen extends StatelessWidget {
                       );
                     }).toList();
 
-                    return CarouselSliderWidget(items: mealItems);
+                    return CarouselSliderWidget(
+                      items: mealItems,
+                      onTap: (tappedItem) {
+                        Logger().i(
+                          "Tapped on a trending recipe: ${tappedItem.title} ${tappedItem.id}",
+                        );
+                        context.push("/recipes/${tappedItem.id}");
+                      },
+                    );
                   },
                 );
               },
