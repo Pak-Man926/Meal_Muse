@@ -6,7 +6,7 @@ import "package:meal_muse/src/features/recipes/presentation/screens/desserts_rec
 import "package:meal_muse/src/features/recipes/presentation/screens/dinner_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/drinks_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/lunch_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/recipe_detail_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/recipe%20details/recipe_detail_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/snacks_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/soups_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/trending_recipes_list_screen.dart";
@@ -20,8 +20,11 @@ final router = GoRouter(
     GoRoute(path: "/settings", builder: (context, state) => SettingsScreen()),
     GoRoute(path: "/about", builder: (context, state) => AboutScreen()),
     GoRoute(
-      path: "/recipes",
-      builder: (context, state) => RecipeDetailScreen(),
+      path: "/recipes/:id",
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        return RecipeDetailScreen(id: id);
+      },
     ),
     GoRoute(
       path: "/breakfastrecipes",
