@@ -27,8 +27,7 @@ class CarouselSliderWidget extends StatelessWidget {
         return Builder(
           builder: (BuildContext context) {
             return GestureDetector(
-              onTap: ()
-              {
+              onTap: () {
                 if (onTap != null) {
                   onTap!(item);
                 }

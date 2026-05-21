@@ -6,8 +6,6 @@ import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_detai
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 
-
-
 class RecipeDetailScreen extends StatelessWidget {
   final int id;
   const RecipeDetailScreen({super.key, required this.id});

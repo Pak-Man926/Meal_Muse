@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
-import 'package:meal_muse/src/features/home/data/trending_repository.dart';
+import 'package:meal_muse/src/features/home/data/trending_recipe_repository.dart';
 import 'package:meal_muse/src/features/home/presentation/models/carousel_items.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/carousel_slider_widget.dart';
 import 'package:meal_muse/src/features/home/presentation/widgets/categories_button.dart';

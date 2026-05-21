@@ -32,6 +32,9 @@ class RecipeRepository {
   }
 }
 
-final recipeDetailsProvider = FutureProvider.family<RecipesDetails, int>((ref, id) async {
+final recipeDetailsProvider = FutureProvider.family<RecipesDetails, int>((
+  ref,
+  id,
+) async {
   return RecipeRepository().getRecipesDetails(id);
 });
