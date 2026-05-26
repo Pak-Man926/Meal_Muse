@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
-import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
+
+
+import "../../../../../core/domain/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -38,8 +38,9 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class TrendingRecipesListScreen extends StatelessWidget {
-  const TrendingRecipesListScreen({super.key});
+class BreakfastRecipeListScreen extends StatelessWidget {
+  final int? categoryId;
+  const BreakfastRecipeListScreen({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class TrendingRecipesListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Trending Recipes",
+          "Breakfast",
           style: theme.textTheme.titleLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),
@@ -60,40 +61,47 @@ class TrendingRecipesListScreen extends StatelessWidget {
           mainAxisAlignment: .start,
           crossAxisAlignment: .start,
           children: [
-            // Text(
-            //   "Breakfast Recipes",
-            //   style: AppTextStyles.sectionHeader.copyWith(
-            //     fontSize: 26,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // smallSpaceSize,
-            // Text(
-            //   "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
-            //   style: AppTextStyles.bodyText,
-            //   overflow: TextOverflow.clip,
-            //   maxLines: 5,
-            // ),
+            Text(
+              "Breakfast Recipes",
+              style: theme.textTheme.headlineMedium!.copyWith(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             smallSpaceSize,
-            Container(
-              height: 30,
+            Text(
+              "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
+              style: theme.textTheme.bodyLarge,
+              overflow: TextOverflow.clip,
+              maxLines: 5,
+            ),
+            smallSpaceSize,
+            SizedBox(
+              height: 35,
               width: double.infinity,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  ContainerWidget.extended(
+                  ContainerWidget(
                     label: "All Recipes",
                     isActive: true,
                     backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
+                    onTap: () {},
                   ),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
+                  ContainerWidget(
+                    label: "Quick & Easy",
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
+                  ),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
+                  ContainerWidget(
+                    label: "Healthy",
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
+                  ),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Quick & Easy"),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  ContainerWidget.extended(label: "Healthy"),
+                  ContainerWidget(label: "Healthy"),
                 ],
               ),
             ),
@@ -108,9 +116,6 @@ class TrendingRecipesListScreen extends StatelessWidget {
                     prepTime: mySavedMeals[index].prepTime,
                     composition: mySavedMeals[index].composition,
                     imageAddress: mySavedMeals[index].imageAddress,
-                    onTap: () {
-                      context.push("/recipes");
-                    },
                   );
                 },
               ),

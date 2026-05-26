@@ -1,13 +1,10 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/home/presentation/widgets/categories_button.dart";
-import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
-import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
+
+import "../../../../../core/domain/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -41,8 +38,9 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class DrinksRecipeListScreen extends StatelessWidget {
-  const DrinksRecipeListScreen({super.key});
+class DinnerRecipeListScreen extends StatelessWidget {
+  final int? categoryId;
+  const DinnerRecipeListScreen({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +48,7 @@ class DrinksRecipeListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Drinks",
+          "Dinner",
           style: theme.textTheme.titleLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),
@@ -64,7 +62,7 @@ class DrinksRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Artisanal Sips",
+              "The Evening Table",
               style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -72,36 +70,32 @@ class DrinksRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Discover a curated collection of liquid inspirations, from sophisticated midnight cocktails to vibrant morning juices. Our drink recipes are crafted to elevate your sipping experience, whether you're unwinding after a long day or kickstarting your morning with a burst of flavor.",
+              "Explore our curated selection of soul-warming main courses. From quick weeknight meals to impressive dishes for special occasions, our dinner recipes are designed to satisfy your cravings and bring joy to your evening table.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
-              maxLines: 7,
+              maxLines: 5,
             ),
             smallSpaceSize,
             Container(
-              height: 90,
+              height: 35,
               width: double.infinity,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  CategoriesButton(
-                    icon: Icons.local_bar_rounded,
-                    title: "Cocktails",
+                  ContainerWidget(
+                    label: "All Recipes",
+                    isActive: true,
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
+                    onTap: () {},
                   ),
                   const SizedBox(width: 10),
-                  CategoriesButton(icon: Icons.coffee, title: "Coffee"),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  CategoriesButton(
-                    icon: Icons.blender_rounded,
-                    title: "Smoothies",
-                  ),
+                  ContainerWidget(label: "Healthy"),
                   const SizedBox(width: 10),
-                  CategoriesButton(
-                    icon: Icons.water_drop_rounded,
-                    title: "Juices",
-                  ),
+                  ContainerWidget(label: "Quick & Easy"),
                   const SizedBox(width: 10),
-                  CategoriesButton(icon: Icons.wine_bar_rounded, title: "Wine"),
+                  ContainerWidget(label: "Healthy"),
                 ],
               ),
             ),

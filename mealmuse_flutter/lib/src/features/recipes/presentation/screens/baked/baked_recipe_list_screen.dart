@@ -1,12 +1,9 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
-import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
+import "../../../../../core/domain/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,8 +37,9 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class LunchRecipeListScreen extends StatelessWidget {
-  const LunchRecipeListScreen({super.key});
+class BakedRecipeListScreen extends StatelessWidget {
+  final int? categoryId;
+  const BakedRecipeListScreen({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,7 @@ class LunchRecipeListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Lunch",
+          "Baked Foods",
           style: theme.textTheme.titleLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),
@@ -63,7 +61,7 @@ class LunchRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Midday essentials",
+              "Artisanal Breads & Pastries",
               style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -71,31 +69,36 @@ class LunchRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Fuel your afternoon with our selection of hearty and healthy lunch options, designed to keep you energized and satisfied throughout the day.",
+              "Master the art of baking with our curated recipes for crusty loaves, flaky pastries and golden-brown delights. From wild yeast starters to sophisticated laminations.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
-            // smallSpaceSize,
-            // Container(
-            //   height: 30,
-            //   width: double.infinity,
-            //   child: ListView(
-            //     scrollDirection: Axis.horizontal,
-            //     children: [
-            //       ContainerWidget.extended(label: "All Recipes"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Quick & Easy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Healthy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Quick & Easy"),
-            //       const SizedBox(width: 10),
-            //       ContainerWidget.extended(label: "Healthy"),
-            //     ],
-            //   ),
-            // ),
-            mediumSpaceSize,
+            smallSpaceSize,
+            SizedBox(
+              height: 30,
+              width: double.infinity,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ContainerWidget(
+                    label: "All Recipes",
+                    isActive: true,
+                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
+                    onTap: () {},
+                  ),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Quick & Easy"),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Healthy"),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Quick & Easy"),
+                  const SizedBox(width: 10),
+                  ContainerWidget(label: "Healthy"),
+                ],
+              ),
+            ),
+            smallSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,

@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
+
+
+import "../../../../../core/domain/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -35,8 +37,9 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class DessertRecipeListScreen extends StatelessWidget {
-  const DessertRecipeListScreen({super.key});
+class SnacksRecipeListScreen extends StatelessWidget {
+  final int? categoryId;
+  const SnacksRecipeListScreen({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class DessertRecipeListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Desserts",
+          "Snacks",
           style: theme.textTheme.titleLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),
@@ -58,7 +61,7 @@ class DessertRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Sweet Endings",
+              "Bite-Sized Delights",
               style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -66,7 +69,7 @@ class DessertRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Indulge in our collection of delectable dessert recipes, from classic favorites to innovative creations. Whether you're craving a rich chocolate cake, a refreshing fruit tart, or a creamy cheesecake, our dessert recipes are sure to satisfy your sweet tooth and impress your guests.",
+              "Quick bites and savory delights to keep you energized between meals. From crispy chips and creamy dips to wholesome energy bars and refreshing fruit salads, our snack recipes are perfect for satisfying your cravings and keeping you fueled throughout the day.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,

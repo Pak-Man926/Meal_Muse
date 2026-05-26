@@ -1,9 +1,8 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
-import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
-import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
+
+import "../../../../../core/domain/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -37,8 +36,9 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class SoupRecipeListScreen extends StatelessWidget {
-  const SoupRecipeListScreen({super.key});
+class DessertRecipeListScreen extends StatelessWidget {
+  final int? categoryId;
+  const DessertRecipeListScreen({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class SoupRecipeListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Soups",
+          "Desserts",
           style: theme.textTheme.titleLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),
@@ -60,7 +60,7 @@ class SoupRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Simmered Comfort",
+              "Sweet Endings",
               style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class SoupRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Warm your soul with our selection of hearty stews,creamy bisques, and refreshing broths. Whether you're in the mood for a comforting chicken noodle soup, a rich tomato bisque, or a vibrant vegetable broth, our soup recipes are sure to satisfy your cravings and nourish your body.",
+              "Indulge in our collection of delectable dessert recipes, from classic favorites to innovative creations. Whether you're craving a rich chocolate cake, a refreshing fruit tart, or a creamy cheesecake, our dessert recipes are sure to satisfy your sweet tooth and impress your guests.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,

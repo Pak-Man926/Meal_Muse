@@ -1,12 +1,9 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/features/saved/presentation/models/recipe_model.dart";
-import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
-import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
+
+import "../../../../../core/domain/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(
@@ -40,8 +37,9 @@ final List<Recipe> mySavedMeals = [
   ),
 ];
 
-class BreakfastRecipeListScreen extends StatelessWidget {
-  const BreakfastRecipeListScreen({super.key});
+class SoupRecipeListScreen extends StatelessWidget {
+  final int? categoryId;
+  const SoupRecipeListScreen({super.key, this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Breakfast",
+          "Soups",
           style: theme.textTheme.titleLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),
@@ -63,7 +61,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             Text(
-              "Breakfast Recipes",
+              "Simmered Comfort",
               style: theme.textTheme.headlineMedium!.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -71,42 +69,31 @@ class BreakfastRecipeListScreen extends StatelessWidget {
             ),
             smallSpaceSize,
             Text(
-              "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
+              "Warm your soul with our selection of hearty stews,creamy bisques, and refreshing broths. Whether you're in the mood for a comforting chicken noodle soup, a rich tomato bisque, or a vibrant vegetable broth, our soup recipes are sure to satisfy your cravings and nourish your body.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
-              maxLines: 5,
+              maxLines: 7,
             ),
-            smallSpaceSize,
-            SizedBox(
-              height: 35,
-              width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ContainerWidget(
-                    label: "All Recipes",
-                    isActive: true,
-                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
-                    onTap: () {},
-                  ),
-                  const SizedBox(width: 10),
-                  ContainerWidget(
-                    label: "Quick & Easy",
-                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
-                  ),
-                  const SizedBox(width: 10),
-                  ContainerWidget(
-                    label: "Healthy",
-                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
-                  ),
-                  const SizedBox(width: 10),
-                  ContainerWidget(label: "Quick & Easy"),
-                  const SizedBox(width: 10),
-                  ContainerWidget(label: "Healthy"),
-                ],
-              ),
-            ),
-            smallSpaceSize,
+            // smallSpaceSize,
+            // Container(
+            //   height: 30,
+            //   width: double.infinity,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       ContainerWidget.extended(label: "All Recipes"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Quick & Easy"),
+            //       const SizedBox(width: 10),
+            //       ContainerWidget.extended(label: "Healthy"),
+            //     ],
+            //   ),
+            // ),
+            mediumSpaceSize,
             Expanded(
               child: ListView.builder(
                 itemCount: mySavedMeals.length,
