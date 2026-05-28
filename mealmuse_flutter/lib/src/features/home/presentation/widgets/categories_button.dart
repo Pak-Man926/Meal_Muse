@@ -2,9 +2,9 @@ import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 
 class CategoriesButton extends StatelessWidget {
-  final IconData icon; // Change Icon to IconData
+  final IconData icon;
   final String title;
-  final VoidCallback? onPressed;
+  final VoidCallback? onPressed; 
 
   const CategoriesButton({
     super.key,
@@ -16,32 +16,32 @@ class CategoriesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    
     return Column(
       children: [
-        MaterialButton(
-          onPressed: onPressed,
-          //hoverColor: AppColors.primary.withOpacity(0.2),
-          shape: CircleBorder(
-            //borderRadius: BorderRadius.circular(12),
-            side: BorderSide(
-              color: theme.colorScheme.primary.withOpacity(0.2),
-              width: 1,
+        InkWell(
+          onTap: onPressed, 
+          borderRadius: BorderRadius.circular(50), 
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: theme.colorScheme.primary.withOpacity(0.2),
+                width: 1,
+              ),
             ),
-          ),
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: theme.colorScheme.surfaceContainerLow,
-            child: Center(
-              child: IconButton(
-                // Create the Icon widget here to apply the color
-                icon: Icon(icon, size: 20, color: theme.colorScheme.primary),
-                //highlightColor: AppColors.primary.withOpacity(0.2),
-                onPressed: onPressed,
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: theme.colorScheme.surfaceContainerLow,
+              child: Icon(
+                icon, 
+                size: 20, 
+                color: theme.colorScheme.primary,
               ),
             ),
           ),
         ),
-        tinySpaceSize, // Assuming tinySpaceSize is a constant
+        tinySpaceSize,
         Text(
           title,
           style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),
