@@ -1,15 +1,15 @@
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/features/dashboard/presentation/screens/dashboard_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/baked_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/breakfast_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/desserts_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/dinner_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/drinks_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/lunch_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/recipe%20details/recipe_detail_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/snacks_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/soups_recipe_list_screen.dart";
-import "package:meal_muse/src/features/recipes/presentation/screens/trending_recipes_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/baked/baked_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/breakfast/breakfast_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/desserts/desserts_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/dinner/dinner_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/drinks/drinks_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/lunch/lunch_recipe_list_screen.dart";
+import "package:meal_muse/src/core/domain/screens/recipe_detail_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/snacks/snacks_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/soups/soups_recipe_list_screen.dart";
+import "package:meal_muse/src/features/recipes/presentation/screens/trending/trending_recipes_list_screen.dart";
 import "package:meal_muse/src/features/settings/presentation/screens/settings_screen.dart";
 import "package:meal_muse/src/features/settings/presentation/screens/about_screen.dart";
 
@@ -27,36 +27,60 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: "/breakfastrecipes",
-      builder: (context, state) => BreakfastRecipeListScreen(),
+      path: "/breakfast",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return BreakfastRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/lunchrecipes",
-      builder: (context, state) => LunchRecipeListScreen(),
+      path: "/lunch",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return LunchRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/dinnerrecipes",
-      builder: (context, state) => DinnerRecipeListScreen(),
+      path: "/dinner",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return DinnerRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/drinkrecipes",
-      builder: (context, state) => DrinksRecipeListScreen(),
+      path: "/drinks",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return DrinksRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/dessertrecipes",
-      builder: (context, state) => DessertRecipeListScreen(),
+      path: "/desserts",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return DessertRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/souprecipes",
-      builder: (context, state) => SoupRecipeListScreen(),
+      path: "/soups",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return SoupRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/snackrecipes",
-      builder: (context, state) => SnacksRecipeListScreen(),
+      path: "/snacks",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return SnacksRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
-      path: "/bakedrecipes",
-      builder: (context, state) => BakedRecipeListScreen(),
+      path: "/bakedfoods",
+      builder: (context, state) {
+        final categoryId = state.extra as int?;
+        return BakedRecipeListScreen(categoryId: categoryId);
+      },
     ),
     GoRoute(
       path: "/trendingrecipes",
