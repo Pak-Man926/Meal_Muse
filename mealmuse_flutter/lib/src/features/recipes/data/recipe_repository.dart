@@ -20,13 +20,13 @@ class RecipeRepository {
         return RecipesDetails.fromJson(response.data);
       } else {
         logger.e(
-          "Failed to fetchrecipes details. Status code ${response.statusCode}",
+          "Failed to fetch recipes details. Status code ${response.statusCode}",
         );
-        throw Exception("Failed to fetc hrecipe details");
+        throw Exception("Failed to fetch recipe details");
       }
     } catch (e, stackTrace) {
       // Catch Dio errors or parsing errors and log the stack trace
-      logger.e("Error in getTrendingRecipes", error: e, stackTrace: stackTrace);
+      logger.e("Error in get Recipes", error: e, stackTrace: stackTrace);
       rethrow;
     }
   }
