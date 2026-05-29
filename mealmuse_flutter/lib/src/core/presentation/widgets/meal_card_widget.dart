@@ -3,7 +3,7 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
 class MealCardWidget extends StatelessWidget {
-  final String mealType;
+  final String? mealType;
   final String meal;
   final int prepTime;
   final int composition;
@@ -12,7 +12,7 @@ class MealCardWidget extends StatelessWidget {
 
   const MealCardWidget({
     super.key,
-    required this.mealType,
+    this.mealType,
     required this.meal,
     required this.prepTime,
     required this.composition,
@@ -32,7 +32,9 @@ class MealCardWidget extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: 1.6,
-            child: Image.asset(imageAddress, fit: BoxFit.cover),
+            child: imageAddress.startsWith('http')
+                ? Image.network(imageAddress, fit: BoxFit.cover)
+                : Image.asset(imageAddress, fit: BoxFit.cover),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
