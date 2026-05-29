@@ -1,42 +1,11 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
 
-import "../../../../../core/domain/models/recipe_model.dart";
-
-final List<Recipe> mySavedMeals = [
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Blueberry Pancakes",
-    prepTime: 20,
-    composition: 580,
-    imageAddress: "assets/Fluffy-blueberry-pancakes-1.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Avocado Toast",
-    prepTime: 10,
-    composition: 320,
-    imageAddress: "assets/Avocado-Toast-SpendWithPennies-1.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Eggs Benedict",
-    prepTime: 35,
-    composition: 450,
-    imageAddress:
-        "assets/17205-eggs-benedict-DDMFS-4x3-a0042d5ae1da485fac3f468654187db0.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Berry Smoothie Bowl",
-    prepTime: 15,
-    composition: 45,
-    imageAddress: "assets/Protein-Berry-Smoothie-Bowl-1.jpg",
-  ),
-];
 
 class BreakfastRecipeListScreen extends StatelessWidget {
   final int? categoryId;
@@ -106,19 +75,49 @@ class BreakfastRecipeListScreen extends StatelessWidget {
               ),
             ),
             smallSpaceSize,
-            Expanded(
-              child: ListView.builder(
-                itemCount: mySavedMeals.length,
-                itemBuilder: (context, index) {
-                  return MealCardWidget(
-                    mealType: mySavedMeals[index].mealType!,
-                    meal: mySavedMeals[index].meal,
-                    prepTime: mySavedMeals[index].prepTime,
-                    composition: mySavedMeals[index].composition,
-                    imageAddress: mySavedMeals[index].imageAddress,
-                  );
-                },
-              ),
+            Consumer(
+              builder: (context, ref, child) {
+                final breakfastCategoryRecipes = ref.watch(
+                  categoryRecipesProvider(categoryId ?? 0),
+                );
+
+                return breakfastCategoryRecipes.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stack) =>
+                      const Center(child: Text("Error fetching recipes")),
+                  data: (recipes) {
+                    if (recipes.results.isEmpty) {
+                      return const Center(child: Text("No recipes available."));
+                    }
+
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: recipes.results.length,
+                        itemBuilder: (context, index) {
+                          final recipe = recipes.results[index];
+                          final imagePath = recipe.images.isNotEmpty
+                              ? recipe.images.first
+                              : '';
+                          final fullImageUrl = imagePath.isNotEmpty
+                              ? "$imageBaseUrl$imagePath"
+                              : "https://via.placeholder.com/400";
+
+                          return MealCardWidget(
+                            mealType: "Breakfast",
+                            meal: recipe.name,
+                            prepTime: recipe.totalTime,
+                            composition:
+                                recipe.ratingValue ??
+                                0, // You can replace this with actual composition if available
+                            imageAddress: fullImageUrl,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),
