@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:intl/intl.dart';
 
 import '../../../../core/constants/constants.dart';
-import '../../../../core/themes/text_styles.dart';
 
 class AboutScreen extends StatelessWidget {
   AboutScreen({super.key});

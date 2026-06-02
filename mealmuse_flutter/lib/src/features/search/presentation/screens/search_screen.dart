@@ -1,10 +1,6 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
-
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_card_widget.dart";
 
 class SearchScreen extends StatelessWidget {

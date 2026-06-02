@@ -1,6 +1,4 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
 
 class ViewItemsButton extends StatelessWidget {
   final String label;
