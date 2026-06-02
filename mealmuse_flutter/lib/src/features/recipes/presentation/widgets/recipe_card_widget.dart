@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 
-
 class RecipeCardWidget extends StatelessWidget {
   final Image? image;
   final String heading;
@@ -45,22 +44,28 @@ class RecipeCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 15),
-          Column(
-            children: [
-              Text(
-                heading,
-                style: theme.textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: .start,
+              crossAxisAlignment: .start,
+              children: [
+                Text(
+                  heading,
+                  style: theme.textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              smallSpaceSize,
-              Text(
-                subHeading,
-                style: theme.textTheme.labelMedium!.copyWith(fontSize: 12),
-              ),
-            ],
+                smallSpaceSize,
+                Text(
+                  subHeading,
+                  style: theme.textTheme.labelMedium!.copyWith(fontSize: 12),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),
