@@ -1,14 +1,19 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_card_widget.dart";
+import "package:meal_muse/src/features/search/data/recipe_search_provider.dart";
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends ConsumerWidget {
   const SearchScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final searchResultsAsync = ref.watch(recipeSearchResultsProvider);
+
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Search Recipes", style: theme.textTheme.titleLarge),
@@ -22,7 +27,8 @@ class SearchScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: TextField(
+                  child: TextFormField(
+                    //controller: TextEditingController(),
                     decoration: InputDecoration(
                       hintText: "Search for recipes",
                       focusColor: theme.colorScheme.primary.withOpacity(0.2),
@@ -31,6 +37,9 @@ class SearchScreen extends StatelessWidget {
                       ),
                       prefixIcon: Icon(Icons.search),
                     ),
+                    onChanged: (value) {
+                      ref.read(searchQueryProvider.notifier).state = value;
+                    },
                   ),
                 ),
               ],
@@ -77,75 +86,58 @@ class SearchScreen extends StatelessWidget {
             ),
             mediumSpaceSize,
             Expanded(
-              child: ListView.builder(
-                itemCount: 6,
-                shrinkWrap: true,
-                //physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      RecipeCardWidget(
-                        onTap: () {
-                          //context.push("/recipes/1");
-                        },
-                        image: Image.asset("assets/Chicken-stir-fry-V1.jpg"),
-                        heading: "Chicken Stir Fry",
-                        subHeading: "30 mins | 4 servings",
-                      ),
-                      mediumSpaceSize,
-                      RecipeCardWidget(
-                        onTap: () {
-                          //context.push("/recipes/1");
-                        },
-                        image: Image.asset(
-                          "assets/Fluffy-Pancakes-Featured.jpg",
+              child: searchResultsAsync.when(
+                // 1. Loading State
+                loading: () => const Center(child: CircularProgressIndicator()),
+
+                // 2. Error State (Ignore the "Cancelled" errors from debouncing)
+                error: (error, stack) {
+                  if (error.toString().contains("Cancelled")) {
+                    return const SizedBox.shrink();
+                  }
+                  return Center(child: Text("Error: $error"));
+                },
+
+                // 3. Data State
+                data: (data) {
+                  // If the search bar is empty
+                  if (data == null) {
+                    return const Center(
+                      child: Text("Start typing to search..."),
+                    );
+                  }
+
+                  // If the API returned 0 results
+                  if (data.results.isEmpty) {
+                    return const Center(child: Text("No recipes found."));
+                  }
+
+                  // Render the actual data
+                  return ListView.builder(
+                    itemCount: data.results.length,
+                    itemBuilder: (context, index) {
+                      final recipe = data.results[index];
+
+                      // Handle potential missing images
+                      final imagePath = recipe.images.isNotEmpty
+                          ? "$imageBaseUrl${recipe.images.first}"
+                          : "https://via.placeholder.com/400";
+
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: RecipeCardWidget(
+                          onTap: () {
+                            // context.push("/recipes/${recipe.id}");
+                          },
+                          // Use NetworkImage for remote images instead of Image.asset
+                          image: Image.network(imagePath, fit: BoxFit.cover),
+                          heading: recipe.name,
+                          // Combine duration and servings for the subHeading
+                          subHeading:
+                              "${recipe.totalTime} mins | ${recipe.servings} servings",
                         ),
-                        heading: "Fluffy Pancakes",
-                        subHeading: "20 mins | 4 servings",
-                      ),
-                      mediumSpaceSize,
-                      RecipeCardWidget(
-                        onTap: () {
-                          //context.push("/recipes/1");
-                        },
-                        image: Image.asset(
-                          "assets/Pasta-Carbonara-Recipe-1.jpg",
-                        ),
-                        heading: "Pasta Carbonara",
-                        subHeading: "25 mins | 4 servings",
-                      ),
-                      mediumSpaceSize,
-                      RecipeCardWidget(
-                        onTap: () {
-                          //context.push("/recipes/1");
-                        },
-                        image: Image.asset("assets/vegetable-curry-recipe.jpg"),
-                        heading: "Vegetable Curry",
-                        subHeading: "30 mins | 4 servings",
-                      ),
-                      mediumSpaceSize,
-                      RecipeCardWidget(
-                        onTap: () {
-                          //context.push("/recipes/1");
-                        },
-                        image: Image.asset(
-                          "assets/201005-r-xl-grilled-chicken-tacos-2000-63b2b629eace4d71a7ee63529e252c38.jpg",
-                        ),
-                        heading: "Chicken Tacos",
-                        subHeading: "48 mins | 4 servings",
-                      ),
-                      mediumSpaceSize,
-                      RecipeCardWidget(
-                        onTap: () {
-                          //context.push("/recipes/1");
-                        },
-                        image: Image.asset(
-                          "assets/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2007__04__honey-glazed-roast-chicken-horiz-a-1800-2057270028084ff2bdb54fcb0f2d3227.jpg",
-                        ),
-                        heading: "Honey Glazed Roast Chicken",
-                        subHeading: "1 hour | 4 servings",
-                      ),
-                    ],
+                      );
+                    },
                   );
                 },
               ),
