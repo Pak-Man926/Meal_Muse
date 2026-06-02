@@ -1,11 +1,9 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/colors.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
-import "package:meal_muse/src/core/themes/text_styles.dart";
 import 'package:intl/intl.dart';
 
 class ScheduleScreen extends StatelessWidget {
@@ -51,7 +49,7 @@ class ScheduleScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
-            expandedHeight: 150.0,
+            expandedHeight: 180.0,
             elevation: 0,
             title: Text("Meal Schedule", style: theme.textTheme.titleLarge),
             centerTitle: true,
