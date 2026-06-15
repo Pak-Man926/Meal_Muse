@@ -33,7 +33,6 @@ class PopularCategoriesSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoriesModule = ref.watch(apiRecipeCategoriesProvider);
-    
 
     return categoriesModule.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -57,9 +56,14 @@ class PopularCategoriesSection extends ConsumerWidget {
                 icon: _getCategoryIcon(category.name),
                 title: category.name,
                 onPressed: () {
-                  logger.i("Tapped on category: ${category.name} with ID: ${category.id}");
+                  logger.i(
+                    "Tapped on category: ${category.name} with ID: ${category.id}",
+                  );
 
-                  context.push("/${category.name.toLowerCase().replaceAll(' ', '')}", extra: category.id);
+                  context.push(
+                    "/${category.name.toLowerCase().replaceAll(' ', '')}",
+                    extra: category.id,
+                  );
                   // String routeName = category.name.toLowerCase();
                   // String routePath = "";
                   // if (routeName == 'baked foods') {

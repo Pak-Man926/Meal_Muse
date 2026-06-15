@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 
-
 class RecipeDetailsWidget extends StatelessWidget {
   final String title;
   final String subTitle;

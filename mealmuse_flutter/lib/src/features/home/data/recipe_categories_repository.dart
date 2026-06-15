@@ -15,7 +15,8 @@ class RecipeCategoriesRepository {
       if (response.statusCode == 200) {
         logger.i("Recipe Categories Fetched Successfully. \n ${response.data}");
         return List<RecipeCategories>.from(
-            (response.data as List).map((x) => RecipeCategories.fromJson(x)));
+          (response.data as List).map((x) => RecipeCategories.fromJson(x)),
+        );
       } else {
         logger.e(
           "Failed to fetch recipe categories. Status code: ${response.statusCode}",
@@ -31,7 +32,8 @@ class RecipeCategoriesRepository {
   }
 }
 
-final apiRecipeCategoriesProvider =
-    FutureProvider<List<RecipeCategories>>((ref) async {
+final apiRecipeCategoriesProvider = FutureProvider<List<RecipeCategories>>((
+  ref,
+) async {
   return RecipeCategoriesRepository().fetchCategories();
 });

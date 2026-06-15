@@ -4,8 +4,6 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
-
-
 class SnacksRecipeListScreen extends StatelessWidget {
   final int? categoryId;
   const SnacksRecipeListScreen({super.key, this.categoryId});

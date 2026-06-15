@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-
 class IngredientListWidget extends StatelessWidget {
   final String ingredients;
 

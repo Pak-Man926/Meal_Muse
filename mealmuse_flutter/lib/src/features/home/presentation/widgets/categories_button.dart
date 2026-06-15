@@ -4,7 +4,7 @@ import "package:meal_muse/src/core/constants/constants.dart";
 class CategoriesButton extends StatelessWidget {
   final IconData icon;
   final String title;
-  final VoidCallback? onPressed; 
+  final VoidCallback? onPressed;
 
   const CategoriesButton({
     super.key,
@@ -16,12 +16,12 @@ class CategoriesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       children: [
         InkWell(
-          onTap: onPressed, 
-          borderRadius: BorderRadius.circular(50), 
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(50),
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -33,11 +33,7 @@ class CategoriesButton extends StatelessWidget {
             child: CircleAvatar(
               radius: 20,
               backgroundColor: theme.colorScheme.surfaceContainerLow,
-              child: Icon(
-                icon, 
-                size: 20, 
-                color: theme.colorScheme.primary,
-              ),
+              child: Icon(icon, size: 20, color: theme.colorScheme.primary),
             ),
           ),
         ),

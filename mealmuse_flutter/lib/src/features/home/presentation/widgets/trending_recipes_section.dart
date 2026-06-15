@@ -18,15 +18,11 @@ class TrendingRecipesSection extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) {
         Logger().e("Widget failed to render recipes", error: error);
-        return const Center(
-          child: Text("Error fetching trending recipes."),
-        );
+        return const Center(child: Text("Error fetching trending recipes."));
       },
       data: (trendingData) {
         if (trendingData.results.isEmpty) {
-          return const Center(
-            child: Text("No trending recipes available."),
-          );
+          return const Center(child: Text("No trending recipes available."));
         }
 
         final mealItems = trendingData.results.map((recipe) {

@@ -5,7 +5,6 @@ import "package:meal_muse/src/features/home/presentation/widgets/categories_butt
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
-
 class DrinksRecipeListScreen extends StatelessWidget {
   final int? categoryId;
   const DrinksRecipeListScreen({super.key, this.categoryId});

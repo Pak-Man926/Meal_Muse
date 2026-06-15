@@ -23,13 +23,13 @@ final recipeSearchResultsProvider = FutureProvider<RecipeSearch?>((ref) async {
 
   // --- DEBOUNCING LOGIC ---
   // Wait 500 milliseconds before firing the API call.
-  // If the user types another letter before 500ms is up, the previous 
+  // If the user types another letter before 500ms is up, the previous
   // FutureProvider is disposed and a new one starts.
   var isDisposed = false;
   ref.onDispose(() => isDisposed = true);
-  
+
   await Future.delayed(const Duration(milliseconds: 500));
-  
+
   if (isDisposed) {
     // This request was cancelled by the user typing another letter
     throw Exception("Cancelled for new keystroke");

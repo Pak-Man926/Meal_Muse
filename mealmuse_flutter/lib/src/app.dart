@@ -37,16 +37,14 @@ class GlobalNetworkObserver extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final connectivity = ref.watch(connectivityStatusProvider);
-    final isDisconnected = connectivity is AsyncData &&
+    final isDisconnected =
+        connectivity is AsyncData &&
         connectivity.value == ConnectivityStatus.isDisconnected;
 
     return Stack(
       children: [
         child,
-        if (isDisconnected)
-          const Positioned.fill(
-            child: NetworkErrorWidget(),
-          ),
+        if (isDisconnected) const Positioned.fill(child: NetworkErrorWidget()),
       ],
     );
   }
