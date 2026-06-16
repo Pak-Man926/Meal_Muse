@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
 
-import 'package:meal_muse/src/core/themes/colors.dart';
-import 'package:meal_muse/src/core/themes/text_styles.dart';
-
 class DatePickerWidget extends StatelessWidget {
   final String day;
   final int date;
   final bool isActive; // Add this
+  final VoidCallback? onTap;
+  //final bool isSelected; // Optional callback for tap events
 
   const DatePickerWidget({
     super.key,
     required this.day,
     required this.date,
     this.isActive = false, // Default to false
+    this.onTap,
+    //this.isSelected = false, // Default to false
   });
 
   @override
@@ -45,7 +46,7 @@ class DatePickerWidget extends StatelessWidget {
         ),
         child: InkWell(
           // Use InkWell instead of FilledButton for cleaner styling
-          onTap: () {},
+          onTap: onTap,
           borderRadius: BorderRadius.circular(15),
           canRequestFocus: true,
           child: Column(
