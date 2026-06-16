@@ -1,16 +1,29 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:flutter_riverpod/legacy.dart";
 import "package:go_router/go_router.dart";
+import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/features/schedule/data/get_schedule_repository.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
 import 'package:intl/intl.dart';
 
-class ScheduleScreen extends StatelessWidget {
-  const ScheduleScreen({super.key});
+final logger = Logger();
+final weekdayProvider = StateProvider<String>((ref) {
+  DateTime today = DateTime.now();
+  String fullName = DateFormat("EEEE").format(today).toLowerCase();
+  return fullName;
+});
 
+class ScheduleScreen extends ConsumerWidget {
+  const ScheduleScreen({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedWeekDay = ref.watch(weekdayProvider);
+    final recipeScheduleState = ref.watch(getScheduleProvider(selectedWeekDay));
+
     final theme = Theme.of(context);
     DateTime today = DateTime.now();
     const List<String> monthNames = [
@@ -38,7 +51,7 @@ class ScheduleScreen extends StatelessWidget {
     ];
 
     String currentMonth = monthNames[today.month - 1];
-    String currentYear = today.year.toString();
+    //String currentYear = today.year.toString();
     String currentDay = DateFormat("EEE").format(today);
 
     int daysSinceSunday = today.weekday % 7;
@@ -67,7 +80,7 @@ class ScheduleScreen extends StatelessWidget {
                     SizedBox(
                       height: 100,
                       child: ListView.builder(
-                        //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains.
+                        //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains unless changed.
                         scrollDirection: Axis.horizontal,
                         itemCount: 7,
                         // Inside your ScheduleScreen ListView.builder
@@ -76,19 +89,23 @@ class ScheduleScreen extends StatelessWidget {
                             Duration(days: index),
                           );
 
-                          // Logic to check if targetDate is the same day as DateTime.now()
-                          bool isToday =
-                              targetDate.year == today.year &&
-                              targetDate.month == today.month &&
-                              targetDate.day == today.day;
-
-                          String dayName = weekdayNames[targetDate.weekday - 1];
+                          String shortDayName =
+                              weekdayNames[targetDate.weekday - 1];
+                          String fullDayName = DateFormat(
+                            "EEEE",
+                          ).format(targetDate).toLowerCase();
 
                           return DatePickerWidget(
-                            day: dayName,
+                            day: shortDayName,
                             date: targetDate.day,
-                            isActive:
-                                isToday, // Pass the comparison result here
+                            isActive: selectedWeekDay == fullDayName,
+                            onTap: () {
+                              // Update the state with the full lowercase day name for the API
+                              ref.read(weekdayProvider.notifier).state =
+                                  fullDayName;
+
+                              logger.i("Date tapped: $fullDayName");
+                            },
                           );
                         },
                       ),
@@ -109,57 +126,147 @@ class ScheduleScreen extends StatelessWidget {
                     style: theme.textTheme.headlineMedium,
                   ),
                   ContainerWidget.extended(
-                    label: "3 Meals Planned",
+                    label: "${recipeScheduleState.value?.length ?? 0} Meals Planned",
                     backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                   ),
                 ],
               ),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                smallSpaceSize,
-                MealCardWidget(
-                  mealType: "Breakfast",
-                  meal: "Poached Eggs & Salad",
-                  prepTime: 15,
-                  composition: 320,
-                  imageAddress: "assets/avocado-6b1cf76.jpg",
-                  onTap: () {
-                    context.push("/recipes");
-                  },
+          Consumer(
+            builder: (context, ref, child) {
+              return recipeScheduleState.when(
+                loading: () => const SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
                 ),
-                mediumSpaceSize,
-                MealCardWidget(
-                  mealType: "Lunch",
-                  meal: "Miso Glazed Salmon Salad",
-                  prepTime: 25,
-                  composition: 450,
-                  imageAddress:
-                      "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
-                  onTap: () {
-                    context.push("/recipes");
-                  },
-                ),
-                mediumSpaceSize,
-                MealCardWidget(
-                  mealType: "Dinner",
-                  meal: "Mediterranean Paste",
-                  prepTime: 35,
-                  composition: 580,
-                  imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
-                  onTap: () {
-                    context.push("/recipes");
-                  },
-                ),
-                largeSpaceSize,
-              ]),
-            ),
+                error: (error, stack) {
+                  logger.e(
+                    "Error fetching schedule",
+                    error: error,
+                    stackTrace: stack,
+                  );
+                  return const SliverToBoxAdapter(
+                    child: Center(child: Text("Error fetching schedule.")),
+                  );
+                },
+                data: (scheduleData) {
+                  if (scheduleData.isEmpty) {
+                    return const SliverToBoxAdapter(
+                      child: Center(
+                        child: Text("No meals scheduled for this day."),
+                      ),
+                    );
+                  }
+
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    sliver: SliverList(
+                      delegate: SliverChildListDelegate(
+                        scheduleData.map((scheduleItem) {
+                          final imagePath =
+                              scheduleItem.recipe.images.isNotEmpty
+                              ? scheduleItem.recipe.images.first
+                              : '';
+                          final fullImageUrl = imagePath.isNotEmpty
+                              ? "$imageBaseUrl$imagePath"
+                              : "https://via.placeholder.com/400";
+                          return Column(
+                            children: [
+                              smallSpaceSize,
+                              MealCardWidget(
+                                mealType: scheduleItem.mealType,
+                                meal: scheduleItem.recipe.name,
+                                prepTime: scheduleItem.recipe.totalTime,
+                                composition: 0,
+                                imageAddress: fullImageUrl,
+                                onTap: () {
+                                  context.push(
+                                    "/recipes/${scheduleItem.recipeId}",
+                                  );
+                                },
+                              ),
+                              mediumSpaceSize,
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  );
+                },
+                //    ) SliverPadding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                //   sliver: SliverList(
+                //     delegate: SliverChildListDelegate([
+                //       smallSpaceSize,
+                //       MealCardWidget(
+                //         mealType: "Breakfast",
+                //         meal: "Poached Eggs & Salad",
+                //         prepTime: 15,
+                //         composition: 320,
+                //         imageAddress: "assets/avocado-6b1cf76.jpg",
+                //         onTap: () {
+                //           context.push("/recipes");
+                //         },
+                //       ),
+                //       mediumSpaceSize,
+                //       MealCardWidget(
+                //         mealType: "Lunch",
+                //         meal: "Miso Glazed Salmon Salad",
+                //         prepTime: 25,
+                //         composition: 450,
+                //         imageAddress:
+                //             "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
+                //         onTap: () {
+                //           context.push("/recipes");
+                //         },
+                //       ),
+                //       mediumSpaceSize,
+                //       MealCardWidget(
+                //         mealType: "Dinner",
+                //         meal: "Mediterranean Paste",
+                //         prepTime: 35,
+                //         composition: 580,
+                //         imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
+                //         onTap: () {
+                //           context.push("/recipes");
+                //         },
+                //       ),
+                //       largeSpaceSize,
+                //     ]),
+                //   ),
+                //
+              );
+            },
           ),
         ],
       ),
     );
   }
 }
+
+// String selectedWeekDay()
+// {
+//   DateTime selectedDay = DateTime.now();
+
+//   int dayNumber = selectedDay.weekday;
+
+//   switch (dayNumber)
+//   {
+//     case 1: //Monday
+//     return "monday";
+//     case 2: //Tuesday
+//     return "tuesday";
+//     case 3: //Wednesday
+//     return "wednesday";
+//     case 4: //Thursday
+//     return "thursday";
+//     case 5: //Friday
+//     return "friday";
+//     case 6: //Saturday
+//     return "saturday";
+//     case 7: //Sunday
+//     return "sunday";  
+//     default:
+//     return "unknown";
+//   }
+// }
