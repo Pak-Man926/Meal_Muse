@@ -9,6 +9,7 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/auth/data/register_user_repository.dart";
 
 final logger = Logger();
+final box = GetStorage();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   packageInfo = await PackageInfo.fromPlatform();
@@ -23,6 +24,7 @@ void main() async {
           logger.i(
             "Soft Auth: User registered with ID: ${registerUser.userId}",
           );
+          box.write("user_id", registerUser.userId);
         })
         .catchError((error) {
           logger.e("Soft Auth: Failed to register user. Error: $error");
