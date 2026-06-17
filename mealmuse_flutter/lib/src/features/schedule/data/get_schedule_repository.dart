@@ -29,7 +29,9 @@ class GetScheduleRepository {
           "Schedule fetched successfully for User ID: $userId with the data: ${response.data}",
         );
 
-        return (response.data as List).map((x) => GetSchedule.fromJson(x)).toList();
+        return (response.data as List)
+            .map((x) => GetSchedule.fromJson(x))
+            .toList();
       } else {
         logger.e(
           "Failed to fetch schedule. Status code: ${response.statusCode}",
@@ -49,6 +51,9 @@ class GetScheduleRepository {
   }
 }
 
-final getScheduleProvider = FutureProvider.family<List<GetSchedule>, String>((ref, day) async {
+final getScheduleProvider = FutureProvider.family<List<GetSchedule>, String>((
+  ref,
+  day,
+) async {
   return GetScheduleRepository().getSchedule(day);
 });

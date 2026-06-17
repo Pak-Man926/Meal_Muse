@@ -23,8 +23,8 @@ class ScheduleScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedWeekDay = ref.watch(weekdayProvider);
     final recipeScheduleState = ref.watch(getScheduleProvider(selectedWeekDay));
-
     final theme = Theme.of(context);
+
     DateTime today = DateTime.now();
     const List<String> monthNames = [
       'January',
@@ -126,7 +126,8 @@ class ScheduleScreen extends ConsumerWidget {
                     style: theme.textTheme.headlineMedium,
                   ),
                   ContainerWidget.extended(
-                    label: "${recipeScheduleState.value?.length ?? 0} Meals Planned",
+                    label:
+                        "${recipeScheduleState.value?.length ?? 0} Meals Planned",
                     backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
                   ),
                 ],
@@ -157,7 +158,6 @@ class ScheduleScreen extends ConsumerWidget {
                       ),
                     );
                   }
-
                   return SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     sliver: SliverList(
@@ -193,48 +193,6 @@ class ScheduleScreen extends ConsumerWidget {
                     ),
                   );
                 },
-                //    ) SliverPadding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                //   sliver: SliverList(
-                //     delegate: SliverChildListDelegate([
-                //       smallSpaceSize,
-                //       MealCardWidget(
-                //         mealType: "Breakfast",
-                //         meal: "Poached Eggs & Salad",
-                //         prepTime: 15,
-                //         composition: 320,
-                //         imageAddress: "assets/avocado-6b1cf76.jpg",
-                //         onTap: () {
-                //           context.push("/recipes");
-                //         },
-                //       ),
-                //       mediumSpaceSize,
-                //       MealCardWidget(
-                //         mealType: "Lunch",
-                //         meal: "Miso Glazed Salmon Salad",
-                //         prepTime: 25,
-                //         composition: 450,
-                //         imageAddress:
-                //             "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
-                //         onTap: () {
-                //           context.push("/recipes");
-                //         },
-                //       ),
-                //       mediumSpaceSize,
-                //       MealCardWidget(
-                //         mealType: "Dinner",
-                //         meal: "Mediterranean Paste",
-                //         prepTime: 35,
-                //         composition: 580,
-                //         imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
-                //         onTap: () {
-                //           context.push("/recipes");
-                //         },
-                //       ),
-                //       largeSpaceSize,
-                //     ]),
-                //   ),
-                //
               );
             },
           ),
@@ -243,30 +201,3 @@ class ScheduleScreen extends ConsumerWidget {
     );
   }
 }
-
-// String selectedWeekDay()
-// {
-//   DateTime selectedDay = DateTime.now();
-
-//   int dayNumber = selectedDay.weekday;
-
-//   switch (dayNumber)
-//   {
-//     case 1: //Monday
-//     return "monday";
-//     case 2: //Tuesday
-//     return "tuesday";
-//     case 3: //Wednesday
-//     return "wednesday";
-//     case 4: //Thursday
-//     return "thursday";
-//     case 5: //Friday
-//     return "friday";
-//     case 6: //Saturday
-//     return "saturday";
-//     case 7: //Sunday
-//     return "sunday";  
-//     default:
-//     return "unknown";
-//   }
-// }
