@@ -1,3 +1,4 @@
+import "package:double_tap_to_exit/double_tap_to_exit.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
@@ -21,9 +22,19 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavProvider);
+    final theme = Theme.of(context);
 
     return Scaffold(
-      body: SafeArea(top: false, bottom: true, child: pages[currentIndex]),
+      body: DoubleTapToExit(
+        snackBar: SnackBar(
+          backgroundColor: theme.colorScheme.primary,
+          content: Text(
+            "Press back again to exit",
+            style: theme.textTheme.labelSmall,
+          ),
+        ),
+        child: SafeArea(top: false, bottom: true, child: pages[currentIndex]),
+      ),
       bottomNavigationBar: AppBottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {
