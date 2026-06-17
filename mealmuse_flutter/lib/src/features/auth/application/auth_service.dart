@@ -20,7 +20,8 @@ class AuthService {
 
     if (kIsWeb) {
       var webInfo = await deviceInfo.webBrowserInfo;
-      newUuid = "web_${DateTime.now().millisecondsSinceEpoch}_${webInfo.browserName.name}";
+      newUuid =
+          "web_${DateTime.now().millisecondsSinceEpoch}_${webInfo.browserName.name}";
     } else if (Platform.isAndroid) {
       var androidInfo = await deviceInfo.androidInfo;
       newUuid = androidInfo.id;

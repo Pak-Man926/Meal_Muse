@@ -22,7 +22,9 @@ class RegisterUserRepository {
 
       if (response.statusCode == 200) {
         final registeredUser = RegisterUser.fromJson(response.data);
-        logger.i("${registeredUser.message ?? 'User Registered Successfully.'} \n ${response.data}");
+        logger.i(
+          "${registeredUser.message ?? 'User Registered Successfully.'} \n ${response.data}",
+        );
         return registeredUser;
       } else {
         logger.e(

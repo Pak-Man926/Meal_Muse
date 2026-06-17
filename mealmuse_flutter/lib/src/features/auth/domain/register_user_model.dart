@@ -16,12 +16,11 @@ class RegisterUser {
 
   RegisterUser({required this.userId, required this.deviceUuid, this.message});
 
-  factory RegisterUser.fromJson(Map<String, dynamic> json) =>
-      RegisterUser(
-        userId: json["user_id"], 
-        deviceUuid: json["device_uuid"],
-        message: json["message"]
-      );
+  factory RegisterUser.fromJson(Map<String, dynamic> json) => RegisterUser(
+    userId: json["user_id"],
+    deviceUuid: json["device_uuid"],
+    message: json["message"],
+  );
 
   Map<String, dynamic> toJson() => {
     "user_id": userId,
