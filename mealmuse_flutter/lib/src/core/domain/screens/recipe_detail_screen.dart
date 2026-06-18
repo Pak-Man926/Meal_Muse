@@ -5,6 +5,7 @@ import "package:meal_muse/src/features/recipes/data/recipe_repository.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
+import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
 
 class RecipeDetailScreen extends StatelessWidget {
   final int id;
@@ -30,6 +31,11 @@ class RecipeDetailScreen extends StatelessWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
+          final addToSchedule = ref.watch(addScheduleProvider({
+            "recipeId": id,
+            "dayOfWeek": "Monday",
+            "mealType": "Lunch",
+          }));
           final recipeDetails = ref.watch(recipeDetailsProvider(id));
           return recipeDetails.when(
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -95,7 +101,13 @@ class RecipeDetailScreen extends StatelessWidget {
                       CustomButton.primary(
                         icon: Icons.date_range_rounded,
                         text: "Add to Schedule",
-                        onPressed: () {},
+                        onPressed: () {
+                          ref.read(addScheduleProvider({
+                            "recipeId": id,
+                            "dayOfWeek": "Monday",
+                            "mealType": "Lunch",
+                          }));
+                        },
                       ),
                       smallSpaceSize,
                       Text(
