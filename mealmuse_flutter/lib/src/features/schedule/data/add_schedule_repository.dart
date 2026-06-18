@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
@@ -9,18 +10,27 @@ final logger = Logger();
 final box = GetStorage();
 
 class AddScheduleRepository {
-  Future<AddSchedule> addSchedule() async {
+  Future<AddSchedule> addSchedule(
+    int recipeId,
+    String dayOfWeek,
+    String mealType,
+  ) async {
     var deviceUuid = box.read("device_uuid");
     var userId = box.read("user_id");
+
+    if (userId == null || deviceUuid == null) {
+      logger.e("User ID or Device UUID not found in storage.");
+      throw Exception("User ID or Device UUID not found in storage.");
+    }
 
     try {
       var response = await dio.post(
         "$apiBaseUrl/users/$userId/schedules",
         options: Options(headers: {"X-Device-ID": deviceUuid}),
-        queryParameters: {
-          "recipe_id": 1,
-          "day_of_week": "Monday",
-          "meal_type": "Breakfast",
+        data: {
+          "recipe_id": recipeId,
+          "day_of_week": dayOfWeek,
+          "meal_type": mealType,
         },
       );
 
@@ -45,3 +55,15 @@ class AddScheduleRepository {
     }
   }
 }
+
+final addScheduleProvider =
+    FutureProvider.family<AddSchedule, Map<String, dynamic>>((
+      ref,
+      params,
+    ) async {
+      return AddScheduleRepository().addSchedule(
+        params['recipeId'],
+        params['dayOfWeek'],
+        params['mealType'],
+      );
+    });
