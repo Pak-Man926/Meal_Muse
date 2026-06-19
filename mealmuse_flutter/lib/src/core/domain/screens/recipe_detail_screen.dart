@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/presentation/widgets/day_selection_widget.dart";
 import "package:meal_muse/src/features/recipes/data/recipe_repository.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
@@ -14,6 +16,7 @@ class RecipeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final logger = Logger();
     return Scaffold(
       appBar: AppBar(
         title: Text("Recipe Details", style: theme.textTheme.titleLarge),
@@ -31,11 +34,11 @@ class RecipeDetailScreen extends StatelessWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
-          final addToSchedule = ref.watch(addScheduleProvider({
-            "recipeId": id,
-            "dayOfWeek": "Monday",
-            "mealType": "Lunch",
-          }));
+          // final addToSchedule = ref.watch(addScheduleProvider({
+          //   "recipeId": id,
+          //   "dayOfWeek": "Monday",
+          //   "mealType": "Lunch",
+          // }));
           final recipeDetails = ref.watch(recipeDetailsProvider(id));
           return recipeDetails.when(
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -102,11 +105,61 @@ class RecipeDetailScreen extends StatelessWidget {
                         icon: Icons.date_range_rounded,
                         text: "Add to Schedule",
                         onPressed: () {
-                          ref.read(addScheduleProvider({
-                            "recipeId": id,
-                            "dayOfWeek": "Monday",
-                            "mealType": "Lunch",
-                          }));
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              String selectedDay = "Monday";
+                              return StatefulBuilder(
+                                builder: (BuildContext context, StateSetter setState) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        DaySelectionWidget(
+                                          selectedDay: selectedDay,
+                                          onDaySelected: (day) {
+                                            setState(() {
+                                              selectedDay = day;
+                                            });
+                                          },
+                                        ),
+                                        const SizedBox(height: 16),
+                                        CustomButton.primary(
+                                          icon: Icons.check,
+                                          text: "Confirm",
+                                          onPressed: () {
+                                            logger.i(
+                                              "Adding recipe with ID $id to schedule on ${selectedDay.toLowerCase()}",
+                                            );
+                                            Navigator.pop(context);
+                                            // ref.read(
+                                            //   addScheduleProvider({
+                                            //     "recipeId": id,
+                                            //     "dayOfWeek": selectedDay.toLowerCase(),
+                                            //     "mealType":
+                                            //         "${details.nutritionInfo}",
+                                            //   }),
+                                            // );
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                  "Added to schedule!",
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        const SizedBox(height: 16),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
                         },
                       ),
                       smallSpaceSize,
