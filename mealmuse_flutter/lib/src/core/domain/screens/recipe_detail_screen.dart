@@ -9,6 +9,8 @@ import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
 
+
+final logger = Logger();
 class RecipeDetailScreen extends StatelessWidget {
   final int id;
   const RecipeDetailScreen({super.key, required this.id});
@@ -16,7 +18,6 @@ class RecipeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final logger = Logger();
     return Scaffold(
       appBar: AppBar(
         title: Text("Recipe Details", style: theme.textTheme.titleLarge),
@@ -62,11 +63,26 @@ class RecipeDetailScreen extends StatelessWidget {
                         height: 250,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(fullImageUrl),
-                            fit: BoxFit.cover,
-                          ),
+                          // image: DecorationImage(
+                          //   image: NetworkImage(fullImageUrl),
+                          //   fit: BoxFit.cover,
+                          // ),
                           borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            fullImageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: theme.colorScheme.surfaceContainer,
+                                child: const Center(
+                                  child: Icon(Icons.broken_image, size: 50),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                       smallSpaceSize,
@@ -105,64 +121,11 @@ class RecipeDetailScreen extends StatelessWidget {
                         icon: Icons.date_range_rounded,
                         text: "Add to Schedule",
                         onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              String selectedDay = "Monday";
-                              return StatefulBuilder(
-                                builder: (BuildContext context, StateSetter setState) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        DaySelectionWidget(
-                                          selectedDay: selectedDay,
-                                          onDaySelected: (day) {
-                                            setState(() {
-                                              selectedDay = day;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(height: 16),
-                                        CustomButton.primary(
-                                          icon: Icons.check,
-                                          text: "Confirm",
-                                          onPressed: () {
-                                            logger.i(
-                                              "Adding recipe with ID $id to schedule on ${selectedDay.toLowerCase()}",
-                                            );
-                                            Navigator.pop(context);
-                                            // ref.read(
-                                            //   addScheduleProvider({
-                                            //     "recipeId": id,
-                                            //     "dayOfWeek": selectedDay.toLowerCase(),
-                                            //     "mealType":
-                                            //         "${details.nutritionInfo}",
-                                            //   }),
-                                            // );
-                                            ScaffoldMessenger.of(
-                                              context,
-                                            ).showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  "Added to schedule!",
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        const SizedBox(height: 16),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          );
+                          //Implement the modalsheet here
+                          _showAddToScheduleModalSheet(context);
                         },
                       ),
-                      smallSpaceSize,
+                      mediumSpaceSize,
                       Text(
                         "Ingredients",
                         style: theme.textTheme.headlineMedium,
@@ -238,6 +201,58 @@ class RecipeDetailScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showAddToScheduleModalSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        String selectedDay = "Monday";
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: .min,
+                children: [
+                  DaySelectionWidget(
+                    selectedDay: selectedDay,
+                    onDaySelected: (day) {
+                      setState(() {
+                        selectedDay = day;
+                      });
+                    },
+                  ),
+                  mediumSpaceSize,
+                  CustomButton.primary(
+                    icon: Icons.check,
+                    text: "Confirm",
+                    onPressed: () {
+                      logger.i(
+                        "Adding recipe with ID $id to schedule on ${selectedDay.toLowerCase()}",
+                      );
+                      Navigator.pop(context);
+                      // ref.read(
+                      //   addScheduleProvider({
+                      //     "recipeId": id,
+                      //     "dayOfWeek": selectedDay.toLowerCase(),
+                      //     "mealType":
+                      //         "${details.nutritionInfo}",
+                      //   }),
+                      // );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Added to schedule!")),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
