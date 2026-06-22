@@ -39,8 +39,11 @@ class DaySelectionWidget extends StatelessWidget {
                 label: Text(day),
                 selected: isSelected,
                 onSelected: (_) => onDaySelected(day),
-                selectedColor: theme.colorScheme.primary.withOpacity(0.8),
+                selectedColor: theme.colorScheme.primary.withOpacity(0.7),
                 backgroundColor: theme.colorScheme.surface,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 labelStyle: TextStyle(
                   color: isSelected
                       ? theme.colorScheme.onPrimary
