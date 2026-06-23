@@ -25,7 +25,7 @@ class AddScheduleRepository {
 
     try {
       var response = await dio.post(
-        "$apiBaseUrl/users/$userId/schedules",
+        "$apiBaseUrl/users/$userId/schedule",
         options: Options(headers: {"X-Device-ID": deviceUuid}),
         data: {
           "recipe_id": recipeId,
@@ -56,14 +56,18 @@ class AddScheduleRepository {
   }
 }
 
-final addScheduleProvider =
-    FutureProvider.family<AddSchedule, Map<String, dynamic>>((
-      ref,
-      params,
-    ) async {
-      return AddScheduleRepository().addSchedule(
-        params['recipeId'],
-        params['dayOfWeek'],
-        params['mealType'],
-      );
-    });
+
+final addScheduleProvider = FutureProvider.family<AddSchedule, ({
+  int recipeId,
+  String dayOfWeek,
+  String mealType,
+})>((ref, params) async {
+  final repository = AddScheduleRepository();
+  return await repository.addSchedule(
+    params.recipeId,
+    params.dayOfWeek,
+    params.mealType,
+  );
+});
+
+
