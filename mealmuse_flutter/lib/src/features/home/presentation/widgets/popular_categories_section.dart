@@ -43,8 +43,7 @@ class PopularCategoriesSection extends ConsumerWidget {
           return const Center(child: Text("No categories available."));
         }
 
-        return Expanded(
-          child: GridView.count(
+        return GridView.count(
             crossAxisCount: 4,
             crossAxisSpacing: 5,
             mainAxisSpacing: 10,
@@ -85,8 +84,7 @@ class PopularCategoriesSection extends ConsumerWidget {
                 },
               );
             }).toList(),
-          ),
-        );
+          );
       },
     );
   }

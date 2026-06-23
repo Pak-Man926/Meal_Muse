@@ -58,8 +58,12 @@ class ScheduleScreen extends ConsumerWidget {
     DateTime startOfWeek = today.subtract(Duration(days: daysSinceSunday));
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: RefreshIndicator(
+        onRefresh: () async {
+          return await ref.refresh(getScheduleProvider(selectedWeekDay).future);
+        },
+        child: CustomScrollView(
+          slivers: [
           SliverAppBar(
             pinned: true,
             expandedHeight: 180.0,
@@ -197,6 +201,7 @@ class ScheduleScreen extends ConsumerWidget {
             },
           ),
         ],
+      ),
       ),
     );
   }
