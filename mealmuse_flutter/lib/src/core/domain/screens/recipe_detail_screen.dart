@@ -9,8 +9,8 @@ import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
 
-
 final logger = Logger();
+
 class RecipeDetailScreen extends StatelessWidget {
   final int id;
   const RecipeDetailScreen({super.key, required this.id});
@@ -104,7 +104,7 @@ class RecipeDetailScreen extends StatelessWidget {
                           const SizedBox(width: 10),
                           RecipeDetailsWidget(
                             title: "Servings",
-                            subTitle: "${details.servings}",
+                            subTitle: details.servings.toString(),
                           ),
                           const SizedBox(width: 10),
                           RecipeDetailsWidget(
@@ -209,46 +209,85 @@ class RecipeDetailScreen extends StatelessWidget {
       context: context,
       builder: (context) {
         String selectedDay = "Monday";
+        String selectedMealType = "Breakfast";
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: .min,
-                children: [
-                  DaySelectionWidget(
-                    selectedDay: selectedDay,
-                    onDaySelected: (day) {
-                      setState(() {
-                        selectedDay = day;
-                      });
-                    },
+            return Consumer(
+              builder: (context, ref, child) {
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: .start,
+                    crossAxisAlignment: .start,
+                    children: [
+                      DaySelectionWidget(
+                        selectedDay: selectedDay,
+                        onDaySelected: (day) {
+                          setState(() {
+                            selectedDay = day;
+                          });
+                        },
+                      ),
+                      mediumSpaceSize,
+                      Text(
+                        "Select Meal Type",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      smallSpaceSize,
+                      DropdownButton<String>(
+                        value: selectedMealType,
+                        items: ["Breakfast", "Lunch", "Dinner"]
+                            .map(
+                              (meal) => DropdownMenuItem(
+                                value: meal,
+                                child: Text(meal),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() {
+                              selectedMealType = value;
+                            });
+                          }
+                        },
+                      ),
+                      mediumSpaceSize,
+                      CustomButton.primary(
+                        icon: Icons.check,
+                        text: "Confirm",
+                        onPressed: () async {
+                          logger.i(
+                            "Adding recipe with ID $id to schedule on ${selectedDay.toLowerCase()} for $selectedMealType",
+                          );
+                          try {
+                            await ref.read(
+                              addScheduleProvider((
+                                recipeId: id,
+                                dayOfWeek: selectedDay.toLowerCase(),
+                                mealType: selectedMealType.toLowerCase(),
+                              )).future,
+                            );
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Added to schedule!"),
+                              ),
+                            );
+                          } catch (e) {
+                            logger.e("Error adding to schedule: $e");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Error: $e")),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                    ],
                   ),
-                  mediumSpaceSize,
-                  CustomButton.primary(
-                    icon: Icons.check,
-                    text: "Confirm",
-                    onPressed: () {
-                      logger.i(
-                        "Adding recipe with ID $id to schedule on ${selectedDay.toLowerCase()}",
-                      );
-                      Navigator.pop(context);
-                      // ref.read(
-                      //   addScheduleProvider({
-                      //     "recipeId": id,
-                      //     "dayOfWeek": selectedDay.toLowerCase(),
-                      //     "mealType":
-                      //         "${details.nutritionInfo}",
-                      //   }),
-                      // );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Added to schedule!")),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ),
+                );
+              },
             );
           },
         );
