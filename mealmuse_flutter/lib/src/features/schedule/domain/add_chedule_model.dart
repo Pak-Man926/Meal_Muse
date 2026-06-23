@@ -9,25 +9,21 @@ AddSchedule addScheduleFromJson(String str) => AddSchedule.fromJson(json.decode(
 String addScheduleToJson(AddSchedule data) => json.encode(data.toJson());
 
 class AddSchedule {
-    int recipeId;
-    String dayOfWeek;
-    String mealType;
+    String message;
+    int id;
 
     AddSchedule({
-        required this.recipeId,
-        required this.dayOfWeek,
-        required this.mealType,
+        required this.message,
+        required this.id,
     });
 
     factory AddSchedule.fromJson(Map<String, dynamic> json) => AddSchedule(
-        recipeId: json["recipe_id"],
-        dayOfWeek: json["day_of_week"],
-        mealType: json["meal_type"],
+        message: json["message"],
+        id: json["id"] is int ? json["id"] : int.tryParse(json["id"].toString()) ?? 0,
     );
 
     Map<String, dynamic> toJson() => {
-        "recipe_id": recipeId,
-        "day_of_week": dayOfWeek,
-        "meal_type": mealType,
+        "message": message,
+        "id": id,
     };
 }
