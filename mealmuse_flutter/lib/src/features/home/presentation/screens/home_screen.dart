@@ -40,37 +40,43 @@ class HomeScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Trending Recipes", style: theme.textTheme.headlineMedium),
-                TextButton(
-                  onPressed: () {
-                    context.push("/trendingrecipes");
-                  },
-                  child: Text(
-                    "See All",
-                    style: theme.textTheme.bodyLarge!.copyWith(
-                      color: theme.colorScheme.primary,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Trending Recipes",
+                      style: theme.textTheme.headlineMedium,
                     ),
-                  ),
+                    TextButton(
+                      onPressed: () {
+                        context.push("/trendingrecipes");
+                      },
+                      child: Text(
+                        "See All",
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+                mediumSpaceSize,
+                const TrendingRecipesSection(),
+                minSpaceSize,
+                Text(
+                  "Popular Categories",
+                  style: theme.textTheme.headlineMedium,
+                ),
+                mediumSpaceSize,
+                const PopularCategoriesSection(),
               ],
             ),
-            mediumSpaceSize,
-            const TrendingRecipesSection(),
-            minSpaceSize,
-            Text("Popular Categories", style: theme.textTheme.headlineMedium),
-            mediumSpaceSize,
-            const PopularCategoriesSection(),
-          ],
-        ),
-      ),
           ),
         ),
+      ),
     );
   }
 }

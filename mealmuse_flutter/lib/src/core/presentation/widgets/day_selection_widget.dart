@@ -28,7 +28,7 @@ class DaySelectionWidget extends StatelessWidget {
         mainAxisAlignment: .center,
         children: [
           Text("Selected a day:", style: theme.textTheme.titleMedium),
-          const SizedBox(height:8),
+          const SizedBox(height: 8),
           Wrap(
             spacing: 5.0,
             runSpacing: 5.0,
@@ -52,7 +52,7 @@ class DaySelectionWidget extends StatelessWidget {
               );
             }),
           ),
-        ]
+        ],
       ),
     );
   }

@@ -56,18 +56,15 @@ class AddScheduleRepository {
   }
 }
 
-
-final addScheduleProvider = FutureProvider.family<AddSchedule, ({
-  int recipeId,
-  String dayOfWeek,
-  String mealType,
-})>((ref, params) async {
-  final repository = AddScheduleRepository();
-  return await repository.addSchedule(
-    params.recipeId,
-    params.dayOfWeek,
-    params.mealType,
-  );
-});
-
-
+final addScheduleProvider =
+    FutureProvider.family<
+      AddSchedule,
+      ({int recipeId, String dayOfWeek, String mealType})
+    >((ref, params) async {
+      final repository = AddScheduleRepository();
+      return await repository.addSchedule(
+        params.recipeId,
+        params.dayOfWeek,
+        params.mealType,
+      );
+    });

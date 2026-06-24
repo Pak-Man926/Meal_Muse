@@ -64,144 +64,146 @@ class ScheduleScreen extends ConsumerWidget {
         },
         child: CustomScrollView(
           slivers: [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 180.0,
-            elevation: 0,
-            title: Text("Meal Schedule", style: theme.textTheme.titleLarge),
-            centerTitle: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Padding(
-                padding: const EdgeInsets.only(
-                  top: kToolbarHeight + 20,
-                  left: 10,
-                  right: 10,
-                  //bottom: 20,
+            SliverAppBar(
+              pinned: true,
+              expandedHeight: 180.0,
+              elevation: 0,
+              title: Text("Meal Schedule", style: theme.textTheme.titleLarge),
+              centerTitle: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Padding(
+                  padding: const EdgeInsets.only(
+                    top: kToolbarHeight + 20,
+                    left: 10,
+                    right: 10,
+                    //bottom: 20,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 100,
+                        child: ListView.builder(
+                          //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains unless changed.
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 7,
+                          // Inside your ScheduleScreen ListView.builder
+                          itemBuilder: (context, index) {
+                            DateTime targetDate = startOfWeek.add(
+                              Duration(days: index),
+                            );
+
+                            String shortDayName =
+                                weekdayNames[targetDate.weekday - 1];
+                            String fullDayName = DateFormat(
+                              "EEEE",
+                            ).format(targetDate).toLowerCase();
+
+                            return DatePickerWidget(
+                              day: shortDayName,
+                              date: targetDate.day,
+                              isActive: selectedWeekDay == fullDayName,
+                              onTap: () {
+                                // Update the state with the full lowercase day name for the API
+                                ref.read(weekdayProvider.notifier).state =
+                                    fullDayName;
+
+                                logger.i("Date tapped: $fullDayName");
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 100,
-                      child: ListView.builder(
-                        //TODO: Ensure the tiles run from monday to sunday and change with dates but the schedule remains unless changed.
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 7,
-                        // Inside your ScheduleScreen ListView.builder
-                        itemBuilder: (context, index) {
-                          DateTime targetDate = startOfWeek.add(
-                            Duration(days: index),
-                          );
-
-                          String shortDayName =
-                              weekdayNames[targetDate.weekday - 1];
-                          String fullDayName = DateFormat(
-                            "EEEE",
-                          ).format(targetDate).toLowerCase();
-
-                          return DatePickerWidget(
-                            day: shortDayName,
-                            date: targetDate.day,
-                            isActive: selectedWeekDay == fullDayName,
-                            onTap: () {
-                              // Update the state with the full lowercase day name for the API
-                              ref.read(weekdayProvider.notifier).state =
-                                  fullDayName;
-
-                              logger.i("Date tapped: $fullDayName");
-                            },
-                          );
-                        },
+                    Text(
+                      "$currentDay, $currentMonth ${today.day}",
+                      style: theme.textTheme.headlineMedium,
+                    ),
+                    ContainerWidget.extended(
+                      label:
+                          "${recipeScheduleState.value?.length ?? 0} Meals Planned",
+                      backgroundColor: theme.colorScheme.primary.withOpacity(
+                        0.2,
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "$currentDay, $currentMonth ${today.day}",
-                    style: theme.textTheme.headlineMedium,
+            Consumer(
+              builder: (context, ref, child) {
+                return recipeScheduleState.when(
+                  loading: () => const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()),
                   ),
-                  ContainerWidget.extended(
-                    label:
-                        "${recipeScheduleState.value?.length ?? 0} Meals Planned",
-                    backgroundColor: theme.colorScheme.primary.withOpacity(0.2),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Consumer(
-            builder: (context, ref, child) {
-              return recipeScheduleState.when(
-                loading: () => const SliverToBoxAdapter(
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-                error: (error, stack) {
-                  logger.e(
-                    "Error fetching schedule",
-                    error: error,
-                    stackTrace: stack,
-                  );
-                  return const SliverToBoxAdapter(
-                    child: Center(child: Text("Error fetching schedule.")),
-                  );
-                },
-                data: (scheduleData) {
-                  if (scheduleData.isEmpty) {
+                  error: (error, stack) {
+                    logger.e(
+                      "Error fetching schedule",
+                      error: error,
+                      stackTrace: stack,
+                    );
                     return const SliverToBoxAdapter(
-                      child: Center(
-                        child: Text("No meals scheduled for this day."),
+                      child: Center(child: Text("Error fetching schedule.")),
+                    );
+                  },
+                  data: (scheduleData) {
+                    if (scheduleData.isEmpty) {
+                      return const SliverToBoxAdapter(
+                        child: Center(
+                          child: Text("No meals scheduled for this day."),
+                        ),
+                      );
+                    }
+                    return SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate(
+                          scheduleData.map((scheduleItem) {
+                            final imagePath =
+                                scheduleItem.recipe.images.isNotEmpty
+                                ? scheduleItem.recipe.images.first
+                                : '';
+                            final fullImageUrl = imagePath.isNotEmpty
+                                ? "$imageBaseUrl$imagePath"
+                                : "https://via.placeholder.com/400";
+                            return Column(
+                              children: [
+                                smallSpaceSize,
+                                MealCardWidget(
+                                  mealType: scheduleItem.mealType,
+                                  meal: scheduleItem.recipe.name,
+                                  prepTime: scheduleItem.recipe.totalTime,
+                                  composition: 0,
+                                  imageAddress: fullImageUrl,
+                                  onTap: () {
+                                    context.push(
+                                      "/recipes/${scheduleItem.recipeId}",
+                                    );
+                                  },
+                                ),
+                                mediumSpaceSize,
+                              ],
+                            );
+                          }).toList(),
+                        ),
                       ),
                     );
-                  }
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    sliver: SliverList(
-                      delegate: SliverChildListDelegate(
-                        scheduleData.map((scheduleItem) {
-                          final imagePath =
-                              scheduleItem.recipe.images.isNotEmpty
-                              ? scheduleItem.recipe.images.first
-                              : '';
-                          final fullImageUrl = imagePath.isNotEmpty
-                              ? "$imageBaseUrl$imagePath"
-                              : "https://via.placeholder.com/400";
-                          return Column(
-                            children: [
-                              smallSpaceSize,
-                              MealCardWidget(
-                                mealType: scheduleItem.mealType,
-                                meal: scheduleItem.recipe.name,
-                                prepTime: scheduleItem.recipe.totalTime,
-                                composition: 0,
-                                imageAddress: fullImageUrl,
-                                onTap: () {
-                                  context.push(
-                                    "/recipes/${scheduleItem.recipeId}",
-                                  );
-                                },
-                              ),
-                              mediumSpaceSize,
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ],
-      ),
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

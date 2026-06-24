@@ -44,47 +44,47 @@ class PopularCategoriesSection extends ConsumerWidget {
         }
 
         return GridView.count(
-            crossAxisCount: 4,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 10,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio: 1.2,
-            children: categories.map((category) {
-              return CategoriesButton(
-                icon: _getCategoryIcon(category.name),
-                title: category.name,
-                onPressed: () {
-                  logger.i(
-                    "Tapped on category: ${category.name} with ID: ${category.id}",
-                  );
+          crossAxisCount: 4,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 10,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: 1.2,
+          children: categories.map((category) {
+            return CategoriesButton(
+              icon: _getCategoryIcon(category.name),
+              title: category.name,
+              onPressed: () {
+                logger.i(
+                  "Tapped on category: ${category.name} with ID: ${category.id}",
+                );
 
-                  context.push(
-                    "/${category.name.toLowerCase().replaceAll(' ', '')}",
-                    extra: category.id,
-                  );
-                  // String routeName = category.name.toLowerCase();
-                  // String routePath = "";
-                  // if (routeName == 'baked foods') {
-                  //   routePath = "/bakedrecipes";
-                  // } else {
-                  //   if ([
-                  //     'drinks',
-                  //     'desserts',
-                  //     'soups',
-                  //     'snacks',
-                  //   ].contains(routeName)) {
-                  //     routePath =
-                  //         "/${routeName.substring(0, routeName.length - 1)}recipes";
-                  //   } else {
-                  //     routePath = "/${routeName.replaceAll(' ', '')}recipes";
-                  //   }
-                  // }
-                  // context.push(routePath, extra: category.id);
-                },
-              );
-            }).toList(),
-          );
+                context.push(
+                  "/${category.name.toLowerCase().replaceAll(' ', '')}",
+                  extra: category.id,
+                );
+                // String routeName = category.name.toLowerCase();
+                // String routePath = "";
+                // if (routeName == 'baked foods') {
+                //   routePath = "/bakedrecipes";
+                // } else {
+                //   if ([
+                //     'drinks',
+                //     'desserts',
+                //     'soups',
+                //     'snacks',
+                //   ].contains(routeName)) {
+                //     routePath =
+                //         "/${routeName.substring(0, routeName.length - 1)}recipes";
+                //   } else {
+                //     routePath = "/${routeName.replaceAll(' ', '')}recipes";
+                //   }
+                // }
+                // context.push(routePath, extra: category.id);
+              },
+            );
+          }).toList(),
+        );
       },
     );
   }
