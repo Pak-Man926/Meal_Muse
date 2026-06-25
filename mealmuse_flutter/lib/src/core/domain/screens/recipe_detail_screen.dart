@@ -13,7 +13,12 @@ final logger = Logger();
 
 class RecipeDetailScreen extends StatelessWidget {
   final int id;
-  const RecipeDetailScreen({super.key, required this.id});
+  final bool isFavourite;
+  const RecipeDetailScreen({
+    super.key,
+    required this.id,
+    this.isFavourite = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +122,10 @@ class RecipeDetailScreen extends StatelessWidget {
                         ],
                       ),
                       smallSpaceSize,
+                      //TODO: Allow the user to add or remove a recipe from the schedule based on whether it is already scheduled or not.
                       CustomButton.primary(
                         icon: Icons.date_range_rounded,
-                        text: "Add to Schedule",
+                        text: isFavourite ? "Remove from Schedule" : "Add to Schedule",
                         onPressed: () {
                           //Implement the modalsheet here
                           _showAddToScheduleModalSheet(context);
