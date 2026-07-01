@@ -9,14 +9,15 @@ class IngredientListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      height: 40,
+      height: 50,
       width: double.infinity,
+      alignment: .centerLeft,
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerLowest.withOpacity(0.8),
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
-        //contentPadding: EdgeInsets.all(10),
+        //contentPadding: EdgeInsets.only(bottom:18.0, left: 12.0),
         leading: Icon(Icons.check_circle_rounded, size: 15),
         iconColor: theme.colorScheme.primary,
         title: Text(
