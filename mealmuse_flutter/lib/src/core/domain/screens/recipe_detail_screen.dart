@@ -8,16 +8,17 @@ import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_detai
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
+import "package:meal_muse/src/features/schedule/data/remove_schedule_repository.dart";
 
 final logger = Logger();
 
 class RecipeDetailScreen extends StatelessWidget {
   final int id;
-  final bool isFavourite;
+  //final bool isFavourite;
   const RecipeDetailScreen({
     super.key,
     required this.id,
-    this.isFavourite = false,
+    //this.isFavourite = false,
   });
 
   @override
@@ -40,11 +41,6 @@ class RecipeDetailScreen extends StatelessWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
-          // final addToSchedule = ref.watch(addScheduleProvider({
-          //   "recipeId": id,
-          //   "dayOfWeek": "Monday",
-          //   "mealType": "Lunch",
-          // }));
           final recipeDetails = ref.watch(recipeDetailsProvider(id));
           return recipeDetails.when(
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -57,6 +53,8 @@ class RecipeDetailScreen extends StatelessWidget {
               final fullImageUrl = imagePath.isNotEmpty
                   ? "$imageBaseUrl$imagePath"
                   : "https://via.placeholder.com/400";
+
+              logger.d("Is Scheduled: ${details.isScheduled}");
 
               return SingleChildScrollView(
                 child: Padding(
@@ -122,15 +120,58 @@ class RecipeDetailScreen extends StatelessWidget {
                         ],
                       ),
                       smallSpaceSize,
-                      //TODO: Allow the user to add or remove a recipe from the schedule based on whether it is already scheduled or not.
                       CustomButton.primary(
                         icon: Icons.date_range_rounded,
-                        text: isFavourite
+                        text: details.isScheduled
                             ? "Remove from Schedule"
                             : "Add to Schedule",
-                        onPressed: () {
-                          //Implement the modalsheet here
-                          _showAddToScheduleModalSheet(context);
+                        onPressed: () async {
+                          if (details.isScheduled) {
+                            //Recipe Removal logic
+                            if (details.scheduledInstances.isNotEmpty) {
+                              logger.d(
+                                "SCheduled Instances: ${details.scheduledInstances.first.dayOfWeek}, ${details.scheduledInstances.first.mealType}",
+                              );
+
+                              await ref.read(
+                                removeScheduleProvider((
+                                  recipeId: id,
+                                  dayOfWeek: details
+                                      .scheduledInstances
+                                      .first
+                                      .dayOfWeek,
+                                  mealType:
+                                      details.scheduledInstances.first.mealType,
+                                )).future,
+                              );
+
+                              logger.i(
+                                "Recipe with ID $id removed from schedule on ${details.scheduledInstances.first.dayOfWeek} for ${details.scheduledInstances.first.mealType}",
+                              );
+                              ref.invalidate(recipeDetailsProvider(id));
+
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Removed from schedule!"),
+                                ),
+                              );
+                            } else {
+                              logger.e(
+                                "No scheduled instances found for recipe with ID $id",
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "No scheduled instances found to remove!",
+                                  ),
+                                ),
+                              );
+                            }
+                          } else {
+                            //Recipe Addition Modal Sheet
+                            _showAddToScheduleModalSheet(context);
+                          }
                         },
                       ),
                       mediumSpaceSize,
@@ -138,6 +179,7 @@ class RecipeDetailScreen extends StatelessWidget {
                         "Ingredients",
                         style: theme.textTheme.headlineMedium,
                       ),
+                      smallSpaceSize,
                       ListView.builder(
                         itemCount: details.ingredients.length,
                         shrinkWrap: true,
@@ -158,7 +200,7 @@ class RecipeDetailScreen extends StatelessWidget {
                         "Instructions",
                         style: theme.textTheme.headlineMedium,
                       ),
-                      smallSpaceSize,
+                      mediumSpaceSize,
                       ListView.separated(
                         shrinkWrap: true,
                         separatorBuilder: (context, index) => largeSpaceSize,
@@ -182,7 +224,7 @@ class RecipeDetailScreen extends StatelessWidget {
                                     style: theme.textTheme.labelMedium!
                                         .copyWith(
                                           color: Colors.white,
-                                          fontSize: 10,
+                                          fontSize: 8,
                                         ),
                                   ),
                                 ),
@@ -277,12 +319,15 @@ class RecipeDetailScreen extends StatelessWidget {
                                 mealType: selectedMealType.toLowerCase(),
                               )).future,
                             );
+
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text("Added to schedule!"),
                               ),
                             );
+
+                            ref.invalidate(recipeDetailsProvider(id));
                           } catch (e) {
                             logger.e("Error adding to schedule: $e");
                             ScaffoldMessenger.of(context).showSnackBar(
