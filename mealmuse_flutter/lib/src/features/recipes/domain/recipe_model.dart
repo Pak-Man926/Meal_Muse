@@ -26,8 +26,8 @@ class RecipesDetails {
   dynamic nutritionInfo;
   DateTime dateAdded;
   List<Category> categories;
-  List<ScheduledInstance> scheduledInstances;
   bool isScheduled;
+  List<ScheduledInstance> scheduledInstances;
 
   RecipesDetails({
     required this.id,
@@ -46,8 +46,8 @@ class RecipesDetails {
     required this.nutritionInfo,
     required this.dateAdded,
     required this.categories,
-    required this.scheduledInstances,
     required this.isScheduled,
+    required this.scheduledInstances,
   });
 
   factory RecipesDetails.fromJson(Map<String, dynamic> json) => RecipesDetails(
@@ -69,10 +69,10 @@ class RecipesDetails {
     categories: List<Category>.from(
       json["categories"].map((x) => Category.fromJson(x)),
     ),
+    isScheduled: json["is_scheduled"],
     scheduledInstances: List<ScheduledInstance>.from(
       json["scheduled_instances"].map((x) => ScheduledInstance.fromJson(x)),
     ),
-    isScheduled: json["is_scheduled"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -92,10 +92,10 @@ class RecipesDetails {
     "nutrition_info": nutritionInfo,
     "date_added": dateAdded.toIso8601String(),
     "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+    "is_scheduled": isScheduled,
     "scheduled_instances": List<dynamic>.from(
       scheduledInstances.map((x) => x.toJson()),
     ),
-    "is_scheduled": isScheduled,
   };
 }
 

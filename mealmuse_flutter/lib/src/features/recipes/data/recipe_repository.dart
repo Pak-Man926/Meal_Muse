@@ -19,7 +19,7 @@ class RecipeRepository {
     try {
       final response = await dio.get(
         "$apiBaseUrl/recipes/$id",
-        queryParameters: {"device_id": deviceUuid},
+        options: Options(headers: {"X-Device-ID": deviceUuid}),
       );
 
       if (response.statusCode == 200) {
@@ -42,9 +42,7 @@ class RecipeRepository {
   }
 }
 
-final recipeDetailsProvider = FutureProvider.family<RecipesDetails, int>((
-  ref,
-  id,
-) async {
-  return RecipeRepository().getRecipesDetails(id);
-});
+final recipeDetailsProvider = FutureProvider.autoDispose
+    .family<RecipesDetails, int>((ref, id) async {
+      return RecipeRepository().getRecipesDetails(id);
+    });
