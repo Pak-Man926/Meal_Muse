@@ -1,66 +1,63 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
 import "package:meal_muse/src/features/saved/presentation/widgets/saved_item_widget.dart";
 
-import "../../../../core/domain/models/recipe_model.dart";
-
-final List<Recipe> mySavedMeals = [
-  Recipe(
-    mealType: "Dinner",
-    meal: "Mediterranean Pasta",
-    prepTime: 35,
-    composition: 580,
-    imageAddress: "assets/mediterranean-pasta-sq-1.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Poached Eggs & Salad",
-    prepTime: 15,
-    composition: 320,
-    imageAddress: "assets/avocado-6b1cf76.jpg",
-  ),
-  Recipe(
-    mealType: "Lunch",
-    meal: "Miso Glazed Salmon",
-    prepTime: 25,
-    composition: 450,
-    imageAddress:
-        "assets/feb20_salmon-salad-with-sesame-miso-dressing-taste-157324-1.jpg",
-  ),
-  Recipe(
-    meal: "Fluffy Pancakes",
-    prepTime: 20,
-    composition: 45,
-    imageAddress: "assets/Fluffy-Pancakes-Featured.jpg",
-  ),
-];
-
-class CombinedSavedMeals extends StatelessWidget {
+class CombinedSavedMeals extends ConsumerWidget {
   const CombinedSavedMeals({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.6,
-          ),
-          itemCount: mySavedMeals.length,
-          itemBuilder: (BuildContext context, int index) {
-            Recipe currentRecipe = mySavedMeals[index];
-            return SavedItemWidget(
-              mealType: currentRecipe.mealType,
-              meal: currentRecipe.meal,
-              prepTime: currentRecipe.prepTime,
-              composition: currentRecipe.composition,
-              imageAddress: currentRecipe.imageAddress,
-            );
-          },
-        ),
+      body: Consumer(
+        builder: (context, ref, child) {
+          return ref
+              .watch(getSavedMealsProvider)
+              .when(
+                loading: () => CircularProgressIndicator(),
+                error: (error, stackTrace) {
+                  return Center(
+                    child: Text(
+                      "Error fetching saved meals: $error",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  );
+                },
+                data: (data) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 0.6,
+                          ),
+                      itemCount: data.results.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final result = data.results[index];
+                        final imagePath = result.recipe.images.isNotEmpty
+                            ? result.recipe.images.first
+                            : '';
+                        final fullImageUrl = imagePath.isNotEmpty
+                            ? "$imageBaseUrl$imagePath"
+                            : "https://via.placeholder.com/400";
+                        //Recipe currentRecipe = data.results[index];
+                        return SavedItemWidget(
+                          mealType: result.mealType,
+                          meal: result.recipe.name,
+                          prepTime: result.recipe.totalTime,
+                          composition: 0,
+                          imageAddress: fullImageUrl,
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+        },
       ),
     );
   }
