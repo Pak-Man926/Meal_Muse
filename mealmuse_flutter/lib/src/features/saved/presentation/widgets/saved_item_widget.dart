@@ -34,7 +34,7 @@ class SavedItemWidget extends StatelessWidget {
             children: [
               AspectRatio(
                 aspectRatio: 1.0,
-                child: Image.asset(
+                child: Image.network(
                   imageAddress,
                   width: double.infinity,
                   fit: BoxFit.cover,
