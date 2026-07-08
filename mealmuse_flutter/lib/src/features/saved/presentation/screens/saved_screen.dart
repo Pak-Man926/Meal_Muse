@@ -48,13 +48,13 @@ class SavedScreen extends ConsumerWidget {
                           ),
                       itemCount: data.results.length,
                       itemBuilder: (BuildContext context, int index) {
-                       final savedResults = data.results[index];
-                          final imagePath = savedResults.recipe.images.isNotEmpty
-                              ? savedResults.recipe.images.first
-                              : '';
-                          final fullImageUrl = imagePath.isNotEmpty
-                              ? "$imageBaseUrl$imagePath"
-                              : "https://via.placeholder.com/400";
+                        final savedResults = data.results[index];
+                        final imagePath = savedResults.recipe.images.isNotEmpty
+                            ? savedResults.recipe.images.first
+                            : '';
+                        final fullImageUrl = imagePath.isNotEmpty
+                            ? "$imageBaseUrl$imagePath"
+                            : "https://via.placeholder.com/400";
                         return SavedItemWidget(
                           mealType: savedResults.mealType,
                           meal: savedResults.recipe.name,
