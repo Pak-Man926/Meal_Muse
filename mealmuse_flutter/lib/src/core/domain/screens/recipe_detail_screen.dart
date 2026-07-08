@@ -7,6 +7,7 @@ import "package:meal_muse/src/features/recipes/data/recipe_repository.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
+import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
 import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
 import "package:meal_muse/src/features/schedule/data/remove_schedule_repository.dart";
 
@@ -29,13 +30,29 @@ class RecipeDetailScreen extends StatelessWidget {
         title: Text("Recipe Details", style: theme.textTheme.titleLarge),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.favorite_outline_rounded,
-              color: theme.colorScheme.primary.withOpacity(0.8),
-            ),
-            //isSelected: true ? AppColors.primary.withOpacity(0.8) : AppColors.bone,
+          Consumer(
+            builder: (context, ref, child) {
+              final addFavouriteResponse = ref.watch(addSavedMealsProvider(id));
+              return IconButton.filled(
+                // Use the state variable here
+                isSelected: true,
+                onPressed: () {
+                  // TODO: Implement your backend/storage favorite logic here.
+                },
+                // The default icon (when NOT selected / empty)
+                icon: Icon(
+                  Icons.favorite_outline_rounded,
+                  color: theme.colorScheme.primary.withOpacity(0.8),
+                ),
+                // The icon when selected (when IS selected / full)
+                selectedIcon: Icon(
+                  Icons.favorite_rounded, // Changed to the filled version
+                  color: theme
+                      .colorScheme
+                      .primary, // Typically you want a vibrant color for filled
+                ),
+              );
+            },
           ),
         ],
       ),
