@@ -8,6 +8,7 @@ import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_detai
 import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
+import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
 import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
 import "package:meal_muse/src/features/schedule/data/remove_schedule_repository.dart";
 
@@ -32,12 +33,35 @@ class RecipeDetailScreen extends StatelessWidget {
         actions: [
           Consumer(
             builder: (context, ref, child) {
-              final addFavouriteResponse = ref.watch(addSavedMealsProvider(id));
+              final savedMealsAsync = ref.watch(getSavedMealsProvider);
+              
+              final isSaved = savedMealsAsync.maybeWhen(
+                data: (savedMeals) => savedMeals.results.any((result) => result.recipe.id == id),
+                orElse: () => false,
+              );
+
               return IconButton.filled(
                 // Use the state variable here
-                isSelected: true,
-                onPressed: () {
-                  // TODO: Implement your backend/storage favorite logic here.
+                isSelected: isSaved,
+                onPressed: () async {
+                  if (isSaved) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Recipe is already in your favourites!")),
+                    );
+                  } else {
+                    try {
+                      await ref.read(addSavedMealsProvider(id).future);
+                      ref.invalidate(getSavedMealsProvider);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Added to favourites!")),
+                      );
+                    } catch (e) {
+                      logger.e("Error adding to favourites: $e");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Error: $e")),
+                      );
+                    }
+                  }
                 },
                 // The default icon (when NOT selected / empty)
                 icon: Icon(
