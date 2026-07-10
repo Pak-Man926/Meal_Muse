@@ -180,6 +180,7 @@ class ScheduleScreen extends ConsumerWidget {
                               children: [
                                 smallSpaceSize,
                                 MealCardWidget(
+                                  id: scheduleItem.recipeId,
                                   mealType: scheduleItem.mealType,
                                   meal: scheduleItem.recipe.name,
                                   prepTime: scheduleItem.recipe.totalTime,

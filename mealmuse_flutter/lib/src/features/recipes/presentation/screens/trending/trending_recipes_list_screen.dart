@@ -98,23 +98,23 @@ class TrendingRecipesListScreen extends StatelessWidget {
               ),
             ),
             smallSpaceSize,
-            Expanded(
-              child: ListView.builder(
-                itemCount: mySavedMeals.length,
-                itemBuilder: (context, index) {
-                  return MealCardWidget(
-                    mealType: mySavedMeals[index].mealType!,
-                    meal: mySavedMeals[index].meal,
-                    prepTime: mySavedMeals[index].prepTime,
-                    composition: mySavedMeals[index].composition,
-                    imageAddress: mySavedMeals[index].imageAddress,
-                    onTap: () {
-                      context.push("/recipes");
-                    },
-                  );
-                },
-              ),
-            ),
+            // Expanded(
+            //   child: ListView.builder(
+            //     itemCount: mySavedMeals.length,
+            //     itemBuilder: (context, index) {
+            //       return MealCardWidget(
+            //         mealType: mySavedMeals[index].mealType!,
+            //         meal: mySavedMeals[index].meal,
+            //         prepTime: mySavedMeals[index].prepTime,
+            //         composition: mySavedMeals[index].composition,
+            //         imageAddress: mySavedMeals[index].imageAddress,
+            //         onTap: () {
+            //           context.push("/recipes");
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
