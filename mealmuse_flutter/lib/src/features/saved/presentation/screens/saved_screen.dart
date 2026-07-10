@@ -36,33 +36,40 @@ class SavedScreen extends ConsumerWidget {
                   );
                 },
                 data: (data) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 0.6,
-                          ),
-                      itemCount: data.results.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final savedResults = data.results[index];
-                        final imagePath = savedResults.recipe.images.isNotEmpty
-                            ? savedResults.recipe.images.first
-                            : '';
-                        final fullImageUrl = imagePath.isNotEmpty
-                            ? "$imageBaseUrl$imagePath"
-                            : "https://via.placeholder.com/400";
-                        return SavedItemWidget(
-                          mealType: savedResults.mealType,
-                          meal: savedResults.recipe.name,
-                          prepTime: savedResults.recipe.totalTime,
-                          composition: 0,
-                          imageAddress: fullImageUrl,
-                        );
-                      },
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      return await ref.refresh(getSavedMealsProvider);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 0.6,
+                            ),
+                        itemCount: data.results.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final savedResults = data.results[index];
+                          final imagePath =
+                              savedResults.recipe.images.isNotEmpty
+                              ? savedResults.recipe.images.first
+                              : '';
+                          final fullImageUrl = imagePath.isNotEmpty
+                              ? "$imageBaseUrl$imagePath"
+                              : "https://via.placeholder.com/400";
+                          return SavedItemWidget(
+                            id: savedResults.recipe.id,
+                            mealType: savedResults.mealType,
+                            meal: savedResults.recipe.name,
+                            prepTime: savedResults.recipe.totalTime,
+                            composition: 0,
+                            imageAddress: fullImageUrl,
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
