@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
@@ -96,6 +97,7 @@ class BakedRecipeListScreen extends StatelessWidget {
                               : "https://via.placeholder.com/400";
 
                           return MealCardWidget(
+                            id: recipe.id,
                             mealType: "Baked Food",
                             meal: recipe.name,
                             prepTime: recipe.totalTime,
@@ -103,6 +105,9 @@ class BakedRecipeListScreen extends StatelessWidget {
                                 recipe.ratingValue ??
                                 0, // You can replace this with actual composition if available
                             imageAddress: fullImageUrl,
+                            onTap: () {
+                              context.push("/recipes/${recipe.id}");
+                            },
                           );
                         },
                       ),
