@@ -9,6 +9,7 @@ import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
 import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
+import "package:meal_muse/src/features/saved/data/remove_saved_meals_repository.dart";
 import "package:meal_muse/src/features/schedule/data/add_schedule_repository.dart";
 import "package:meal_muse/src/features/schedule/data/remove_schedule_repository.dart";
 
@@ -34,32 +35,51 @@ class RecipeDetailScreen extends StatelessWidget {
           Consumer(
             builder: (context, ref, child) {
               final savedMealsAsync = ref.watch(getSavedMealsProvider);
-              
+
               final isSaved = savedMealsAsync.maybeWhen(
-                data: (savedMeals) => savedMeals.results.any((result) => result.recipe.id == id),
+                data: (savedMeals) =>
+                    savedMeals.results.any((result) => result.recipe.id == id),
                 orElse: () => false,
               );
+
+              //final removeSavedMealsAsync = ref.watch(removeSavedMealsProvider(id));
 
               return IconButton.filled(
                 // Use the state variable here
                 isSelected: isSaved,
                 onPressed: () async {
                   if (isSaved) {
+                    await RemoveSavedMealsRepository().removedSavedMeals(id);
+
+                    ref.invalidate(getSavedMealsProvider);
+
+                    logger.i(
+                      "Recipe with ID $id has been removed from favourites.",
+                    );
+
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Recipe is already in your favourites!")),
+                      const SnackBar(
+                        content: Text(
+                          "Recipe has been removed from favourites!",
+                        ),
+                      ),
                     );
                   } else {
                     try {
-                      await ref.read(addSavedMealsProvider(id).future);
+                      await AddSavedMealsRepository().addFavouriteMeal(id);
+
                       ref.invalidate(getSavedMealsProvider);
+
+                      logger.i("Recipe with ID $id added to favourites.");
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Added to favourites!")),
                       );
                     } catch (e) {
                       logger.e("Error adding to favourites: $e");
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Error: $e")),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text("Error: $e")));
                     }
                   }
                 },
@@ -73,7 +93,7 @@ class RecipeDetailScreen extends StatelessWidget {
                   Icons.favorite_rounded, // Changed to the filled version
                   color: theme
                       .colorScheme
-                      .primary, // Typically you want a vibrant color for filled
+                      .surface, // Use primary color with opacity for the filled icon
                 ),
               );
             },
@@ -174,16 +194,12 @@ class RecipeDetailScreen extends StatelessWidget {
                                 "SCheduled Instances: ${details.scheduledInstances.first.dayOfWeek}, ${details.scheduledInstances.first.mealType}",
                               );
 
-                              await ref.read(
-                                removeScheduleProvider((
-                                  recipeId: id,
-                                  dayOfWeek: details
-                                      .scheduledInstances
-                                      .first
-                                      .dayOfWeek,
-                                  mealType:
-                                      details.scheduledInstances.first.mealType,
-                                )).future,
+                              await RemoveScheduleRepository().removeSchedule(
+                                id,
+                                details.scheduledInstances.first.dayOfWeek
+                                    .toLowerCase(),
+                                details.scheduledInstances.first.mealType
+                                    .toLowerCase(),
                               );
 
                               logger.i(
@@ -353,12 +369,10 @@ class RecipeDetailScreen extends StatelessWidget {
                             "Adding recipe with ID $id to schedule on ${selectedDay.toLowerCase()} for $selectedMealType",
                           );
                           try {
-                            await ref.read(
-                              addScheduleProvider((
-                                recipeId: id,
-                                dayOfWeek: selectedDay.toLowerCase(),
-                                mealType: selectedMealType.toLowerCase(),
-                              )).future,
+                            await AddScheduleRepository().addSchedule(
+                              id,
+                              selectedDay.toLowerCase(),
+                              selectedMealType.toLowerCase(),
                             );
 
                             Navigator.pop(context);
