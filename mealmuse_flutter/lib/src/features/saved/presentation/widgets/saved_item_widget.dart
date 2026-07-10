@@ -1,15 +1,18 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
-import "package:meal_muse/src/core/themes/text_styles.dart";
+import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
+import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
+import "package:meal_muse/src/features/saved/data/remove_saved_meals_repository.dart";
 
-import "package:meal_muse/src/core/themes/colors.dart";
-
-class SavedItemWidget extends StatelessWidget {
+class SavedItemWidget extends ConsumerWidget {
   final String? mealType;
   final String meal;
   final int prepTime;
   final int composition;
   final String imageAddress;
+  final int id;
 
   const SavedItemWidget({
     super.key,
@@ -18,11 +21,13 @@ class SavedItemWidget extends StatelessWidget {
     required this.prepTime,
     required this.composition,
     required this.imageAddress,
+    required this.id,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final logger = Logger();
     return Card(
       elevation: 3,
       clipBehavior: Clip.antiAlias,
@@ -40,26 +45,94 @@ class SavedItemWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0), // Space from image edges
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.6),
-                      shape: BoxShape.circle,
+              Consumer(
+                builder: (context, ref, child) {
+                  final savedMealsAsync = ref.watch(getSavedMealsProvider);
+
+                  final isSaved = savedMealsAsync.maybeWhen(
+                    data: (savedMeals) => savedMeals.results.any(
+                      (result) => result.recipe.id == id,
                     ),
-                    child: IconButton(
-                      constraints: const BoxConstraints(),
-                      padding: const EdgeInsets.all(8),
-                      onPressed: () {
-                        // TODO: Add favorite logic here
-                      },
-                      icon: const Icon(Icons.favorite_border, size: 20),
-                      color: Colors.red,
+                    orElse: () => false,
+                  );
+                  //final removeSavedMealsAsync = ref.watch(removeSavedMealsProvider(id));
+                  return Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                        7.0,
+                      ), // Space from image edges
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.6),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton.filled(
+                          //iconSize: 25,
+                          // Use the state variable here
+                          isSelected: isSaved,
+                          onPressed: () async {
+                            if (isSaved) {
+                              await RemoveSavedMealsRepository()
+                                  .removedSavedMeals(id);
+
+                              ref.invalidate(getSavedMealsProvider);
+
+                              logger.i(
+                                "Recipe with ID $id has been removed from favourites.",
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Recipe has been removed from favourites!",
+                                  ),
+                                ),
+                              );
+                            } else {
+                              try {
+                                await AddSavedMealsRepository()
+                                    .addFavouriteMeal(id);
+
+                                ref.invalidate(getSavedMealsProvider);
+
+                                logger.i(
+                                  "Recipe with ID $id added to favourites.",
+                                );
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Added to favourites!"),
+                                  ),
+                                );
+                              } catch (e) {
+                                logger.e("Error adding to favourites: $e");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Error: $e")),
+                                );
+                              }
+                            }
+                          },
+                          // The default icon (when NOT selected / empty)
+                          icon: Icon(
+                            Icons.favorite_outline_rounded,
+                            color: theme.colorScheme.primary.withOpacity(0.8),
+                          ),
+                          // The icon when selected (when IS selected / full)
+                          selectedIcon: Icon(
+                            Icons
+                                .favorite_rounded, // Changed to the filled version
+                            color: theme
+                                .colorScheme
+                                .surface, // Use primary color with opacity for the filled icon
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),

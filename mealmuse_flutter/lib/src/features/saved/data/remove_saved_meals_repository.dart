@@ -1,0 +1,51 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:logger/logger.dart';
+import 'package:meal_muse/src/core/constants/constants.dart';
+import 'package:meal_muse/src/features/saved/domain/remove_saved_meals_model.dart';
+
+final dio = Dio();
+final logger = Logger();
+final box = GetStorage();
+
+class RemoveSavedMealsRepository {
+  Future<RemoveFavouriteResponse> removedSavedMeals(int recipeId) async {
+    final userId = box.read("user_id");
+    final deviceUuid = box.read("device_uuid");
+
+    if (userId == null || deviceUuid == null) {
+      logger.e("User ID or Device UUID not found in storage.");
+      throw Exception("User ID or Device UUID not found in storage.");
+    }
+
+    try {
+      final response = await dio.delete(
+        "$apiBaseUrl/users/$userId/favourites/$recipeId",
+        options: Options(headers: {"X-Device-ID": deviceUuid}),
+      );
+
+      if (response.statusCode == 200) {
+        logger.i(
+          "Meal removed from favourites successfully for User ID: $userId with the data: ${response.data}",
+        );
+        return RemoveFavouriteResponse.fromJson(response.data);
+      } else {
+        logger.e(
+          "Failed to remove meal from favourites. Status code: ${response.statusCode}",
+        );
+        throw Exception(
+          "Failed to remove meal from favourites. Status code: ${response.statusCode}",
+        );
+      }
+    } catch (e) {
+      logger.e("Error removing meal from favourites: $e");
+      throw Exception("Error removing meal from favourites: $e");
+    }
+  }
+}
+
+final removeSavedMealsProvider =
+    FutureProvider.family<RemoveFavouriteResponse, int>((ref, recipeId) async {
+      return RemoveSavedMealsRepository().removedSavedMeals(recipeId);
+    });
