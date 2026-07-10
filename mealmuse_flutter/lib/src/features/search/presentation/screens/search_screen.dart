@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_card_widget.dart";
@@ -127,7 +128,7 @@ class SearchScreen extends ConsumerWidget {
                         padding: const EdgeInsets.only(bottom: 16.0),
                         child: RecipeCardWidget(
                           onTap: () {
-                            // context.push("/recipes/${recipe.id}");
+                            context.push("/recipes/${recipe.id}");
                           },
                           // Use NetworkImage for remote images instead of Image.asset
                           image: Image.network(imagePath, fit: BoxFit.cover),
