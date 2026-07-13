@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
 // import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
@@ -61,12 +62,19 @@ class SavedScreen extends ConsumerWidget {
                               ? "$imageBaseUrl$imagePath"
                               : "https://via.placeholder.com/400";
                           return SavedItemWidget(
+
                             id: savedResults.recipe.id,
                             mealType: savedResults.mealType,
                             meal: savedResults.recipe.name,
                             prepTime: savedResults.recipe.totalTime,
                             composition: 0,
                             imageAddress: fullImageUrl,
+                            onTap: ()
+                            {
+                              context.push(
+                                      "/recipes/${savedResults.recipe.id}",
+                                    );
+                            }
                           );
                         },
                       ),
