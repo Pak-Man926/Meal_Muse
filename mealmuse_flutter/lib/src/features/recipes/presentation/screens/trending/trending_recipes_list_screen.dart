@@ -4,7 +4,7 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 
-import "../../../../../core/domain/models/recipe_model.dart";
+import "../../../../../core/shared/models/recipe_model.dart";
 
 final List<Recipe> mySavedMeals = [
   Recipe(

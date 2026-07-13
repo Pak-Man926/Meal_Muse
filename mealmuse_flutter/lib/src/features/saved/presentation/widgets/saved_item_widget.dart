@@ -13,6 +13,7 @@ class SavedItemWidget extends ConsumerWidget {
   final int composition;
   final String imageAddress;
   final int id;
+  final VoidCallback? onTap;
 
   const SavedItemWidget({
     super.key,
@@ -22,173 +23,177 @@ class SavedItemWidget extends ConsumerWidget {
     required this.composition,
     required this.imageAddress,
     required this.id,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final logger = Logger();
-    return Card(
-      elevation: 3,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 1.0,
-                child: Image.network(
-                  imageAddress,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 3,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Image.network(
+                    imageAddress,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final savedMealsAsync = ref.watch(getSavedMealsProvider);
-
-                  final isSaved = savedMealsAsync.maybeWhen(
-                    data: (savedMeals) => savedMeals.results.any(
-                      (result) => result.recipe.id == id,
-                    ),
-                    orElse: () => false,
-                  );
-                  //final removeSavedMealsAsync = ref.watch(removeSavedMealsProvider(id));
-                  return Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                        7.0,
-                      ), // Space from image edges
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.6),
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton.filled(
-                          //iconSize: 25,
-                          // Use the state variable here
-                          isSelected: isSaved,
-                          onPressed: () async {
-                            if (isSaved) {
-                              await RemoveSavedMealsRepository()
-                                  .removedSavedMeals(id);
-
-                              ref.invalidate(getSavedMealsProvider);
-
-                              logger.i(
-                                "Recipe with ID $id has been removed from favourites.",
-                              );
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "Recipe has been removed from favourites!",
-                                  ),
-                                ),
-                              );
-                            } else {
-                              try {
-                                await AddSavedMealsRepository()
-                                    .addFavouriteMeal(id);
-
+                Consumer(
+                  builder: (context, ref, child) {
+                    final savedMealsAsync = ref.watch(getSavedMealsProvider);
+      
+                    final isSaved = savedMealsAsync.maybeWhen(
+                      data: (savedMeals) => savedMeals.results.any(
+                        (result) => result.recipe.id == id,
+                      ),
+                      orElse: () => false,
+                    );
+                    //final removeSavedMealsAsync = ref.watch(removeSavedMealsProvider(id));
+                    return Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                          7.0,
+                        ), // Space from image edges
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.6),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton.filled(
+                            //iconSize: 25,
+                            // Use the state variable here
+                            isSelected: isSaved,
+                            onPressed: () async {
+                              if (isSaved) {
+                                await RemoveSavedMealsRepository()
+                                    .removedSavedMeals(id);
+      
                                 ref.invalidate(getSavedMealsProvider);
-
+      
                                 logger.i(
-                                  "Recipe with ID $id added to favourites.",
+                                  "Recipe with ID $id has been removed from favourites.",
                                 );
-
+      
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Added to favourites!"),
+                                    content: Text(
+                                      "Recipe has been removed from favourites!",
+                                    ),
                                   ),
                                 );
-                              } catch (e) {
-                                logger.e("Error adding to favourites: $e");
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text("Error: $e")),
-                                );
+                              } else {
+                                try {
+                                  await AddSavedMealsRepository()
+                                      .addFavouriteMeal(id);
+      
+                                  ref.invalidate(getSavedMealsProvider);
+      
+                                  logger.i(
+                                    "Recipe with ID $id added to favourites.",
+                                  );
+      
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Added to favourites!"),
+                                    ),
+                                  );
+                                } catch (e) {
+                                  logger.e("Error adding to favourites: $e");
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("Error: $e")),
+                                  );
+                                }
                               }
-                            }
-                          },
-                          // The default icon (when NOT selected / empty)
-                          icon: Icon(
-                            Icons.favorite_outline_rounded,
-                            color: theme.colorScheme.primary.withOpacity(0.8),
-                          ),
-                          // The icon when selected (when IS selected / full)
-                          selectedIcon: Icon(
-                            Icons
-                                .favorite_rounded, // Changed to the filled version
-                            color: theme
-                                .colorScheme
-                                .surface, // Use primary color with opacity for the filled icon
+                            },
+                            // The default icon (when NOT selected / empty)
+                            icon: Icon(
+                              Icons.favorite_outline_rounded,
+                              color: theme.colorScheme.primary.withOpacity(0.8),
+                            ),
+                            // The icon when selected (when IS selected / full)
+                            selectedIcon: Icon(
+                              Icons
+                                  .favorite_rounded, // Changed to the filled version
+                              color: theme
+                                  .colorScheme
+                                  .surface, // Use primary color with opacity for the filled icon
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: .start,
-              children: [
-                // Title Row
-                Row(
-                  mainAxisAlignment: .spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        meal,
-                        style: theme.textTheme.headlineMedium,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                smallSpaceSize,
-                Row(
-                  children: [
-                    Icon(
-                      Icons.timer,
-                      size: 18,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      "$prepTime min",
-                      style: theme.textTheme.labelMedium!.copyWith(
-                        fontSize: 10,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Icon(
-                      Icons.local_fire_department,
-                      size: 18,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      "$composition kcal",
-                      style: theme.textTheme.labelMedium!.copyWith(
-                        fontSize: 10,
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: .start,
+                children: [
+                  // Title Row
+                  Row(
+                    mainAxisAlignment: .spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          meal,
+                          style: theme.textTheme.headlineMedium,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  smallSpaceSize,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.timer,
+                        size: 18,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        "$prepTime min",
+                        style: theme.textTheme.labelMedium!.copyWith(
+                          fontSize: 10,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Icon(
+                        Icons.local_fire_department,
+                        size: 18,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        "$composition kcal",
+                        style: theme.textTheme.labelMedium!.copyWith(
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
