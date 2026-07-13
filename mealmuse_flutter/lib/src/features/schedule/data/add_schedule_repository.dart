@@ -46,7 +46,9 @@ class AddScheduleRepository {
         );
       }
     } catch (e, stackTrace) {
-      if (e is DioException && e.response?.data != null && e.response?.data['error'] != null) {
+      if (e is DioException &&
+          e.response?.data != null &&
+          e.response?.data['error'] != null) {
         throw Exception(e.response!.data['error']);
       }
       logger.e(

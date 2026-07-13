@@ -385,7 +385,10 @@ class RecipeDetailScreen extends StatelessWidget {
                             ref.invalidate(recipeDetailsProvider(id));
                           } catch (e) {
                             logger.e("Error adding to schedule: $e");
-                            String errorMessage = e.toString().replaceAll("Exception: ", "");
+                            String errorMessage = e.toString().replaceAll(
+                              "Exception: ",
+                              "",
+                            );
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(errorMessage)),
                             );
