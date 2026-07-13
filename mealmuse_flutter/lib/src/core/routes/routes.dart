@@ -6,7 +6,7 @@ import "package:meal_muse/src/features/recipes/presentation/screens/desserts/des
 import "package:meal_muse/src/features/recipes/presentation/screens/dinner/dinner_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/drinks/drinks_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/lunch/lunch_recipe_list_screen.dart";
-import "package:meal_muse/src/core/domain/screens/recipe_detail_screen.dart";
+import "package:meal_muse/src/core/shared/screens/recipe_detail_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/snacks/snacks_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/soups/soups_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/trending/trending_recipes_list_screen.dart";
