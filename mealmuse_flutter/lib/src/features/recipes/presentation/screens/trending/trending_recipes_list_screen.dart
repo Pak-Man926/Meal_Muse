@@ -1,42 +1,11 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
-
-import "../../../../../core/shared/models/recipe_model.dart";
-
-final List<Recipe> mySavedMeals = [
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Blueberry Pancakes",
-    prepTime: 20,
-    composition: 580,
-    imageAddress: "assets/Fluffy-blueberry-pancakes-1.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Avocado Toast",
-    prepTime: 10,
-    composition: 320,
-    imageAddress: "assets/Avocado-Toast-SpendWithPennies-1.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Eggs Benedict",
-    prepTime: 35,
-    composition: 450,
-    imageAddress:
-        "assets/17205-eggs-benedict-DDMFS-4x3-a0042d5ae1da485fac3f468654187db0.jpg",
-  ),
-  Recipe(
-    mealType: "Breakfast",
-    meal: "Berry Smoothie Bowl",
-    prepTime: 15,
-    composition: 45,
-    imageAddress: "assets/Protein-Berry-Smoothie-Bowl-1.jpg",
-  ),
-];
+import "package:meal_muse/src/features/home/data/trending_recipe_repository.dart";
 
 class TrendingRecipesListScreen extends StatelessWidget {
   const TrendingRecipesListScreen({super.key});
@@ -44,6 +13,8 @@ class TrendingRecipesListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final logger = Logger();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -98,23 +69,62 @@ class TrendingRecipesListScreen extends StatelessWidget {
               ),
             ),
             smallSpaceSize,
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: mySavedMeals.length,
-            //     itemBuilder: (context, index) {
-            //       return MealCardWidget(
-            //         mealType: mySavedMeals[index].mealType!,
-            //         meal: mySavedMeals[index].meal,
-            //         prepTime: mySavedMeals[index].prepTime,
-            //         composition: mySavedMeals[index].composition,
-            //         imageAddress: mySavedMeals[index].imageAddress,
-            //         onTap: () {
-            //           context.push("/recipes");
-            //         },
-            //       );
-            //     },
-            //   ),
-            // ),
+            Consumer(
+              builder: (context, ref, child) {
+                final trendingRecipeState = ref.watch(trendingRecipeProvider);
+
+                return trendingRecipeState.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stack) {
+                    logger.e("Widget failed to render recipes", error: error);
+                    return const Center(
+                      child: Text("Error fetching trending recipes."),
+                    );
+                  },
+                  data: (trendingData) {
+                    if (trendingData.results.isEmpty) {
+                      return const Center(
+                        child: Text("No trending recipes available."),
+                      );
+                    }
+
+                    logger.i(
+                      "Trending recipes fetched successfully: ${trendingData.results}.",
+                    );
+
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: trendingData.results.length,
+                        itemBuilder: (context, index) {
+                          final recipe = trendingData.results[index];
+                          final imagePath = recipe.images.isNotEmpty
+                              ? recipe.images.first
+                              : '';
+                          final fullImageUrl = imagePath.isNotEmpty
+                              ? "$imageBaseUrl$imagePath"
+                              : "https://via.placeholder.com/400";
+
+                          return MealCardWidget(
+                            id: recipe.id,
+                            mealType: "Trending Recipe",
+                            meal: recipe.name,
+                            prepTime: recipe.totalTime,
+                            composition:
+                                recipe.ratingValue ??
+                                0, // You can replace this with actual composition if available
+                            imageAddress: fullImageUrl,
+                            onTap: () {
+                              context.push("/recipes/${recipe.id}");
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
