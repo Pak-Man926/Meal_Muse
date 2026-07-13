@@ -56,7 +56,7 @@ class MealCardWidget extends StatelessWidget {
                       child: Text(
                         meal,
                         style: theme.textTheme.headlineMedium,
-                        maxLines: 1,
+                        maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
