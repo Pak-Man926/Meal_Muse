@@ -89,8 +89,18 @@ class SavedItemWidget extends ConsumerWidget {
                                 );
 
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
+                                  SnackBar(
+                                    backgroundColor: theme.colorScheme.primary,
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.only(
+                                      bottom:
+                                          MediaQuery.sizeOf(context).height -
+                                          150,
+                                      left: 20,
+                                      right: 20,
+                                    ),
+                                    dismissDirection: DismissDirection.up,
+                                    content: const Text(
                                       "Recipe has been removed from favourites!",
                                     ),
                                   ),
@@ -107,14 +117,40 @@ class SavedItemWidget extends ConsumerWidget {
                                   );
 
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Added to favourites!"),
+                                    SnackBar(
+                                      backgroundColor:
+                                          theme.colorScheme.primary,
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.sizeOf(context).height -
+                                            150,
+                                        left: 20,
+                                        right: 20,
+                                      ),
+                                      dismissDirection: DismissDirection.up,
+                                      content: const Text(
+                                        "Added to favourites!",
+                                      ),
                                     ),
                                   );
                                 } catch (e) {
                                   logger.e("Error adding to favourites: $e");
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("Error: $e")),
+                                    SnackBar(
+                                      backgroundColor:
+                                          theme.colorScheme.primary,
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.sizeOf(context).height -
+                                            150,
+                                        left: 20,
+                                        right: 20,
+                                      ),
+                                      dismissDirection: DismissDirection.up,
+                                      content: Text("Error: $e"),
+                                    ),
                                   );
                                 }
                               }

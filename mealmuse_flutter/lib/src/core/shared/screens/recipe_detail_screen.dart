@@ -58,8 +58,16 @@ class RecipeDetailScreen extends StatelessWidget {
                     );
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
+                      SnackBar(
+                        backgroundColor: theme.colorScheme.primary,
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.sizeOf(context).height - 150,
+                          left: 20,
+                          right: 20,
+                        ),
+                        dismissDirection: DismissDirection.up,
+                        content: const Text(
                           "Recipe has been removed from favourites!",
                         ),
                       ),
@@ -73,13 +81,33 @@ class RecipeDetailScreen extends StatelessWidget {
                       logger.i("Recipe with ID $id added to favourites.");
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Added to favourites!")),
+                        SnackBar(
+                          backgroundColor: theme.colorScheme.primary,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.sizeOf(context).height - 150,
+                            left: 20,
+                            right: 20,
+                          ),
+                          dismissDirection: DismissDirection.up,
+                          content: const Text("Added to favourites!"),
+                        ),
                       );
                     } catch (e) {
                       logger.e("Error adding to favourites: $e");
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: theme.colorScheme.primary,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.sizeOf(context).height - 150,
+                            left: 20,
+                            right: 20,
+                          ),
+                          dismissDirection: DismissDirection.up,
+                          content: Text("Error: $e"),
+                        ),
+                      );
                     }
                   }
                 },
@@ -209,8 +237,17 @@ class RecipeDetailScreen extends StatelessWidget {
 
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Removed from schedule!"),
+                                SnackBar(
+                                  backgroundColor: theme.colorScheme.primary,
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(
+                                    bottom:
+                                        MediaQuery.sizeOf(context).height - 150,
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  dismissDirection: DismissDirection.up,
+                                  content: const Text("Removed from schedule!"),
                                 ),
                               );
                             } else {
@@ -218,8 +255,17 @@ class RecipeDetailScreen extends StatelessWidget {
                                 "No scheduled instances found for recipe with ID $id",
                               );
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
+                                SnackBar(
+                                  backgroundColor: theme.colorScheme.primary,
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(
+                                    bottom:
+                                        MediaQuery.sizeOf(context).height - 150,
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  dismissDirection: DismissDirection.up,
+                                  content: const Text(
                                     "No scheduled instances found to remove!",
                                   ),
                                 ),
@@ -317,6 +363,7 @@ class RecipeDetailScreen extends StatelessWidget {
       builder: (context) {
         String selectedDay = "Monday";
         String selectedMealType = "Breakfast";
+        final theme = Theme.of(context);
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Consumer(
@@ -377,8 +424,17 @@ class RecipeDetailScreen extends StatelessWidget {
 
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Added to schedule!"),
+                              SnackBar(
+                                backgroundColor: theme.colorScheme.primary,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.sizeOf(context).height - 150,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                dismissDirection: DismissDirection.up,
+                                content: const Text("Added to schedule!"),
                               ),
                             );
 
@@ -390,7 +446,18 @@ class RecipeDetailScreen extends StatelessWidget {
                               "",
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(errorMessage)),
+                              SnackBar(
+                                backgroundColor: theme.colorScheme.primary,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.sizeOf(context).height - 150,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                dismissDirection: DismissDirection.up,
+                                content: Text(errorMessage),
+                              ),
                             );
                           }
                         },

@@ -90,7 +90,7 @@ class TrendingRecipesListScreen extends StatelessWidget {
                     }
 
                     logger.i(
-                      "Trending recipes fetched successfully: ${trendingData.results}.",
+                      "Trending recipes fetched successfully: ${trendingData.results.toList()}.",
                     );
 
                     return Expanded(

@@ -8,6 +8,7 @@ class NetworkErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -55,9 +56,19 @@ class NetworkErrorWidget extends StatelessWidget {
                       final message = status == ConnectivityStatus.isConnected
                           ? 'Back online'
                           : 'Still offline';
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(message)));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: theme.colorScheme.primary,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.sizeOf(context).height - 150,
+                            left: 20,
+                            right: 20,
+                          ),
+                          dismissDirection: DismissDirection.up,
+                          content: Text(message),
+                        ),
+                      );
                     });
                   },
                   child: Text('Retry'),
