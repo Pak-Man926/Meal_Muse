@@ -62,19 +62,17 @@ class SavedScreen extends ConsumerWidget {
                               ? "$imageBaseUrl$imagePath"
                               : "https://via.placeholder.com/400";
                           return SavedItemWidget(
-
                             id: savedResults.recipe.id,
                             mealType: savedResults.mealType,
                             meal: savedResults.recipe.name,
                             prepTime: savedResults.recipe.totalTime,
                             composition: 0,
                             imageAddress: fullImageUrl,
-                            onTap: ()
-                            {
+                            onTap: () {
                               context.push(
-                                      "/recipes/${savedResults.recipe.id}",
-                                    );
-                            }
+                                "/recipes/${savedResults.recipe.id}",
+                              );
+                            },
                           );
                         },
                       ),

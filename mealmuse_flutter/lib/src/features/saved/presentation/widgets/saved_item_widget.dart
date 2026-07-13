@@ -52,7 +52,7 @@ class SavedItemWidget extends ConsumerWidget {
                 Consumer(
                   builder: (context, ref, child) {
                     final savedMealsAsync = ref.watch(getSavedMealsProvider);
-      
+
                     final isSaved = savedMealsAsync.maybeWhen(
                       data: (savedMeals) => savedMeals.results.any(
                         (result) => result.recipe.id == id,
@@ -81,13 +81,13 @@ class SavedItemWidget extends ConsumerWidget {
                               if (isSaved) {
                                 await RemoveSavedMealsRepository()
                                     .removedSavedMeals(id);
-      
+
                                 ref.invalidate(getSavedMealsProvider);
-      
+
                                 logger.i(
                                   "Recipe with ID $id has been removed from favourites.",
                                 );
-      
+
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -99,13 +99,13 @@ class SavedItemWidget extends ConsumerWidget {
                                 try {
                                   await AddSavedMealsRepository()
                                       .addFavouriteMeal(id);
-      
+
                                   ref.invalidate(getSavedMealsProvider);
-      
+
                                   logger.i(
                                     "Recipe with ID $id added to favourites.",
                                   );
-      
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text("Added to favourites!"),
