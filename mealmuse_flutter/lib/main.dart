@@ -15,7 +15,6 @@ void main() async {
   packageInfo = await PackageInfo.fromPlatform();
   await GetStorage.init();
 
-
   // Soft Auth: Register device UUID in the background silently
   try {
     RegisterUserRepository()
