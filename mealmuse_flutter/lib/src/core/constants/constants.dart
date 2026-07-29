@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:meal_muse/env/env.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 late PackageInfo packageInfo;
 
 const String appName = "Meal Muse";
-final String apiBaseUrl = dotenv.get("API_URL");
+final String apiBaseUrl = Env.apiUrl;
 final String imageBaseUrl = apiBaseUrl.replaceAll(RegExp(r'/api/?$'), '');
 
 const tinySpaceSize = SizedBox(height: 5);
