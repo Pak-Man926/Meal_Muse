@@ -24,6 +24,6 @@ Meal Muse provides users with an intuitive interface to:
 
 An Android build of the application is available. You can download and install it on your Android device using the link below:
 
-- [📥 Download Meal Muse APK (Android)](mealmuse_flutter/build/app/outputs/flutter-apk/app-release.apk)
+- [📥 Download Meal Muse APK (Android)]((https://github.com/Pak-Man926/Meal_Muse/releases/tag/v1.0.0))
 
 
