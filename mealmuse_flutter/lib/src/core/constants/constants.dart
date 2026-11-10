@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:meal_muse/env/env.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -8,8 +7,8 @@ const String appName = "Meal Muse";
 final String apiBaseUrl = Env.apiUrl;
 final String imageBaseUrl = apiBaseUrl.replaceAll(RegExp(r'/api/?$'), '');
 
-const tinySpaceSize = SizedBox(height: 5);
-const smallSpaceSize = SizedBox(height: 10);
-const minSpaceSize = SizedBox(height: 15);
-const mediumSpaceSize = SizedBox(height: 20);
-const largeSpaceSize = SizedBox(height: 40);
+// const tinySpaceSize = SizedBox(height: 5);
+// const smallSpaceSize = SizedBox(height: 10);
+// const minSpaceSize = SizedBox(height: 15);
+// const mediumSpaceSize = SizedBox(height: 20);
+// const largeSpaceSize = SizedBox(height: 40);
