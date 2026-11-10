@@ -10,6 +10,7 @@ import "package:meal_muse/src/core/shared/screens/recipe_detail_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/snacks/snacks_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/soups/soups_recipe_list_screen.dart";
 import "package:meal_muse/src/features/recipes/presentation/screens/trending/trending_recipes_list_screen.dart";
+import "package:meal_muse/src/features/settings/presentation/screens/contacts_screen.dart";
 import "package:meal_muse/src/features/settings/presentation/screens/settings_screen.dart";
 import "package:meal_muse/src/features/settings/presentation/screens/about_screen.dart";
 
@@ -19,6 +20,7 @@ final router = GoRouter(
     GoRoute(path: "/", builder: (context, state) => DashboardScreen()),
     GoRoute(path: "/settings", builder: (context, state) => SettingsScreen()),
     GoRoute(path: "/about", builder: (context, state) => AboutScreen()),
+    GoRoute(path: "/contacts", builder: (context, state) => ContactsScreen()),
     GoRoute(
       path: "/recipes/:id",
       builder: (context, state) {
