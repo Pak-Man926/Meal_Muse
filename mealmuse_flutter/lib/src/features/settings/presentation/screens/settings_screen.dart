@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:logger/logger.dart";
-import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/themes/providers/theme_provider.dart";
 import "package:meal_muse/src/features/settings/presentation/provider/settings_provider.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
@@ -11,7 +11,7 @@ import "package:meal_muse/src/features/settings/presentation/widgets/sliding_swi
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 
 final class SettingsScreen extends ConsumerWidget {
-  SettingsScreen({super.key});
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +33,7 @@ final class SettingsScreen extends ConsumerWidget {
             children: [
               //Text("Units of measurement", style: AppTextStyles.sectionHeader),
               Text("Units of measurement"),
-              smallSpaceSize,
+              Spacing.vertical(10),
               Container(
                 height: 45,
                 width: double.infinity,
@@ -57,7 +57,7 @@ final class SettingsScreen extends ConsumerWidget {
                               ref.read(measurementProvider.notifier).state =
                                   true,
                         ),
-                        smallSpaceSize,
+                        Spacing.vertical(10),
                         SlidingSwitchWidget(
                           label: "Imperial (oz, lb)",
                           isSelected: isMetric == false,
@@ -70,12 +70,12 @@ final class SettingsScreen extends ConsumerWidget {
                   },
                 ),
               ),
-              mediumSpaceSize,
+              Spacing.vertical(20),
               Text(
                 "Dietary Restrictions",
                 style: theme.textTheme.headlineMedium,
               ),
-              smallSpaceSize,
+              Spacing.vertical(10),
               Consumer(
                 builder: (context, ref, child) {
                   final selectedRestrictions = ref.watch(dietaryProvider);
@@ -106,9 +106,9 @@ final class SettingsScreen extends ConsumerWidget {
                   );
                 },
               ),
-              mediumSpaceSize,
+              Spacing.vertical(20),
               Text("App Theme", style: theme.textTheme.headlineMedium),
-              smallSpaceSize,
+              Spacing.vertical(10),
               Consumer(
                 builder: (context, ref, child) {
                   return ItemSwitchWidget(
@@ -126,9 +126,9 @@ final class SettingsScreen extends ConsumerWidget {
                   );
                 },
               ),
-              mediumSpaceSize,
+              Spacing.vertical(20),
               Text("Notifications", style: theme.textTheme.headlineMedium),
-              smallSpaceSize,
+              Spacing.vertical(10),
               Consumer(
                 builder: (context, ref, child) {
                   final allowNotifications = ref.watch(notificationsProvider);
@@ -159,9 +159,9 @@ final class SettingsScreen extends ConsumerWidget {
                   );
                 },
               ),
-              mediumSpaceSize,
+              Spacing.vertical(20),
               Text("Support", style: theme.textTheme.headlineMedium),
-              smallSpaceSize,
+              Spacing.vertical(10),
               ListTile(
                 leading: Icon(
                   Icons.help,
@@ -175,7 +175,7 @@ final class SettingsScreen extends ConsumerWidget {
                   Icons.chevron_right_rounded,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
-                onTap: () {},
+                onTap: () => context.push("/contacts"),
               ),
               Divider(thickness: 0.1),
               ListTile(
@@ -203,7 +203,7 @@ final class SettingsScreen extends ConsumerWidget {
                 ),
                 onTap: () {},
               ),
-              largeSpaceSize,
+              Spacing.vertical(40),
               CustomButton.primary(
                 text: 'Save',
                 onPressed: () {
