@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:meal_muse/src/core/constants/spacing.dart';
 
 import '../../../../core/constants/constants.dart';
 
@@ -28,7 +29,7 @@ class AboutScreen extends StatelessWidget {
                   "$appName ${packageInfo.version} (${packageInfo.buildNumber})",
                   style: theme.textTheme.labelMedium,
                 ),
-                smallSpaceSize,
+                Spacing.vertical(10),
                 Text(
                   " © $currentYear Meal Muse. All rights reserved.",
                   style: theme.textTheme.labelMedium,

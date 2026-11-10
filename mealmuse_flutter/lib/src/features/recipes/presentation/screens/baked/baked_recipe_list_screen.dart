@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
@@ -36,14 +37,14 @@ class BakedRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Master the art of baking with our curated recipes for crusty loaves, flaky pastries and golden-brown delights. From wild yeast starters to sophisticated laminations.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             SizedBox(
               height: 30,
               width: double.infinity,
@@ -67,7 +68,7 @@ class BakedRecipeListScreen extends StatelessWidget {
                 ],
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Consumer(
               builder: (context, ref, child) {
                 final bakedCategoryRecipes = ref.watch(

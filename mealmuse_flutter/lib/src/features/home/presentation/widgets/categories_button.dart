@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 
 class CategoriesButton extends StatelessWidget {
   final IconData icon;
@@ -37,7 +38,7 @@ class CategoriesButton extends StatelessWidget {
             ),
           ),
         ),
-        tinySpaceSize,
+        Spacing.vertical(5),
         Text(
           title,
           style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),

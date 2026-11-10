@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
@@ -35,7 +36,7 @@ class LunchRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Fuel your afternoon with our selection of hearty and healthy lunch options, designed to keep you energized and satisfied throughout the day.",
               style: theme.textTheme.bodyLarge,
@@ -61,7 +62,7 @@ class LunchRecipeListScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Consumer(
               builder: (context, ref, child) {
                 final lunchCategoryRecipes = ref.watch(

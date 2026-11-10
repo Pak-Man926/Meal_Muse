@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
@@ -35,7 +36,7 @@ class SoupRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Warm your soul with our selection of hearty stews,creamy bisques, and refreshing broths. Whether you're in the mood for a comforting chicken noodle soup, a rich tomato bisque, or a vibrant vegetable broth, our soup recipes are sure to satisfy your cravings and nourish your body.",
               style: theme.textTheme.bodyLarge,
@@ -61,7 +62,7 @@ class SoupRecipeListScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Consumer(
               builder: (context, ref, child) {
                 final soupsCategoryRecipes = ref.watch(

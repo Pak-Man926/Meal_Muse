@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_card_widget.dart";
 import "package:meal_muse/src/features/search/data/recipe_search_provider.dart";
@@ -45,7 +46,7 @@ class SearchScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Wrap(
               spacing: 10,
               runSpacing: 10,
@@ -80,12 +81,12 @@ class SearchScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Text(
               "Results",
               style: theme.textTheme.headlineMedium!.copyWith(fontSize: 22),
             ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Expanded(
               child: searchResultsAsync.when(
                 // 1. Loading State

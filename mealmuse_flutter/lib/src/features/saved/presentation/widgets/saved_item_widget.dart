@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
 import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
 import "package:meal_muse/src/features/saved/data/remove_saved_meals_repository.dart";
@@ -195,7 +196,7 @@ class SavedItemWidget extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  smallSpaceSize,
+                  Spacing.vertical(10),
                   Row(
                     children: [
                       Icon(
@@ -203,20 +204,20 @@ class SavedItemWidget extends ConsumerWidget {
                         size: 18,
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
-                      const SizedBox(width: 4),
+                      Spacing.horizontal(4),
                       Text(
                         "$prepTime min",
                         style: theme.textTheme.labelMedium!.copyWith(
                           fontSize: 10,
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      Spacing.horizontal(16),
                       Icon(
                         Icons.local_fire_department,
                         size: 18,
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
-                      const SizedBox(width: 4),
+                      Spacing.horizontal(4),
                       Text(
                         "$composition kcal",
                         style: theme.textTheme.labelMedium!.copyWith(

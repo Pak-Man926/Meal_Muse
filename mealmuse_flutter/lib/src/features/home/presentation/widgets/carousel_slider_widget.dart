@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:carousel_slider/carousel_slider.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 
 import "package:meal_muse/src/features/home/presentation/models/carousel_items.dart";
 
@@ -57,7 +58,7 @@ class CarouselSliderWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(item.title, style: theme.textTheme.headlineMedium),
-                        tinySpaceSize,
+                        Spacing.vertical(5),
                         Row(
                           children: [
                             Icon(
@@ -65,7 +66,7 @@ class CarouselSliderWidget extends StatelessWidget {
                               size: 16,
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
-                            const SizedBox(width: 5.0),
+                            Spacing.horizontal(5.0),
                             Text(
                               "${item.duration} mins",
                               style: theme.textTheme.labelMedium,

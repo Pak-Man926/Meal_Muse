@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/day_selection_widget.dart";
 import "package:meal_muse/src/features/recipes/data/recipe_repository.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
@@ -177,7 +178,7 @@ class RecipeDetailScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      smallSpaceSize,
+                      Spacing.vertical(10),
                       Text(
                         details.name,
                         style: theme.textTheme.headlineMedium!.copyWith(
@@ -185,7 +186,7 @@ class RecipeDetailScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      mediumSpaceSize,
+                      Spacing.vertical(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -193,12 +194,12 @@ class RecipeDetailScreen extends StatelessWidget {
                             title: "Total Time",
                             subTitle: "${details.totalTime} mins",
                           ),
-                          const SizedBox(width: 10),
+                          Spacing.horizontal(10),
                           RecipeDetailsWidget(
                             title: "Servings",
                             subTitle: details.servings.toString(),
                           ),
-                          const SizedBox(width: 10),
+                          Spacing.horizontal(10),
                           RecipeDetailsWidget(
                             title: "Calories",
                             subTitle:
@@ -208,7 +209,7 @@ class RecipeDetailScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      smallSpaceSize,
+                      Spacing.vertical(10),
                       CustomButton.primary(
                         icon: Icons.date_range_rounded,
                         text: details.isScheduled
@@ -277,12 +278,12 @@ class RecipeDetailScreen extends StatelessWidget {
                           }
                         },
                       ),
-                      mediumSpaceSize,
+                      Spacing.vertical(20),
                       Text(
                         "Ingredients",
                         style: theme.textTheme.headlineMedium,
                       ),
-                      smallSpaceSize,
+                      Spacing.vertical(10),
                       ListView.builder(
                         itemCount: details.ingredients.length,
                         shrinkWrap: true,
@@ -293,20 +294,21 @@ class RecipeDetailScreen extends StatelessWidget {
                               IngredientListWidget(
                                 ingredients: details.ingredients[index],
                               ),
-                              smallSpaceSize,
+                              Spacing.vertical(10),
                             ],
                           );
                         },
                       ),
-                      smallSpaceSize,
+                      Spacing.vertical(10),
                       Text(
                         "Instructions",
                         style: theme.textTheme.headlineMedium,
                       ),
-                      mediumSpaceSize,
+                      Spacing.vertical(20),
                       ListView.separated(
                         shrinkWrap: true,
-                        separatorBuilder: (context, index) => largeSpaceSize,
+                        separatorBuilder: (context, index) =>
+                            Spacing.vertical(40),
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: details.instructions.length,
                         itemBuilder: (context, index) {
@@ -332,7 +334,7 @@ class RecipeDetailScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              Spacing.horizontal(10),
                               Expanded(
                                 child: Text(
                                   details.instructions[index],
@@ -383,12 +385,12 @@ class RecipeDetailScreen extends StatelessWidget {
                           });
                         },
                       ),
-                      mediumSpaceSize,
+                      Spacing.vertical(20),
                       Text(
                         "Select Meal Type",
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      smallSpaceSize,
+                      Spacing.vertical(10),
                       DropdownButton<String>(
                         value: selectedMealType,
                         items: ["Breakfast", "Lunch", "Dinner"]
@@ -407,7 +409,7 @@ class RecipeDetailScreen extends StatelessWidget {
                           }
                         },
                       ),
-                      mediumSpaceSize,
+                      Spacing.vertical(20),
                       CustomButton.primary(
                         icon: Icons.check,
                         text: "Confirm",

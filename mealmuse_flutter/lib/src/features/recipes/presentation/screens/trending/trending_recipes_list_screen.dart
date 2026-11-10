@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 import "package:meal_muse/src/features/home/data/trending_recipe_repository.dart";
@@ -45,7 +46,7 @@ class TrendingRecipesListScreen extends StatelessWidget {
             //   overflow: TextOverflow.clip,
             //   maxLines: 5,
             // ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Container(
               height: 30,
               width: double.infinity,
@@ -68,7 +69,7 @@ class TrendingRecipesListScreen extends StatelessWidget {
                 ],
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Consumer(
               builder: (context, ref, child) {
                 final trendingRecipeState = ref.watch(trendingRecipeProvider);

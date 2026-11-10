@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
+import 'package:meal_muse/src/core/constants/spacing.dart';
 import 'package:meal_muse/src/core/network/network_provider.dart';
 
 class NetworkErrorWidget extends StatelessWidget {
@@ -29,7 +30,7 @@ class NetworkErrorWidget extends StatelessWidget {
               size: 96,
               color: Theme.of(context).colorScheme.error,
             ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Text(
               'Internet connection lost!',
               style: TextStyle(
@@ -38,14 +39,14 @@ class NetworkErrorWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               'Check your connection and try again.',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
-            largeSpaceSize,
+            Spacing.vertical(40),
             Consumer(
               builder: (context, ref, child) {
                 return TextButton(

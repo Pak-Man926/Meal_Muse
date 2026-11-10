@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
 import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
 import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
@@ -169,7 +170,7 @@ class MealCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                smallSpaceSize,
+                Spacing.vertical(10),
                 Row(
                   children: [
                     Icon(
@@ -177,22 +178,22 @@ class MealCardWidget extends StatelessWidget {
                       size: 20,
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
-                    const SizedBox(width: 4),
+                    Spacing.horizontal(4),
                     Text("$prepTime min", style: theme.textTheme.labelMedium),
-                    const SizedBox(width: 20),
+                    Spacing.horizontal(20),
                     Icon(
                       Icons.local_fire_department,
                       size: 20,
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
-                    const SizedBox(width: 4),
+                    Spacing.horizontal(4),
                     Text(
                       "$composition kcal",
                       style: theme.textTheme.labelMedium,
                     ),
                   ],
                 ),
-                smallSpaceSize,
+                Spacing.vertical(10),
                 CustomButton.primary(text: "View Recipe", onPressed: onTap),
               ],
             ),

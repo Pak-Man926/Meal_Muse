@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
@@ -36,14 +37,14 @@ class DinnerRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Explore our curated selection of soul-warming main courses. From quick weeknight meals to impressive dishes for special occasions, our dinner recipes are designed to satisfy your cravings and bring joy to your evening table.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Container(
               height: 35,
               width: double.infinity,
@@ -67,7 +68,7 @@ class DinnerRecipeListScreen extends StatelessWidget {
                 ],
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Consumer(
               builder: (context, ref, child) {
                 final dinnerCategoryRecipes = ref.watch(

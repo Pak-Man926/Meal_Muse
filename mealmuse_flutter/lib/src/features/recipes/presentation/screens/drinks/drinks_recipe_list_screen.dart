@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/features/home/presentation/widgets/categories_button.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
@@ -36,14 +37,14 @@ class DrinksRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Discover a curated collection of liquid inspirations, from sophisticated midnight cocktails to vibrant morning juices. Our drink recipes are crafted to elevate your sipping experience, whether you're unwinding after a long day or kickstarting your morning with a burst of flavor.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 7,
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Container(
               height: 90,
               width: double.infinity,
@@ -71,7 +72,7 @@ class DrinksRecipeListScreen extends StatelessWidget {
                 ],
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Consumer(
               builder: (context, ref, child) {
                 final drinksCategoryRecipes = ref.watch(

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 
 class RecipeCardWidget extends StatelessWidget {
   final Image? image;
@@ -43,7 +43,7 @@ class RecipeCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          const SizedBox(width: 15),
+          Spacing.horizontal(15),
           Expanded(
             child: Column(
               mainAxisAlignment: .start,
@@ -57,7 +57,7 @@ class RecipeCardWidget extends StatelessWidget {
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),
-                smallSpaceSize,
+                Spacing.vertical(10),
                 Text(
                   subHeading,
                   style: theme.textTheme.labelMedium!.copyWith(fontSize: 12),

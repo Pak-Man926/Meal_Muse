@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
@@ -35,7 +36,7 @@ class DessertRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Indulge in our collection of delectable dessert recipes, from classic favorites to innovative creations. Whether you're craving a rich chocolate cake, a refreshing fruit tart, or a creamy cheesecake, our dessert recipes are sure to satisfy your sweet tooth and impress your guests.",
               style: theme.textTheme.bodyLarge,
@@ -61,7 +62,7 @@ class DessertRecipeListScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Consumer(
               builder: (context, ref, child) {
                 final dessertsCategoryRecipes = ref.watch(

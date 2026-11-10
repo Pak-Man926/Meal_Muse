@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 
 class RecipeDetailsWidget extends StatelessWidget {
   final String title;
@@ -36,7 +36,7 @@ class RecipeDetailsWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          smallSpaceSize,
+          Spacing.vertical(10),
           Text(
             subTitle,
             style: theme.textTheme.bodyLarge!.copyWith(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_muse/src/core/constants/constants.dart';
+import 'package:meal_muse/src/core/constants/spacing.dart';
 
 class DatePickerWidget extends StatelessWidget {
   final String day;
@@ -59,7 +60,7 @@ class DatePickerWidget extends StatelessWidget {
                   fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
-              smallSpaceSize,
+              Spacing.vertical(10),
               Text(
                 date.toString(),
                 style: theme.textTheme.headlineMedium!.copyWith(

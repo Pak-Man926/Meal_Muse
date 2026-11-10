@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 
 import "package:meal_muse/src/core/themes/colors.dart";
 
@@ -46,9 +47,9 @@ class CustomButton extends StatelessWidget {
           mainAxisAlignment: .center,
           children: [
             Icon(icon, color: Colors.white),
-            SizedBox(width: 8),
+            Spacing.horizontal(8),
 
-            const SizedBox(width: 5), // Space between icon and text
+            Spacing.horizontal(5), // Space between icon and text
 
             Text(
               text,

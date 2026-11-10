@@ -4,6 +4,7 @@ import "package:flutter_riverpod/legacy.dart";
 import "package:go_router/go_router.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/features/schedule/data/get_schedule_repository.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
@@ -178,7 +179,7 @@ class ScheduleScreen extends ConsumerWidget {
                                 : "https://via.placeholder.com/400";
                             return Column(
                               children: [
-                                smallSpaceSize,
+                                Spacing.vertical(10),
                                 MealCardWidget(
                                   id: scheduleItem.recipeId,
                                   mealType: scheduleItem.mealType,
@@ -192,7 +193,7 @@ class ScheduleScreen extends ConsumerWidget {
                                     );
                                   },
                                 ),
-                                mediumSpaceSize,
+                                Spacing.vertical(20),
                               ],
                             );
                           }).toList(),

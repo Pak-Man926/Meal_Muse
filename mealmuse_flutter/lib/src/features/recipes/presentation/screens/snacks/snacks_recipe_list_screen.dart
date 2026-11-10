@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
@@ -35,7 +36,7 @@ class SnacksRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Quick bites and savory delights to keep you energized between meals. From crispy chips and creamy dips to wholesome energy bars and refreshing fruit salads, our snack recipes are perfect for satisfying your cravings and keeping you fueled throughout the day.",
               style: theme.textTheme.bodyLarge,
@@ -61,7 +62,7 @@ class SnacksRecipeListScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            mediumSpaceSize,
+            Spacing.vertical(20),
             Consumer(
               builder: (context, ref, child) {
                 final snacksCategoryRecipes = ref.watch(

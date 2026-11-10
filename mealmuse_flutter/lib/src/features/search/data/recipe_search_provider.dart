@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:meal_muse/src/features/search/data/recipe_search_respository.dart';
 import 'package:meal_muse/src/features/search/domain/recipe_search_model.dart';
+
 // import your repository here...
 
 // 1. Provide the repository

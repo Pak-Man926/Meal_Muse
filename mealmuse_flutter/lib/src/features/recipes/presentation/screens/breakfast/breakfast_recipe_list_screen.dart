@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
+import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
@@ -36,14 +37,14 @@ class BreakfastRecipeListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Text(
               "Start your day right with our curated collection of delicious and energizing breakfast recipes. From quick and easy options to hearty and indulgent meals, we have something for everyone.",
               style: theme.textTheme.bodyLarge,
               overflow: TextOverflow.clip,
               maxLines: 5,
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             SizedBox(
               height: 35,
               width: double.infinity,
@@ -73,7 +74,7 @@ class BreakfastRecipeListScreen extends StatelessWidget {
                 ],
               ),
             ),
-            smallSpaceSize,
+            Spacing.vertical(10),
             Consumer(
               builder: (context, ref, child) {
                 final breakfastCategoryRecipes = ref.watch(
