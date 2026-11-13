@@ -74,7 +74,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - pak_man@example.com
+          - davidkamau926@gmail.com
         notify:
           failure: true
           success: true
