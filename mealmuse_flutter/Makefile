@@ -97,9 +97,13 @@ disconnect_wireless: ## Disconnects from Android device wirelessly
 	@echo "╠ Disconnecting from Android device wirelessly..."
 	@adb disconnect $(DEVICE_IP_ADDRESS):5555
 
-apk:  ## Builds the application
-	@echo "╠  Building the app"
+apk:  ## Builds the application APK
+	@echo "╠  Building the app APK"
 	@flutter build apk -t lib/main.dart --release
+
+aab:  ## Builds the Android App Bundle for Google Play Store
+	@echo "╠  Building the app bundle (AAB)"
+	@flutter build appbundle -t lib/main.dart --release
 
 config:
 	@echo "╠ Encoding app_config.json"

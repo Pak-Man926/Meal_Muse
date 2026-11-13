@@ -1,0 +1,84 @@
+workflows:
+  android-play-store:
+    name: Android Release Build & Publish to Google Play
+    max_build_duration: 60
+    instance_type: linux_x2
+    environment:
+      groups:
+        # Define this environment group in Codemagic UI:
+        # - GCLOUD_SERVICE_ACCOUNT_CREDENTIALS (the contents of the service account JSON key file)
+        # - CM_KEYSTORE (base64-encoded upload-keystore.jks)
+        # - CM_KEYSTORE_PASSWORD (e.g. Got30min?)
+        # - CM_KEY_PASSWORD (e.g. Got30min?)
+        # - CM_KEY_ALIAS (e.g. upload)
+        # - API_URL (optional, defaults to https://www.mealmuseapp.online/api)
+        - google_play_credentials
+      vars:
+        PACKAGE_NAME: "online.mealmuseapp.mealmuse"
+      flutter: stable
+      java: 17
+    triggering:
+      events:
+        - push
+        - tag
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: 'v*'
+          include: true
+    scripts:
+      - name: Set up .env file
+        script: |
+          cd mealmuse_flutter
+          if [ -n "$API_URL" ]; then
+            echo "API_URL=\"$API_URL\"" > .env
+          else
+            echo 'API_URL="https://www.mealmuseapp.online/api"' > .env
+          fi
+      - name: Set up Android release signing
+        script: |
+          cd mealmuse_flutter/android
+          if [ -n "$CM_KEYSTORE" ]; then
+            echo "$CM_KEYSTORE" | base64 --decode > app/upload-keystore.jks
+            cat <<EOF > key.properties
+          storePassword=${CM_KEYSTORE_PASSWORD:-Got30min?}
+          keyPassword=${CM_KEY_PASSWORD:-Got30min?}
+          keyAlias=${CM_KEY_ALIAS:-upload}
+          storeFile=upload-keystore.jks
+          EOF
+          elif [ -n "$CM_KEYSTORE_PATH" ]; then
+            cat <<EOF > key.properties
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyPassword=$CM_KEY_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          storeFile=$CM_KEYSTORE_PATH
+          EOF
+          fi
+      - name: Get Flutter packages
+        script: |
+          cd mealmuse_flutter
+          flutter packages pub get
+      - name: Run code generation (build_runner)
+        script: |
+          cd mealmuse_flutter
+          dart run build_runner build --delete-conflicting-outputs
+      - name: Build Android App Bundle (AAB)
+        script: |
+          cd mealmuse_flutter
+          flutter build appbundle --release
+    artifacts:
+      - mealmuse_flutter/build/app/outputs/bundle/release/*.aab
+      - mealmuse_flutter/build/app/outputs/mapping/release/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - pak_man@example.com
+        notify:
+          failure: true
+          success: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+        submit_as_draft: true
