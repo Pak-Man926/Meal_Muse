@@ -16,7 +16,7 @@ class RecipeDetailsWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       height: 100,
-      width: 120,
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(8),
@@ -29,19 +29,25 @@ class RecipeDetailsWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: .center,
         children: [
-          Text(
-            title,
-            style: theme.textTheme.labelMedium!.copyWith(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              title,
+              style: theme.textTheme.labelMedium!.copyWith(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Spacing.vertical(10),
-          Text(
-            subTitle,
-            style: theme.textTheme.bodyLarge!.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              subTitle,
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
