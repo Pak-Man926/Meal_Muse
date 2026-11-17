@@ -188,24 +188,29 @@ class RecipeDetailScreen extends StatelessWidget {
                       ),
                       Spacing.vertical(20),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RecipeDetailsWidget(
-                            title: "Total Time",
-                            subTitle: "${details.totalTime} mins",
+                          Expanded(
+                            child: RecipeDetailsWidget(
+                              title: "Total Time",
+                              subTitle: "${details.totalTime} mins",
+                            ),
                           ),
                           Spacing.horizontal(10),
-                          RecipeDetailsWidget(
-                            title: "Servings",
-                            subTitle: details.servings.toString(),
+                          Expanded(
+                            child: RecipeDetailsWidget(
+                              title: "Servings",
+                              subTitle: details.servings.toString(),
+                            ),
                           ),
                           Spacing.horizontal(10),
-                          RecipeDetailsWidget(
-                            title: "Calories",
-                            subTitle:
-                                details.nutritionInfo?['Calories']
-                                    ?.toString() ??
-                                "N/A",
+                          Expanded(
+                            child: RecipeDetailsWidget(
+                              title: "Calories",
+                              subTitle:
+                                  details.nutritionInfo?['Calories']
+                                      ?.toString() ??
+                                  "N/A",
+                            ),
                           ),
                         ],
                       ),

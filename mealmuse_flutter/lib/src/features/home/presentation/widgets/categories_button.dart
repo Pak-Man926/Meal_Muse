@@ -18,6 +18,7 @@ class CategoriesButton extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
           onTap: onPressed,
@@ -40,6 +41,7 @@ class CategoriesButton extends StatelessWidget {
         Spacing.vertical(5),
         Text(
           title,
+          textAlign: TextAlign.center,
           style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
