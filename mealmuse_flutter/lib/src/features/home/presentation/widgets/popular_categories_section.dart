@@ -49,7 +49,7 @@ class PopularCategoriesSection extends ConsumerWidget {
           mainAxisSpacing: 10,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          childAspectRatio: 1.2,
+          childAspectRatio: 0.8,
           children: categories.map((category) {
             return CategoriesButton(
               icon: _getCategoryIcon(category.name),
