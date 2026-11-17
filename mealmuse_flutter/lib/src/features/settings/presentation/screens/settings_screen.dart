@@ -9,6 +9,7 @@ import "package:meal_muse/src/features/settings/presentation/widgets/item_checkb
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
 import 'package:meal_muse/src/core/shared/widgets/button_widget.dart';
+import "package:url_launcher/url_launcher.dart";
 
 final class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -19,6 +20,20 @@ final class SettingsScreen extends ConsumerWidget {
     //final measurementState = ref.read(measurementProvider.notifier).state;
     final theme = Theme.of(context);
     final logger = Logger();
+
+    final String privacyPolicyUrl = "https://www.mealmuseapp.online/privacy";
+
+    Future<void> _launchUrl(String urlString) async {
+      final Uri url = Uri.parse(urlString);
+      final logger = Logger();
+
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+      } else {
+        logger.e("Could not launch $urlString");
+        throw 'Could not launch $urlString';
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -201,7 +216,9 @@ final class SettingsScreen extends ConsumerWidget {
                   Icons.chevron_right_rounded,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
-                onTap: () {},
+                onTap: () {
+                  _launchUrl(privacyPolicyUrl);
+                },
               ),
               Spacing.vertical(40),
               CustomButton.primary(
