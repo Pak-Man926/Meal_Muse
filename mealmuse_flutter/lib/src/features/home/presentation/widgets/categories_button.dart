@@ -39,14 +39,12 @@ class CategoriesButton extends StatelessWidget {
           ),
         ),
         Spacing.vertical(5),
-        Flexible(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyLarge!.copyWith(fontSize: 12),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
