@@ -1,6 +1,6 @@
 import "package:flutter/material.dart" hide Theme;
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:meal_muse/src/core/presentation/widgets/network_error_widget.dart";
+import "package:meal_muse/src/core/shared/widgets/network_error_widget.dart";
 import "package:meal_muse/src/core/routes/routes.dart";
 import "package:meal_muse/src/core/themes/theme.dart";
 

@@ -4,7 +4,7 @@ import "package:go_router/go_router.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/features/home/presentation/widgets/categories_button.dart";
-import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
+import "package:meal_muse/src/core/shared/widgets/meal_card_widget.dart";
 import "package:meal_muse/src/features/recipes/data/category_recipes_repository.dart";
 
 class DrinksRecipeListScreen extends StatelessWidget {

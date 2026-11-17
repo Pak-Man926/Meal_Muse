@@ -5,6 +5,7 @@ workflows:
     instance_type: linux_x2
     environment:
       groups:
+        - google_play_credentials
         # Define this environment group in Codemagic UI:
         # - GCLOUD_SERVICE_ACCOUNT_CREDENTIALS (the contents of the service account JSON key file)
         # - CM_KEYSTORE (base64-encoded upload-keystore.jks)
@@ -12,7 +13,6 @@ workflows:
         # - CM_KEY_PASSWORD (e.g. Got30min?)
         # - CM_KEY_ALIAS (e.g. upload)
         # - API_URL (optional, defaults to https://www.mealmuseapp.online/api)
-        - google_play_credentials
       vars:
         PACKAGE_NAME: "online.mealmuseapp.mealmuse"
       flutter: stable

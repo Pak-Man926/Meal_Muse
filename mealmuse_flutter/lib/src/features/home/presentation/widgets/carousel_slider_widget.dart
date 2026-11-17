@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:carousel_slider/carousel_slider.dart";
-import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/constants/spacing.dart";
 
 import "package:meal_muse/src/features/home/presentation/models/carousel_items.dart";

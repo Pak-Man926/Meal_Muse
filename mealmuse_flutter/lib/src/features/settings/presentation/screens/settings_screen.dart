@@ -8,7 +8,7 @@ import "package:meal_muse/src/features/settings/presentation/provider/settings_p
 import "package:meal_muse/src/features/settings/presentation/widgets/item_checkbox_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/item_switch_widget.dart";
 import "package:meal_muse/src/features/settings/presentation/widgets/sliding_switch_widget.dart";
-import 'package:meal_muse/src/core/presentation/widgets/button_widget.dart';
+import 'package:meal_muse/src/core/shared/widgets/button_widget.dart';
 
 final class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

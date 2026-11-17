@@ -7,8 +7,8 @@ import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/constants/spacing.dart";
 import "package:meal_muse/src/features/schedule/data/get_schedule_repository.dart";
 import "package:meal_muse/src/features/schedule/presentation/widgets/date_container_widget.dart";
-import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
-import 'package:meal_muse/src/core/presentation/widgets/container_widget.dart';
+import "package:meal_muse/src/core/shared/widgets/meal_card_widget.dart";
+import 'package:meal_muse/src/core/shared/widgets/container_widget.dart';
 import 'package:intl/intl.dart';
 
 final logger = Logger();

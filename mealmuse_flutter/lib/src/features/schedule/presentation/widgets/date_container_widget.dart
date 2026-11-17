@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meal_muse/src/core/constants/constants.dart';
 import 'package:meal_muse/src/core/constants/spacing.dart';
 
 class DatePickerWidget extends StatelessWidget {
