@@ -1,8 +1,5 @@
 # Privacy Policy for Meal Muse
 
-**Effective Date:** November 13, 2026  
-**Last Updated:** November 13, 2026  
-
 Meal Muse ("we", "our", or "us") provides the Meal Muse mobile application (the "App"). This Privacy Policy explains how we collect, use, and protect your information when you use our App.
 
 ---
@@ -44,7 +41,7 @@ Meal Muse is not intended for children under the age of 13. We do not knowingly 
 
 ### 6. Changes to This Privacy Policy
 
-We may update this Privacy Policy from time to time. Any updates will be reflected on this page with an updated "Last Updated" date.
+We may update this Privacy Policy from time to time. Any updates will be reflected on this page.
 
 ---
 
