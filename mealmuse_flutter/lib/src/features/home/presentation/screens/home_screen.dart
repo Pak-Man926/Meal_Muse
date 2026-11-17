@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_muse/src/core/constants/constants.dart';
 import 'package:meal_muse/src/core/constants/spacing.dart';
 import 'package:meal_muse/src/features/home/data/recipe_categories_repository.dart';
 import 'package:meal_muse/src/features/home/data/trending_recipe_repository.dart';

@@ -3,10 +3,10 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/constants/spacing.dart";
-import "package:meal_muse/src/core/presentation/widgets/day_selection_widget.dart";
+import "package:meal_muse/src/core/shared/widgets/day_selection_widget.dart";
 import "package:meal_muse/src/features/recipes/data/recipe_repository.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/recipe_details_widget.dart";
-import "package:meal_muse/src/core/presentation/widgets/button_widget.dart";
+import "package:meal_muse/src/core/shared/widgets/button_widget.dart";
 import "package:meal_muse/src/features/recipes/presentation/widgets/ingredient_list_widget.dart";
 import "package:meal_muse/src/features/saved/data/add_saved_meals_repository.dart";
 import "package:meal_muse/src/features/saved/data/get_saved_meals_repository.dart";
@@ -391,23 +391,40 @@ class RecipeDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Spacing.vertical(10),
-                      DropdownButton<String>(
-                        value: selectedMealType,
-                        items: ["Breakfast", "Lunch", "Dinner"]
-                            .map(
-                              (meal) => DropdownMenuItem(
-                                value: meal,
-                                child: Text(meal),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: ["Breakfast", "Lunch", "Dinner"].map((
+                            meal,
+                          ) {
+                            final isSelected = meal == selectedMealType;
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: ChoiceChip(
+                                label: Text(meal),
+                                selected: isSelected,
+                                onSelected: (selected) {
+                                  if (selected) {
+                                    setState(() {
+                                      selectedMealType = meal;
+                                    });
+                                  }
+                                },
+                                selectedColor: theme.colorScheme.primary
+                                    .withOpacity(0.7),
+                                backgroundColor: theme.colorScheme.surface,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                labelStyle: TextStyle(
+                                  color: isSelected
+                                      ? theme.colorScheme.onPrimary
+                                      : theme.colorScheme.onSurface,
+                                ),
                               ),
-                            )
-                            .toList(),
-                        onChanged: (value) {
-                          if (value != null) {
-                            setState(() {
-                              selectedMealType = value;
-                            });
-                          }
-                        },
+                            );
+                          }).toList(),
+                        ),
                       ),
                       Spacing.vertical(20),
                       CustomButton.primary(

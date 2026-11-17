@@ -4,8 +4,8 @@ import "package:go_router/go_router.dart";
 import "package:logger/logger.dart";
 import "package:meal_muse/src/core/constants/constants.dart";
 import "package:meal_muse/src/core/constants/spacing.dart";
-import "package:meal_muse/src/core/presentation/widgets/meal_card_widget.dart";
-import "package:meal_muse/src/core/presentation/widgets/container_widget.dart";
+import "package:meal_muse/src/core/shared/widgets/meal_card_widget.dart";
+import "package:meal_muse/src/core/shared/widgets/container_widget.dart";
 import "package:meal_muse/src/features/home/data/trending_recipe_repository.dart";
 
 class TrendingRecipesListScreen extends StatelessWidget {
