@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_muse/src/core/constants/constants.dart';
 import 'package:meal_muse/src/core/constants/spacing.dart';
 import 'package:meal_muse/src/core/network/network_provider.dart';
 
