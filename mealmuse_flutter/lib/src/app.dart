@@ -1,8 +1,7 @@
-import "package:flutter/material.dart" hide Theme;
+import "package:material_ui/material_ui.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:meal_muse/src/core/shared/widgets/network_error_widget.dart";
 import "package:meal_muse/src/core/routes/routes.dart";
-import "package:meal_muse/src/core/themes/theme.dart";
 
 import "core/network/network_provider.dart";
 import "core/themes/providers/theme_provider.dart";
@@ -18,8 +17,6 @@ class MyApp extends ConsumerWidget {
       child: MaterialApp.router(
         routerConfig: router,
         debugShowCheckedModeBanner: false,
-        theme: Theme.saffronLightTheme,
-        darkTheme: Theme.saffronDarkTheme,
         themeMode: ref.watch(themeProvider),
         builder: (context, child) {
           return GlobalNetworkObserver(child: child!);

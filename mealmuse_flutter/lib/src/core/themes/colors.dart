@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import "package:material_ui/material_ui.dart";
 
 class LightAppColors {
   static const Color primary = Color(0xFFEA2A33); // Saffron Red
